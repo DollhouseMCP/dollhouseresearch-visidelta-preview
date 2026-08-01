@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DollhouseMCP 2.0 | Dollhouse Research</title>
+    <meta name="description" content="Core platform brief for DollhouseMCP 2.0, including element composition, safety controls, and MCP-AQL execution model." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="../../assets/images/dollhouse-org-brand.svg?v=20260401b" type="image/svg+xml" />
+    <link rel="alternate icon" href="../../assets/images/dollhouse-org-brand.png?v=20260401b" type="image/png" />
+    <link rel="apple-touch-icon" href="../../assets/images/dollhouse-org-brand.png?v=20260401b" />
+    <link rel="stylesheet" href="../../assets/css/site.css" />
+    <link rel="stylesheet" href="../../assets/css/atelier.css" />
+    <link rel="alternate" type="application/rss+xml" title="Dollhouse Research Blog" href="https://dollhouseresearch.com../../feed.xml" />
+  </head>
+  <body class="">
+    <div class="page-noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="../../">
+        <img class="brand-logo" src="../../assets/images/dollhouse-org-brand.svg?v=20260401b" alt="Dollhouse logo" />
+        <span>
+          <strong>Dollhouse Research</strong>
+          <em>Infrastructure and applied AI systems</em>
+        </span>
+      </a>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+          <span class="theme-toggle-icon" id="theme-toggle-icon" aria-hidden="true">☾</span>
+          <span class="sr-only" id="theme-toggle-label">Switch to dark mode</span>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+          Menu
+        </button>
+      </div>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="../../">Home</a>
+        <a href="../../projects/">Projects</a>
+        <a href="../../news-press/">News &amp; Press</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../research/">Research</a>
+        <a href="../../about/">About</a>
+        <a class="nav-key-link" href="https://dollhousemcp.com">DollhouseMCP.com</a>
+        <a class="nav-key-link" href="https://mcpaql.com">MCPAQL.com</a>
+        <a class="nav-key-link" href="https://collection.dollhousemcp.com/">Collection</a>
+      </nav>
+    </header>
+
+    <main id="main-content" class="prose"><h1 id="dollhousemcp-20">DollhouseMCP 2.0</h1>
+
+<p>DollhouseMCP is the core platform project: an open source MCP server for composable AI behavior.</p>
+
+<p>It turns prompts into reusable, auditable building blocks you can read, edit, version, activate, and combine.</p>
+
+<p><img src="../../assets/images/project-dollhousemcp-home.png" alt="DollhouseMCP website preview" /></p>
+
+<h2 id="quick-install">Quick Install</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> @dollhousemcp/mcp-server
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npx @dollhousemcp/mcp-server@latest
+</code></pre></div></div>
+
+<p>If <code class="language-plaintext highlighter-rouge">npm</code> is not installed yet, install Node.js first.</p>
+
+<p>By default, DollhouseMCP starts in MCP-AQL mode with CRUDE endpoints. You do not need to manually configure that for normal use.</p>
+
+<h2 id="current-public-status">Current Public Status</h2>
+
+<ul>
+  <li><strong>Latest documented beta:</strong> <code class="language-plaintext highlighter-rouge">v2.0.0-beta.3</code> (February 3, 2026)</li>
+  <li><strong>Primary interface path:</strong> MCP-AQL (<code class="language-plaintext highlighter-rouge">CRUDE</code> or <code class="language-plaintext highlighter-rouge">single</code> endpoint mode)</li>
+  <li><strong>License:</strong> AGPL-3.0</li>
+</ul>
+
+<h2 id="element-model-what-you-actually-work-with">Element Model (What You Actually Work With)</h2>
+
+<p>DollhouseMCP currently supports six core element types.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>What It Does</th>
+      <th>Real Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Personas</td>
+      <td>Voice, behavior, and approach overlays</td>
+      <td><code class="language-plaintext highlighter-rouge">creative-writer</code>, <code class="language-plaintext highlighter-rouge">technical-analyst</code></td>
+    </tr>
+    <tr>
+      <td>Skills</td>
+      <td>Task-focused capability modules</td>
+      <td><code class="language-plaintext highlighter-rouge">code-review</code>, <code class="language-plaintext highlighter-rouge">threat-modeling</code></td>
+    </tr>
+    <tr>
+      <td>Templates</td>
+      <td>Structured output formats</td>
+      <td><code class="language-plaintext highlighter-rouge">research-report</code>, <code class="language-plaintext highlighter-rouge">code-documentation</code></td>
+    </tr>
+    <tr>
+      <td>Agents</td>
+      <td>Goal-driven runtime executors</td>
+      <td><code class="language-plaintext highlighter-rouge">code-reviewer</code>, <code class="language-plaintext highlighter-rouge">task-manager</code></td>
+    </tr>
+    <tr>
+      <td>Memories</td>
+      <td>Persistent context entries</td>
+      <td><code class="language-plaintext highlighter-rouge">project-context</code></td>
+    </tr>
+    <tr>
+      <td>Ensembles</td>
+      <td>Coordinated multi-element packs</td>
+      <td><code class="language-plaintext highlighter-rouge">development-team</code>, <code class="language-plaintext highlighter-rouge">security-analysis-team</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="elements-ensembles-and-stacks">Elements, Ensembles, and Stacks</h2>
+
+<ul>
+  <li><strong>Element:</strong> one reusable unit (persona, skill, template, agent, memory, or ensemble)</li>
+  <li><strong>Ensemble:</strong> one element type that coordinates multiple elements together</li>
+  <li><strong>Stack:</strong> a practical product grouping built from multiple elements and ensembles across a full workflow</li>
+</ul>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Portfolio elements (personas, skills, templates, agents, memories)
+  -&gt; Session activation
+  -&gt; Ensemble coordination (for example: development-team)
+  -&gt; Execution lifecycle (execute_agent -&gt; record_execution_step -&gt; complete_execution)
+  -&gt; Stack outcome (end-to-end app behavior)
+  -&gt; External integrations (Bridge, APIs, production workflows)
+</code></pre></div></div>
+
+<p>A concrete stack example is <strong>Elemental Surveys</strong> (currently early/private development), which composes research personas, survey skills, templates, memories, agents, and ensembles into an end-to-end survey pipeline.</p>
+
+<h2 id="safety-and-operational-controls">Safety and Operational Controls</h2>
+
+<p>DollhouseMCP has explicit safety layers for runtime operations:</p>
+
+<ul>
+  <li><strong>Gatekeeper:</strong> operation and endpoint checks, including approval flows</li>
+  <li><strong>CLI permission approvals:</strong> pending approval queue + explicit user decision</li>
+  <li><strong>Danger Zone controls:</strong> elevated verification for high-risk actions</li>
+  <li><strong>Execution-state telemetry:</strong> step-level progress and autonomy signals</li>
+</ul>
+
+<p>Example approval pattern:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="nl">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"confirm_operation"</span><span class="p">,</span><span class="w"> </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"execute_agent"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="nl">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"approve_cli_permission"</span><span class="p">,</span><span class="w"> </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"request_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"req-123"</span><span class="p">,</span><span class="w"> </span><span class="nl">"decision"</span><span class="p">:</span><span class="w"> </span><span class="s2">"allow"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="what-the-200-refactor-unlocked">What the 2.0.0 Refactor Unlocked</h2>
+
+<p>The 2.0.0 refactor moved the platform from an early architecture to a cleaner production path:</p>
+
+<ul>
+  <li>clearer internal service boundaries</li>
+  <li>better caching and runtime performance</li>
+  <li>stronger diagnostics, logging, and metrics</li>
+  <li>safer execution and approval-aware runtime controls</li>
+  <li>cleaner path from local workflows toward hosted services</li>
+</ul>
+
+<h2 id="why-it-matters">Why It Matters</h2>
+
+<p>DollhouseMCP is the foundation for the rest of the portfolio:</p>
+
+<ul>
+  <li><strong>MCP-AQL</strong> provides the protocol and query surface</li>
+  <li><strong>Bridge</strong> extends workflows into external communication systems</li>
+  <li><strong>Collection</strong> distributes reusable community elements</li>
+  <li><strong>AILIS</strong> provides architecture language for system-level reasoning</li>
+</ul>
+
+<h2 id="primary-links">Primary Links</h2>
+
+<ul>
+  <li><a href="https://dollhousemcp.com">DollhouseMCP website</a></li>
+  <li><a href="https://github.com/DollhouseMCP/mcp-server">DollhouseMCP repository</a></li>
+  <li><a href="https://www.npmjs.com/package/@dollhousemcp/mcp-server">NPM package</a></li>
+  <li><a href="https://collection.dollhousemcp.com/">Dollhouse Collection</a></li>
+</ul>
+</main>
+
+    <footer class="site-footer">
+      <p>
+        &copy; 2026 DollhouseMCP Inc DBA Dollhouse Research.
+      </p>
+      <p class="footer-links">
+        <a href="../../news-press/">News &amp; Press</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../research/">Research</a>
+        <a href="../../press-kit/">Press Kit</a>
+        <a href="../../about/">About</a>
+        <a href="https://dollhousemcp.com">DollhouseMCP.com</a>
+        <a href="https://mcpaql.com">MCPAQL.com</a>
+        <a href="https://collection.dollhousemcp.com/">Collection</a>
+      </p>
+    </footer>
+    <script src="../../assets/js/site.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+      {% if proj_posts.size > 0 %}<span class="entry-count">{{ proj_posts.size }} post{% if proj_posts.size > 1 %}s{% endif %} indexed</span>{% endif %}

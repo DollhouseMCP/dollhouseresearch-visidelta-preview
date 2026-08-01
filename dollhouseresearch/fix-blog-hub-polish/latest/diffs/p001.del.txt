@@ -1,0 +1,7 @@
+    {% if proj_posts.size > 0 %}
+    {% assign latest = proj_posts | first %}
+    {% if latest.url contains '://' %}{% assign latest_href = latest.url %}{% else %}{% assign latest_href = latest.url | relative_url %}{% endif %}
+    <h3><a href="{{ latest_href }}">{{ latest.title }}</a></h3>
+    <p>{{ proj.blurb }}</p>
+    {% else %}
+    {% endif %}
