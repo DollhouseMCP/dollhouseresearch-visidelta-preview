@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dollhouse Bridge | Dollhouse Research</title>
+    <meta name="description" content="Architecture brief for the Dollhouse bridge runtime." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../assets/css/site.css" />
+    <link rel="stylesheet" href="../../assets/css/atelier.css" />
+  </head>
+  <body class="">
+    <div class="page-noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="../../">
+        <img class="brand-logo" src="../../assets/images/dollhouse-org-orange-chimney.svg?v=20260418a" alt="Dollhouse logo" />
+        <span>
+          <strong>Dollhouse Research</strong>
+          <em>Infrastructure and applied AI systems</em>
+        </span>
+      </a>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+          <span class="theme-toggle-icon" id="theme-toggle-icon" aria-hidden="true">☾</span>
+          <span class="sr-only" id="theme-toggle-label">Switch to dark mode</span>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+          Menu
+        </button>
+      </div>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="../../">Home</a>
+        <a href="../../projects/">Projects</a>
+        <a href="../../news-press/">News &amp; Press</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../research/">Research</a>
+        <a href="../../about/">About</a>
+        <a class="nav-key-link" href="https://dollhousemcp.com">DollhouseMCP.com</a>
+        <a class="nav-key-link" href="https://mcpaql.com">MCPAQL.com</a>
+        <a class="nav-key-link" href="https://dollhousemcp.github.io/collection/">Collection</a>
+      </nav>
+    </header>
+
+    <main id="main-content" class="prose"><h1 id="dollhouse-bridge">Dollhouse Bridge</h1>
+
+<p>Bridge is the integration runtime for connecting a Dollhouse-powered session to external communication systems.</p>
+
+<p>It is designed so people can keep working in the tools they already use while the AI system runs with explicit safety and approval boundaries.</p>
+
+<h2 id="current-scope">Current Scope</h2>
+
+<ul>
+  <li>Connector-based architecture for chat platforms</li>
+  <li>Session dispatcher for routing requests to active runtime sessions</li>
+  <li>File-based inbox/outbox contract for predictable message flow</li>
+  <li>Approval-aware execution paths aligned with Dollhouse safety controls</li>
+</ul>
+
+<h2 id="architecture-at-a-glance">Architecture At A Glance</h2>
+
+<p>Bridge separates platform APIs from session logic:</p>
+
+<ol>
+  <li>Platform connector reads and normalizes messages</li>
+  <li>Connector writes to a local inbox queue</li>
+  <li>Dispatcher routes work to the session backend</li>
+  <li>Session produces output and writes to outbox</li>
+  <li>Connector posts back to the external channel</li>
+</ol>
+
+<p>That boundary makes connectors easier to add and test without rewriting core runtime behavior.</p>
+
+<h2 id="current-and-planned-connectors">Current and Planned Connectors</h2>
+
+<ul>
+  <li>Active architecture and implementation work around Zulip-based flows</li>
+  <li>iMessage integration paths in progress</li>
+  <li>Planned expansion to additional channels (including Slack, Discord, Matrix)</li>
+</ul>
+
+<h2 id="why-teams-care">Why Teams Care</h2>
+
+<p>Bridge lets teams run AI-assisted workflows where team communication already happens.</p>
+
+<p>That means:</p>
+
+<ul>
+  <li>less tab-switching during operations</li>
+  <li>clearer review loops for sensitive actions</li>
+  <li>easier handoff between humans and agent workflows</li>
+</ul>
+
+<h2 id="how-it-fits-the-portfolio">How It Fits The Portfolio</h2>
+
+<p>Bridge is the channel and workflow layer that complements:</p>
+
+<ul>
+  <li><strong>DollhouseMCP</strong> for element orchestration</li>
+  <li><strong>MCP-AQL</strong> for compact operations and policy-aware endpoint boundaries</li>
+  <li><strong>Collection</strong> for reusable behavior building blocks</li>
+</ul>
+
+<h2 id="primary-link">Primary Link</h2>
+
+<ul>
+  <li><a href="https://github.com/DollhouseMCP/bridge">Bridge repository</a></li>
+</ul>
+</main>
+
+    <footer class="site-footer">
+      <p>
+        &copy; 2026 DollhouseMCP Inc DBA Dollhouse Research.
+      </p>
+      <p class="footer-links">
+        <a href="../../news-press/">News &amp; Press</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../research/">Research</a>
+        <a href="../../press-kit/">Press Kit</a>
+        <a href="../../about/">About</a>
+        <a href="https://dollhousemcp.com">DollhouseMCP.com</a>
+        <a href="https://mcpaql.com">MCPAQL.com</a>
+        <a href="https://dollhousemcp.github.io/collection/">Collection</a>
+        <a href="https://github.com/DollhouseMCP">GitHub Organization</a>
+      </p>
+    </footer>
+    <script src="../../assets/js/site.js"></script>
+  </body>
+</html>
