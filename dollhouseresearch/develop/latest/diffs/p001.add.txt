@@ -1,1 +1,9 @@
-  <img src="{{ '/assets/images/dollhouse-org-brand.svg?v=20260418a' | relative_url }}" alt="Dollhouse logo" />
+person:
+  name: Mick Darling
+  job_title: Founder and CEO
+  image: /assets/images/mick-darling-headshot.jpg
+  email: mick@mickdarling.com
+  same_as:
+    - https://orcid.org/0009-0008-7116-1393
+    - https://github.com/mickdarling
+    - https://www.linkedin.com/in/mickdarling/
