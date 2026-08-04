@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MCP-AQL | Dollhouse Research</title>
+    <meta name="description" content="MCP-AQL project brief, including CRUDE semantics, introspection, and concrete integration patterns." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="../../assets/images/dollhouse-org-brand.svg?v=20260401b" type="image/svg+xml" />
+    <link rel="alternate icon" href="../../assets/images/dollhouse-org-brand.png?v=20260401b" type="image/png" />
+    <link rel="apple-touch-icon" href="../../assets/images/dollhouse-org-brand.png?v=20260401b" />
+    <link rel="stylesheet" href="../../assets/css/site.css" />
+    <link rel="stylesheet" href="../../assets/css/atelier.css" />
+    <link rel="alternate" type="application/rss+xml" title="Dollhouse Research Blog" href="https://dollhouseresearch.com../../feed.xml" />
+  </head>
+  <body class="">
+    <div class="page-noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="../../">
+        <img class="brand-logo" src="../../assets/images/dollhouse-org-brand.svg?v=20260401b" alt="Dollhouse logo" />
+        <span>
+          <strong>Dollhouse Research</strong>
+          <em>Infrastructure and applied AI systems</em>
+        </span>
+      </a>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+          <span class="theme-toggle-icon" id="theme-toggle-icon" aria-hidden="true">☾</span>
+          <span class="sr-only" id="theme-toggle-label">Switch to dark mode</span>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+          Menu
+        </button>
+      </div>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="../../">Home</a>
+        <a href="../../projects/">Projects</a>
+        <a href="../../news-press/">News &amp; Press</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../research/">Research</a>
+        <a href="../../about/">About</a>
+        <a class="nav-key-link" href="https://dollhousemcp.com">DollhouseMCP.com</a>
+        <a class="nav-key-link" href="https://mcpaql.com">MCPAQL.com</a>
+        <a class="nav-key-link" href="https://collection.dollhousemcp.com/">Collection</a>
+      </nav>
+    </header>
+
+    <main id="main-content" class="prose"><h1 id="mcp-aql">MCP-AQL</h1>
+
+<p>MCP-AQL (Model Context Protocol - Agent Query Language) is the protocol layer that shrinks tool sprawl while keeping behavior explicit.</p>
+
+<p>Instead of exposing dozens of separate tools, MCP-AQL groups operations into semantic endpoints and routes by <code class="language-plaintext highlighter-rouge">operation</code>.</p>
+
+<h2 id="why-teams-use-it">Why Teams Use It</h2>
+
+<p>As MCP servers grow, classic discrete-tool setups become expensive in context tokens and harder to govern.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mode</th>
+      <th>Typical Registration Cost</th>
+      <th>Why It Helps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Discrete tools (40-50+)</td>
+      <td>~30,000 tokens</td>
+      <td>Full surface, high overhead</td>
+    </tr>
+    <tr>
+      <td>CRUDE (5 endpoints)</td>
+      <td>~4,300-4,500 tokens</td>
+      <td>Clear safety grouping + lower overhead</td>
+    </tr>
+    <tr>
+      <td>Single endpoint (1 tool)</td>
+      <td>~1,100 tokens</td>
+      <td>Minimal footprint for constrained contexts</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>MCP-AQL keeps the same underlying capabilities while reducing initial token load.</p>
+
+<h2 id="classic-mcp-vs-mcp-aql">Classic MCP vs MCP-AQL</h2>
+
+<p>For engineers, the practical difference is call shape and discovery model.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Discrete-tool style</th>
+      <th>MCP-AQL style</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>List personas</td>
+      <td><code class="language-plaintext highlighter-rouge">tool: list_elements</code></td>
+      <td><code class="language-plaintext highlighter-rouge">tool: mcp_aql_read</code> + <code class="language-plaintext highlighter-rouge">operation: list_elements</code></td>
+    </tr>
+    <tr>
+      <td>Create a persona</td>
+      <td><code class="language-plaintext highlighter-rouge">tool: create_element</code></td>
+      <td><code class="language-plaintext highlighter-rouge">tool: mcp_aql_create</code> + <code class="language-plaintext highlighter-rouge">operation: create_element</code></td>
+    </tr>
+    <tr>
+      <td>Execute an agent</td>
+      <td><code class="language-plaintext highlighter-rouge">tool: execute_agent</code></td>
+      <td><code class="language-plaintext highlighter-rouge">tool: mcp_aql_execute</code> + <code class="language-plaintext highlighter-rouge">operation: execute_agent</code></td>
+    </tr>
+    <tr>
+      <td>Discover capability surface</td>
+      <td>docs + tool catalog</td>
+      <td>runtime <code class="language-plaintext highlighter-rouge">introspect</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example side-by-side:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"tool"</span><span class="p">:</span><span class="w"> </span><span class="s2">"list_elements"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"persona"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"tool"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mcp_aql_read"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"list_elements"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"element_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"persona"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="endpoint-model-crude">Endpoint Model (CRUDE)</h2>
+
+<p>MCP-AQL extends CRUD with <code class="language-plaintext highlighter-rouge">EXECUTE</code> for runtime lifecycle operations.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Endpoint</th>
+      <th>Intent</th>
+      <th>Example Operations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">CREATE</code></td>
+      <td>Additive, non-destructive</td>
+      <td><code class="language-plaintext highlighter-rouge">create_element</code>, <code class="language-plaintext highlighter-rouge">import_element</code>, <code class="language-plaintext highlighter-rouge">addEntry</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">READ</code></td>
+      <td>Read-only queries</td>
+      <td><code class="language-plaintext highlighter-rouge">list_elements</code>, <code class="language-plaintext highlighter-rouge">search</code>, <code class="language-plaintext highlighter-rouge">introspect</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">UPDATE</code></td>
+      <td>Modify existing state</td>
+      <td><code class="language-plaintext highlighter-rouge">edit_element</code>, <code class="language-plaintext highlighter-rouge">upgrade_element</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">DELETE</code></td>
+      <td>Remove state</td>
+      <td><code class="language-plaintext highlighter-rouge">delete_element</code>, <code class="language-plaintext highlighter-rouge">clear</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">EXECUTE</code></td>
+      <td>Runtime lifecycle</td>
+      <td><code class="language-plaintext highlighter-rouge">execute_agent</code>, <code class="language-plaintext highlighter-rouge">complete_execution</code>, <code class="language-plaintext highlighter-rouge">abort_execution</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This endpoint classification is what enables safer host policies (for example: permissive <code class="language-plaintext highlighter-rouge">READ</code>, stricter <code class="language-plaintext highlighter-rouge">DELETE</code> and <code class="language-plaintext highlighter-rouge">EXECUTE</code>).</p>
+
+<h2 id="introspection-first-discovery">Introspection-First Discovery</h2>
+
+<p>Introspection is a core pattern in MCP-AQL, not an afterthought.</p>
+
+<p>In plain terms: before a client calls a write or execute operation, it can ask the server what operations exist, which endpoint each uses, and what arguments are required.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="nl">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"introspect"</span><span class="p">,</span><span class="w"> </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"operations"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="nl">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"introspect"</span><span class="p">,</span><span class="w"> </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"operations"</span><span class="p">,</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"create_element"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w"> </span><span class="nl">"operation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"introspect"</span><span class="p">,</span><span class="w"> </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"types"</span><span class="p">,</span><span class="w"> </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ElementType"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>This lets clients discover valid operations, parameters, and constraints at runtime instead of front-loading large static schemas.</p>
+
+<p>That means:</p>
+
+<ul>
+  <li>fewer hard-coded client assumptions</li>
+  <li>safer runtime behavior with less guesswork</li>
+  <li>easier compatibility as the protocol evolves</li>
+</ul>
+
+<h2 id="response-token-control">Response Token Control</h2>
+
+<p>MCP-AQL supports field-constrained responses so clients can ask for only what they need.</p>
+
+<ul>
+  <li>useful when large element payloads are unnecessary</li>
+  <li>reduces response-token overhead in long sessions</li>
+  <li>improves reliability for multi-step agent loops</li>
+</ul>
+
+<h2 id="batch-and-lifecycle-patterns">Batch and Lifecycle Patterns</h2>
+
+<p>The protocol also supports multi-operation request batches and explicit execution lifecycle semantics.</p>
+
+<p>Typical lifecycle flow:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">execute_agent</code></li>
+  <li><code class="language-plaintext highlighter-rouge">record_execution_step</code> (repeat as needed)</li>
+  <li><code class="language-plaintext highlighter-rouge">get_execution_state</code> or <code class="language-plaintext highlighter-rouge">get_gathered_data</code></li>
+  <li><code class="language-plaintext highlighter-rouge">complete_execution</code> or <code class="language-plaintext highlighter-rouge">abort_execution</code></li>
+</ol>
+
+<p>This separation keeps runtime execution management explicit instead of hiding it inside generic update/delete calls.</p>
+
+<h2 id="what-you-get-in-practice">What You Get In Practice</h2>
+
+<ul>
+  <li>Smaller integration surface area</li>
+  <li>Lower token overhead before useful work starts</li>
+  <li>Better permission modeling by endpoint semantics</li>
+  <li>Runtime discovery for operations and types</li>
+  <li>A protocol pattern that can be adapted beyond Dollhouse-specific resources</li>
+</ul>
+
+<h2 id="default-path-in-dollhousemcp">Default Path In DollhouseMCP</h2>
+
+<p>In DollhouseMCP, MCP-AQL is the default interface path. CRUDE mode is the default endpoint model.</p>
+
+<p>Use single-endpoint mode when you need the smallest possible registration footprint.</p>
+
+<h2 id="where-it-lives">Where It Lives</h2>
+
+<ul>
+  <li><a href="https://mcpaql.com">MCPAQL.com</a></li>
+  <li>MCP-AQL specification drafts and protocol docs are published through MCPAQL.com</li>
+  <li><a href="https://github.com/DollhouseMCP/mcp-server">DollhouseMCP reference implementation</a></li>
+</ul>
+</main>
+
+    <footer class="site-footer">
+      <p>
+        &copy; 2026 DollhouseMCP Inc DBA Dollhouse Research.
+      </p>
+      <p class="footer-links">
+        <a href="../../news-press/">News &amp; Press</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../research/">Research</a>
+        <a href="../../press-kit/">Press Kit</a>
+        <a href="../../about/">About</a>
+        <a href="https://dollhousemcp.com">DollhouseMCP.com</a>
+        <a href="https://mcpaql.com">MCPAQL.com</a>
+        <a href="https://collection.dollhousemcp.com/">Collection</a>
+      </p>
+    </footer>
+    <script src="../../assets/js/site.js"></script>
+  </body>
+</html>

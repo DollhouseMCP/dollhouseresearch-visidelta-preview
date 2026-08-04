@@ -1,0 +1,9 @@
+services:
+  site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dollhouse-research-preview:local
+    container_name: dollhouse-research-site
+    ports:
+      - "4100:80"
