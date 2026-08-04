@@ -1,0 +1,9 @@
+# Dollhouse Research crawl policy.
+# All crawlers welcome, including AI crawlers (GPTBot, OAI-SearchBot,
+# ClaudeBot, PerplexityBot, Google-Extended, etc.) — public visibility
+# in search and AI answer engines is the point. See issue #45.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://dollhouseresearch.com/sitemap.xml

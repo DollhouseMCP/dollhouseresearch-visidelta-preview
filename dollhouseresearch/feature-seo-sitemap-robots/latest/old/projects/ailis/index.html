@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AILIS | Dollhouse Research</title>
+    <meta name="description" content="AILIS proposal overview and how it supports practical architecture decisions across the Dollhouse portfolio." />
+    <link rel="canonical" href="https://dollhouseresearch.com../../projects/ailis/" />
+<meta property="og:site_name" content="Dollhouse Research" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="AILIS | Dollhouse Research" />
+<meta property="og:description" content="AILIS proposal overview and how it supports practical architecture decisions across the Dollhouse portfolio." />
+<meta property="og:url" content="https://dollhouseresearch.com../../projects/ailis/" />
+<meta property="og:image" content="https://dollhouseresearch.com../../assets/images/social-card.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Dollhouse Research building blocks for AI customization" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AILIS | Dollhouse Research" />
+<meta name="twitter:description" content="AILIS proposal overview and how it supports practical architecture decisions across the Dollhouse portfolio." />
+<meta name="twitter:image" content="https://dollhouseresearch.com../../assets/images/social-card.png" />
+<meta name="twitter:image:alt" content="Dollhouse Research building blocks for AI customization" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="../../assets/images/dollhouse-org-brand.svg?v=20260418a" type="image/svg+xml" />
+    <link rel="alternate icon" href="../../assets/images/dollhouse-org-brand.png?v=20260401b" type="image/png" />
+    <link rel="apple-touch-icon" href="../../assets/images/dollhouse-org-brand.png?v=20260401b" />
+    <link rel="stylesheet" href="../../assets/css/site.css" />
+    <link rel="stylesheet" href="../../assets/css/atelier.css" />
+    <link rel="alternate" type="application/rss+xml" title="Dollhouse Research Blog" href="https://dollhouseresearch.com../../feed.xml" />
+  </head>
+  <body class="">
+    <div class="page-noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="../../">
+        <img class="brand-logo" src="../../assets/images/dollhouse-org-brand.svg?v=20260418a" alt="Dollhouse logo" />
+        <span>
+          <strong>Dollhouse Research</strong>
+          <em>Infrastructure and applied AI systems</em>
+        </span>
+      </a>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+          <span class="theme-toggle-icon" id="theme-toggle-icon" aria-hidden="true">☾</span>
+          <span class="sr-only" id="theme-toggle-label">Switch to dark mode</span>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+          Menu
+        </button>
+      </div>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="../../">Home</a>
+        <a href="../../projects/">Projects</a>
+        <a href="../../news-press/">News &amp; Press</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../research/">Research</a>
+        <a href="../../about/">About</a>
+        <a class="nav-key-link" href="https://dollhousemcp.com">DollhouseMCP.com</a>
+        <a class="nav-key-link" href="https://mcpaql.com">MCPAQL.com</a>
+        <a class="nav-key-link" href="https://collection.dollhousemcp.com/">Collection</a>
+      </nav>
+    </header>
+
+    <main id="main-content" class="prose"><h1 id="ailis">AILIS</h1>
+
+<p>AILIS (AI Layer Interface Specification) is an OSI-inspired proposal for describing AI systems with a shared, layered vocabulary.</p>
+
+<p>It is published as an open draft and designed for critique, iteration, and practical use.</p>
+
+<h2 id="current-position">Current Position</h2>
+
+<ul>
+  <li><strong>Status:</strong> Early public draft (<code class="language-plaintext highlighter-rouge">0.1</code>)</li>
+  <li><strong>Core framing:</strong> 16 layers + cross-cutting control, observability, and security planes</li>
+  <li><strong>Contribution model:</strong> RFC-style proposal flow with open feedback</li>
+</ul>
+
+<h2 id="the-layer-model-at-a-glance">The Layer Model (At a Glance)</h2>
+
+<p>AILIS breaks the AI stack into practical architectural zones:</p>
+
+<ul>
+  <li><strong>L0-L2 Infrastructure Foundation</strong>
+Facilities and power, compute fabric, system and driver runtime</li>
+  <li><strong>L3-L7 Model and Inference Stack</strong>
+ML graph/compilation, numeric/quantization, tokenization, model parameters, inference/decoding</li>
+  <li><strong>L8-L10 AI Application Interface</strong>
+Context construction, retrieval/knowledge, tool and function invocation</li>
+  <li><strong>L11-L15 Orchestration Layers</strong>
+Registry, routing/policy, transport semantics, session/identity/memory, governance/safety/schema</li>
+  <li><strong>L16 Application and Domain Logic</strong>
+Product behavior and end-user workflow design</li>
+</ul>
+
+<h2 id="why-the-extra-detail-helps">Why The Extra Detail Helps</h2>
+
+<p>Most architecture discussions fail because teams use the same word for very different layers.</p>
+
+<p>AILIS helps separate those concerns so teams can answer practical questions early:</p>
+
+<ul>
+  <li>Is this a routing problem, or a tool invocation problem?</li>
+  <li>Is this a session memory issue, or a model behavior issue?</li>
+  <li>Are we debating protocol semantics, or product UX?</li>
+</ul>
+
+<h2 id="example-layer-mapping-portfolio-snapshot">Example Layer Mapping (Portfolio Snapshot)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project Area</th>
+      <th>Primary AILIS Focus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>DollhouseMCP element runtime</td>
+      <td>L11-L16 orchestration, governance, and app behavior</td>
+    </tr>
+    <tr>
+      <td>MCP-AQL protocol surface</td>
+      <td>L11-L15 routing, transport, and safety semantics</td>
+    </tr>
+    <tr>
+      <td>Bridge integration runtime</td>
+      <td>L13-L15 transport, session identity, and policy</td>
+    </tr>
+    <tr>
+      <td>Collection workflows</td>
+      <td>L11-L16 capability distribution and operational composition</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="why-it-exists">Why It Exists</h2>
+
+<p>Most AI diagrams collapse too much into a few broad boxes.</p>
+
+<p>AILIS pushes for enough granularity to discuss real interoperability questions, especially where teams usually struggle:</p>
+
+<ul>
+  <li>capability registry and addressing</li>
+  <li>routing and policy decisions</li>
+  <li>transport and lifecycle semantics</li>
+  <li>session and memory portability</li>
+  <li>governance and safety boundaries</li>
+</ul>
+
+<h2 id="why-it-belongs-in-dollhouse-research">Why It Belongs in Dollhouse Research</h2>
+
+<p>Dollhouse projects are built around composable systems, so architecture language matters.</p>
+
+<p>AILIS gives the portfolio a way to:</p>
+
+<ul>
+  <li>describe where a tool or protocol sits in the stack</li>
+  <li>reason about integration boundaries before implementation</li>
+  <li>identify crowded vs under-served layers</li>
+  <li>keep protocol and product decisions legible for collaborators</li>
+</ul>
+
+<h2 id="how-it-connects-to-the-portfolio">How It Connects To The Portfolio</h2>
+
+<p>AILIS is not a runtime dependency for DollhouseMCP, but it is a useful architecture lens:</p>
+
+<ul>
+  <li><strong>MCP-AQL</strong> maps strongly to tool invocation, routing, transport, and governance layers</li>
+  <li><strong>DollhouseMCP elements and ensembles</strong> map to composition and orchestration concerns</li>
+  <li><strong>Bridge</strong> maps to transport, session, and operational control boundaries</li>
+</ul>
+
+<p>That framing helps teams discuss design decisions with shared terms instead of project-specific jargon.</p>
+
+<h2 id="how-to-use-it-today">How To Use It Today</h2>
+
+<ol>
+  <li>Map your system by primary and secondary layers</li>
+  <li>Mark missing interfaces or weak boundaries</li>
+  <li>Use the map to decide where to build, integrate, or standardize next</li>
+  <li>Revisit your map after each release to track architecture drift</li>
+</ol>
+
+<h2 id="primary-links">Primary Links</h2>
+
+<ul>
+  <li><a href="https://github.com/DollhouseMCP/AILIS">AILIS repository</a></li>
+  <li><a href="https://github.com/DollhouseMCP/AILIS/blob/main/proposals/AILIS_Primer.md">AILIS Primer</a></li>
+  <li><a href="https://github.com/DollhouseMCP/AILIS/blob/main/proposals/AILIS_Cheat_Sheet.md">AILIS Cheat Sheet</a></li>
+</ul>
+</main>
+
+    <footer class="site-footer">
+      <p>
+        &copy; 2026 DollhouseMCP Inc DBA Dollhouse Research.
+      </p>
+      <p class="footer-links">
+        <a href="../../news-press/">News &amp; Press</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../research/">Research</a>
+        <a href="../../press-kit/">Press Kit</a>
+        <a href="../../about/">About</a>
+        <a href="https://dollhousemcp.com">DollhouseMCP.com</a>
+        <a href="https://mcpaql.com">MCPAQL.com</a>
+        <a href="https://collection.dollhousemcp.com/">Collection</a>
+      </p>
+    </footer>
+    <script src="../../assets/js/site.js"></script>
+  </body>
+</html>
