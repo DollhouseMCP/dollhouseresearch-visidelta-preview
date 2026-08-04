@@ -1,0 +1,5 @@
+[
+  {"id":"p001","file":"index.md","route":"/","old_route":"/","new_route":"/"},
+  {"id":"p002","file":"projects/index.md","route":"/projects/","old_route":"/projects/","new_route":"/projects/"},
+  {"id":"p003","file":"projects/obsidian-automation.md","route":"/projects/obsidian-automation/","old_route":"/projects/obsidian-automation/","new_route":"/projects/obsidian-automation/"}
+]

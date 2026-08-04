@@ -1,0 +1,16 @@
+title: Obsidian Automation
+description: Project brief for PARA-oriented Obsidian automation scripts and workflows.
+main_class: prose
+# Obsidian Automation
+Obsidian Automation is a standalone repository for automating PARA-oriented vault workflows in Obsidian.
+## Public Project Link
+- **GitHub:** `https://github.com/mickdarling/obsidian-automation`
+## Scope
+- QuickAdd scripts for note organization
+- PARA categorization helpers (Projects, Areas, Resources, Archives)
+- Automated file organization based on note metadata
+- Folder consistency checks and utility helpers
+## Relationship to Dollhouse Research
+This is a lower-priority supporting project. It includes optional Dollhouse integration paths where LLM-assisted categorization can be driven by configured elements.
+## Link
+- [Obsidian Automation repository](https://github.com/mickdarling/obsidian-automation)
