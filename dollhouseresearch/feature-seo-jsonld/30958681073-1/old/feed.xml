@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dollhouse Research Blog</title>
+    <link>https://dollhouseresearch.comblog/</link>
+    <atom:link href="https://dollhouseresearch.comfeed.xml" rel="self" type="application/rss+xml" />
+    <description>The hub feed for writing across every Dollhouse Research project: DollhouseMCP, MCP-AQL, AILIS, Elemental Surveys, and more. Generated from the portfolio-wide blog index, so spoke-site posts are included.</description>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 04 Aug 2026 19:04:38 -0400</lastBuildDate>
+    <item>
+      <title>One Place for All of It</title>
+      <link>https://dollhouseresearch.comblog/one-place-for-all-of-it/</link>
+      <guid isPermaLink="true">https://dollhouseresearch.comblog/one-place-for-all-of-it/</guid>
+      <pubDate>Fri, 31 Jul 2026 00:00:00 -0400</pubDate>
+      <description>The Dollhouse Research blog is now the hub for writing across every project, with each project site keeping its own blog for its own posts.</description>
+      <category>Dollhouse Research</category>
+    </item>
+    <item>
+      <title>The Security Model Behind DollhouseMCP</title>
+      <link>https://dollhousemcp.com/blog/the-security-model-behind-dollhousemcp/</link>
+      <guid isPermaLink="true">https://dollhousemcp.com/blog/the-security-model-behind-dollhousemcp/</guid>
+      <pubDate>Fri, 15 May 2026 00:00:00 -0400</pubDate>
+      <description>How DollhouseMCP approaches trust and safety for agentic AI, from element validation to the layers that keep customization from becoming a liability.</description>
+      <category>DollhouseMCP</category>
+    </item>
+    <item>
+      <title>Welcome to Dollhouse Research and DollhouseMCP 2.0</title>
+      <link>https://dollhouseresearch.comblog/welcome-to-dollhouse-research-and-dollhousemcp-2-0-2026-04-02/</link>
+      <guid isPermaLink="true">https://dollhouseresearch.comblog/welcome-to-dollhouse-research-and-dollhousemcp-2-0-2026-04-02/</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 -0400</pubDate>
+      <description>A launch note on Dollhouse Research, DollhouseMCP 2.0, customizable building blocks for AI, and why MCP-AQL matters.</description>
+      <category>Dollhouse Research</category>
+    </item>
+    <item>
+      <title>A Tour of the DollhouseMCP Console</title>
+      <link>https://dollhousemcp.com/blog/dollhousemcp-console-tour/</link>
+      <guid isPermaLink="true">https://dollhousemcp.com/blog/dollhousemcp-console-tour/</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 -0400</pubDate>
+      <description>A walkthrough of the DollhouseMCP web console, covering setup, portfolio management, and the security surfaces you can see and control.</description>
+      <category>DollhouseMCP</category>
+    </item>
+    <item>
+      <title>Introducing Dollhouse Research</title>
+      <link>https://dollhouseresearch.comblog/introducing-dollhouse-research-2026-03-09/</link>
+      <guid isPermaLink="true">https://dollhouseresearch.comblog/introducing-dollhouse-research-2026-03-09/</guid>
+      <pubDate>Mon, 09 Mar 2026 00:00:00 -0400</pubDate>
+      <description>A practical introduction to Dollhouse Research and how the current projects fit together.</description>
+      <category>Dollhouse Research</category>
+    </item>
+    <item>
+      <title>The Story Behind DollhouseMCP: From Prompt Envy to Vibe Tooling</title>
+      <link>https://dollhousemcp.com/blog/story-behind-dollhousemcp/</link>
+      <guid isPermaLink="true">https://dollhousemcp.com/blog/story-behind-dollhousemcp/</guid>
+      <pubDate>Thu, 04 Sep 2025 00:00:00 -0400</pubDate>
+      <description>The origin story, from a bad system for organizing prompts to an open platform for customizable AI elements.</description>
+      <category>DollhouseMCP</category>
+    </item>
+    <item>
+      <title>Meta-Development: How DollhouseMCP Agents Built Their Own Documentation</title>
+      <link>https://dollhousemcp.com/blog/meta-development-dollhousemcp-agents-build-themselves/</link>
+      <guid isPermaLink="true">https://dollhousemcp.com/blog/meta-development-dollhousemcp-agents-build-themselves/</guid>
+      <pubDate>Tue, 02 Sep 2025 00:00:00 -0400</pubDate>
+      <description>A case study in agents documenting the platform they run on, and what that loop taught us about automation.</description>
+      <category>DollhouseMCP</category>
+    </item>
+    <item>
+      <title>The 15-Minute Mystery: When AI Agents Chase Ghosts in CI/CD</title>
+      <link>https://dollhousemcp.com/blog/the-15-minute-mystery-ai-agents-chase-ghosts-in-ci/</link>
+      <guid isPermaLink="true">https://dollhousemcp.com/blog/the-15-minute-mystery-ai-agents-chase-ghosts-in-ci/</guid>
+      <pubDate>Sun, 24 Aug 2025 00:00:00 -0400</pubDate>
+      <description>An engineering story about AI agents debugging a CI failure that wasn&apos;t what it looked like, and the lessons that stuck.</description>
+      <category>DollhouseMCP</category>
+    </item>
+    <item>
+      <title>Building DollhouseMCP from Anywhere: Our Mobile Development Workflow with Blink, tmux, and Claude Code</title>
+      <link>https://dollhousemcp.com/blog/mobile-development-workflow-blink-tmux-claude/</link>
+      <guid isPermaLink="true">https://dollhousemcp.com/blog/mobile-development-workflow-blink-tmux-claude/</guid>
+      <pubDate>Mon, 18 Aug 2025 00:00:00 -0400</pubDate>
+      <description>The mobile development setup that keeps the project moving from a phone, built on Blink, tmux, and Claude Code.</description>
+      <category>DollhouseMCP</category>
+    </item>
+    <item>
+      <title>How We Fixed the &quot;Server Disconnected&quot; Error in Claude Desktop MCP Servers</title>
+      <link>https://dollhousemcp.com/blog/fixing-mcp-server-disconnected-claude-desktop/</link>
+      <guid isPermaLink="true">https://dollhousemcp.com/blog/fixing-mcp-server-disconnected-claude-desktop/</guid>
+      <pubDate>Tue, 05 Aug 2025 00:00:00 -0400</pubDate>
+      <description>A debugging walkthrough of the most common Claude Desktop MCP connection failure and the fix that shipped.</description>
+      <category>DollhouseMCP</category>
+    </item>
+  </channel>
+</rss>
