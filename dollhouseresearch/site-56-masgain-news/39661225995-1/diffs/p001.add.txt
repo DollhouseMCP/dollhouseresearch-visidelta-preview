@@ -1,0 +1,5 @@
+          <a href="{{ item.url }}">{{ item.url_label | default: "Read coverage" | escape }}</a>
+          <a href="{{ item.secondary_url }}">{{ item.secondary_label | default: "Alternate listing" | escape }}</a>
+          {% endif %}
+          {% if item.program_url %}
+          <a href="{{ item.program_url }}">Conference program</a>
