@@ -1,0 +1,18 @@
+{% assign masgain = site.data.publications.masgain_2026 %}
+{% if masgain %}
+## Publications
+<article class="entry-card">
+  <header class="entry-header">
+    <span class="pill">Peer-reviewed · {{ masgain.venue }}</span>
+    <time datetime="{{ masgain.publication_date }}">{{ masgain.publication_date | date: "%B %-d, %Y" }}</time>
+  </header>
+  <h3><a href="{{ masgain.page_url | relative_url }}">{{ masgain.title }}</a></h3>
+  <p>{{ masgain.author }} · ACM · pp. {{ masgain.pages }}</p>
+  <p>An operational mapping from Erlang/OTP to multi-agent LLM systems, with an empirical study of supervision as a capability multiplier.</p>
+  {% include publication-links.html paper=masgain %}
+  <p>The presentation appendix includes additional research labelled “Beyond the paper. Not peer reviewed. Review welcome.”</p>
+</article>
+## Notes and Proposals
+{% endif %}
+  {% unless card.href == masgain.page_url %}
+  {% endunless %}
