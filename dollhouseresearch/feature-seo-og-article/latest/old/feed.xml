@@ -3,7 +3,7 @@
   <channel>
     <title>Dollhouse Research Blog</title>
     <link>https://dollhouseresearch.comblog/</link>
-    <atom:link href="https://dollhouseresearch.comfeed.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="feed.xml" rel="self" type="application/rss+xml" />
     <description>The hub feed for writing across every Dollhouse Research project: DollhouseMCP, MCP-AQL, AILIS, Elemental Surveys, and more. Generated from the portfolio-wide blog index, so spoke-site posts are included.</description>
     <language>en-us</language>
     <lastBuildDate>Tue, 04 Aug 2026 18:58:18 -0400</lastBuildDate>

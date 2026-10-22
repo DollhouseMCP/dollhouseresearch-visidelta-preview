@@ -1,3 +1,0 @@
-- Darling, M. (2026). *[Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems]({{ '/research/sufficiently-advanced-agents/' | relative_url }}).* MAS-GAIN ’26 (co-located with ASE 2026). [doi:10.1145/3843778.3856135](https://doi.org/10.1145/3843778.3856135)
-## Talks
-- MAS-GAIN ’26, Munich (presented remotely), <time datetime="2026-10-16">2026-10-16</time>. [Paper and presentation]({{ '/research/sufficiently-advanced-agents/' | relative_url }}).

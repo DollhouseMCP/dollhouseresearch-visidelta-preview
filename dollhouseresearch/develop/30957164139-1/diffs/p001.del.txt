@@ -1,1 +1,0 @@
-  <img src="{{ '/assets/images/dollhouse-org-brand.svg?v=20260401b' | relative_url }}" alt="Dollhouse logo" />

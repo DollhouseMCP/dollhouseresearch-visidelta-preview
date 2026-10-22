@@ -951,7 +951,7 @@ main {
 }
 
 .prose h2::before {
-  content: "//";
+  content: "../..";
   margin-right: 0.44rem;
   color: color-mix(in srgb, var(--signal) 60%, var(--line));
   font-family: var(--font-mono);

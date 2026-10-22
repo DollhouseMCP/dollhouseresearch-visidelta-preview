@@ -1,2 +1,0 @@
-          <a href="{{ item.url }}">Read coverage</a>
-          <a href="{{ item.secondary_url }}">Alternate listing</a>
