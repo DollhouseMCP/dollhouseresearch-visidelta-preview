@@ -1,0 +1,50 @@
+/* Full-text paper. Equations use server-rendered KaTeX and local fonts. */
+.prose.paper-page { max-width: 54rem; }
+.paper-full-text { line-height: 1.75; overflow-wrap: anywhere; }
+.paper-full-text p, .paper-full-text li { max-width: none; }
+.paper-full-text h1 { font-size: clamp(1.7rem, 4vw, 2.8rem); line-height: 1.18; }
+.paper-full-text h2 { font-size: clamp(1.4rem, 3vw, 1.95rem); margin-top: 2.5rem; }
+.paper-full-text h3 { font-size: clamp(1.15rem, 2.4vw, 1.4rem); margin-top: 1.8rem; }
+.paper-full-text p { margin: 1rem 0; }
+.paper-byline { color: var(--ink-700); }
+.paper-reading-tools, .paper-toc, .paper-front-matter {
+  border: 1px solid var(--line); border-radius: var(--radius-md);
+  padding: 1.1rem; margin: 1.5rem 0; background: var(--paper-strong);
+}
+.paper-reading-tools > a { display: inline-block; margin: 0 .9rem .3rem 0; font-weight: 700; }
+.paper-reading-tools p { margin: .5rem 0 0; font-size: .92rem; }
+.paper-breadcrumb { font-size: .9rem; }
+.paper-front-matter { font-size: .9rem; }
+.paper-front-matter h3 { margin-top: 1rem; font-size: 1rem; }
+.paper-front-matter h3:first-child { margin-top: 0; }
+.paper-toc h2 { margin-top: 0; font-size: 1.25rem; }
+.paper-toc ol { list-style: none; padding: 0; margin: 0; }
+.paper-toc li { margin: .4rem 0; }
+.paper-toc .toc-h3 { padding-left: 1.2rem; }
+.section-anchor { font-size: .75em; margin-left: .5em; text-decoration: none; opacity: .65; }
+.section-anchor:hover, .section-anchor:focus { opacity: 1; }
+.paper-table-scroll { max-width: 100%; overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--line); border-radius: .4rem; }
+.paper-table-scroll:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+.paper-table-scroll table { min-width: 44rem; font-size: .88rem; line-height: 1.5; background: var(--paper-strong); }
+.paper-table-scroll table[id='tab:m2'] { min-width: 72rem; }
+.paper-table-scroll table[id='tab:holdout'] { min-width: 18rem; }
+.paper-table-scroll th { font-size: inherit; text-transform: none; letter-spacing: normal; color: var(--ink-950); }
+.paper-table-scroll td { padding: .6rem; }
+.paper-table-scroll caption { padding: 1rem; color: var(--ink-950); text-align: left; font-weight: 600; }
+.paper-figure { text-align: center; }
+.prose .paper-figure img { background: #fff; width: min(100%, 45rem); border-radius: .3rem; box-shadow: none; }
+.prose .paper-figure figcaption { text-align: left; color: var(--ink-700); font-size: .95rem; }
+.paper-references { padding-left: 2rem; font-size: .9rem; }
+.paper-references li { padding-left: .3rem; margin-bottom: 1rem; }
+.paper-references li::marker { content: '[' counter(list-item) '] '; }
+.paper-full-text .katex { font-size: 1.04em; }
+.paper-full-text .katex-display { margin: 1.25rem 0; }
+.paper-full-text code { white-space: normal; }
+.submission-history { font-size: .85rem; color: var(--ink-700); }
+.paper-citation { border-top: 1px solid var(--line); margin-top: 2rem; padding-top: 1rem; }
+@media (max-width: 480px) {
+  .paper-reading-tools, .paper-toc, .paper-front-matter { padding: .8rem; }
+  .paper-table-scroll table { font-size: .82rem; }
+}
+.prose.paper-page h2::before { content: none; }
+.paper-table-scroll caption > span { display: block; max-width: min(49rem, calc(100vw - 4.8rem)); }

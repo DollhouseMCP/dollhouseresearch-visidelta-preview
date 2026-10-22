@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sufficiently Advanced Agents Are Indistinguishable from Erlang | Dollhouse Research</title>
+    <meta name="description" content="Full text of Mick Darling’s MAS-GAIN ’26 paper: Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems." />
+    <link rel="canonical" href="https://dollhouseresearch.com../../research/sufficiently-advanced-agents/" />
+<meta property="og:site_name" content="Dollhouse Research" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems" />
+<meta property="og:description" content="Full text of Mick Darling’s MAS-GAIN ’26 paper: Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems." />
+<meta property="og:url" content="https://dollhouseresearch.com../../research/sufficiently-advanced-agents/" />
+<meta property="article:published_time" content="2026-10-08T00:00:00-04:00" />
+<meta property="article:author" content="https://dollhouseresearch.com../../people/mick/" />
+<meta property="og:image" content="https://dollhouseresearch.com../../assets/images/social-card.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Dollhouse Research building blocks for AI customization" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems" />
+<meta name="twitter:description" content="Full text of Mick Darling’s MAS-GAIN ’26 paper: Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems." />
+<meta name="twitter:image" content="https://dollhouseresearch.com../../assets/images/social-card.png" />
+<meta name="twitter:image:alt" content="Dollhouse Research building blocks for AI customization" />
+<meta name="citation_fulltext_html_url" content="https://dollhouseresearch.com../../research/sufficiently-advanced-agents/" />
+<meta name="citation_firstpage" content="26" />
+<meta name="citation_lastpage" content="33" />
+<link rel="stylesheet" href="../../assets/vendor/katex/katex.min.css" />
+<link rel="stylesheet" href="../../assets/css/paper.css" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://dollhouseresearch.com/#organization",
+      "name": "Dollhouse Research",
+      "legalName": "DollhouseMCP Inc.",
+      "url": "https://dollhouseresearch.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://dollhouseresearch.com../../assets/images/dollhouse-org-brand.png"
+      },
+      "sameAs": [
+        "https://github.com/DollhouseMCP",
+        "https://www.npmjs.com/org/dollhousemcp",
+        "https://dollhousemcp.com"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://dollhouseresearch.com/#website",
+      "url": "https://dollhouseresearch.com/",
+      "name": "Dollhouse Research",
+      "description": "Organization site for DollhouseMCP, MCP-AQL, Bridge, AILIS, and related projects.",
+      "publisher": { "@id": "https://dollhouseresearch.com/#organization" }
+    }
+  ]
+}
+</script>
+
+    <meta name="citation_title" content="Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems" />
+<meta name="citation_author" content="Mick Darling" />
+<meta name="citation_publication_date" content="2026/10/08" />
+<meta name="citation_conference_title" content="Proceedings of the 2nd International Workshop on Multi-Agent Systems using Generative Artificial INtelligence for Automated Software Engineering" />
+<meta name="citation_doi" content="10.1145/3843778.3856135" />
+<meta name="citation_pdf_url" content="https://dollhouseresearch.com../../research/sufficiently-advanced-agents/paper-author-version.pdf" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://dollhouseresearch.com../../research/sufficiently-advanced-agents/#article",
+  "name": "Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems",
+  "headline": "Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems",
+  "description": "Full text of Mick Darling’s MAS-GAIN ’26 paper: Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems.",
+  "url": "https://dollhouseresearch.com../../research/sufficiently-advanced-agents/",
+  "mainEntityOfPage": "https://dollhouseresearch.com../../research/sufficiently-advanced-agents/",
+  "datePublished": "2026-10-08",
+  "inLanguage": "en",
+  "sameAs": "https://doi.org/10.1145/3843778.3856135",
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "DOI",
+    "value": "10.1145/3843778.3856135"
+  },
+  "author": {
+    "@type": "Person",
+    "@id": "https://dollhouseresearch.com../../people/mick/#person",
+    "name": "Mick Darling",
+    "url": "https://dollhouseresearch.com../../people/mick/",
+    "worksFor": { "@id": "https://dollhouseresearch.com/#organization" },
+    "affiliation": { "@id": "https://dollhouseresearch.com/#organization" }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Association for Computing Machinery",
+    "url": "https://www.acm.org/"
+  },
+  "isPartOf": {
+    "@type": "CreativeWork",
+    "name": "Proceedings of the 2nd International Workshop on Multi-Agent Systems using Generative Artificial INtelligence for Automated Software Engineering",
+    "url": "https://dl.acm.org/doi/proceedings/10.1145/3843778"
+  },
+  "pagination": "26–33",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "encoding": {
+    "@type": "MediaObject",
+    "name": "Author version",
+    "encodingFormat": "application/pdf",
+    "contentUrl": "https://dollhouseresearch.com../../research/sufficiently-advanced-agents/paper-author-version.pdf"
+  },
+  "image": "https://dollhouseresearch.com../../assets/images/social-card.png"
+}
+</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="../../assets/images/dollhouse-org-brand.svg?v=20260418a" type="image/svg+xml" />
+    <link rel="alternate icon" href="../../assets/images/dollhouse-org-brand.png?v=20260401b" type="image/png" />
+    <link rel="apple-touch-icon" href="../../assets/images/dollhouse-org-brand.png?v=20260401b" />
+    <link rel="stylesheet" href="../../assets/css/site.css" />
+    <link rel="stylesheet" href="../../assets/css/atelier.css" />
+    <link rel="alternate" type="application/rss+xml" title="Dollhouse Research Blog" href="https://dollhouseresearch.com../../feed.xml" />
+  </head>
+  <body class="">
+    <div class="page-noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="../../">
+        <img class="brand-logo" src="../../assets/images/dollhouse-org-brand.svg?v=20260418a" alt="Dollhouse logo" />
+        <span>
+          <strong>Dollhouse Research</strong>
+          <em>Infrastructure and applied AI systems</em>
+        </span>
+      </a>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+          <span class="theme-toggle-icon" id="theme-toggle-icon" aria-hidden="true">☾</span>
+          <span class="sr-only" id="theme-toggle-label">Switch to dark mode</span>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+          Menu
+        </button>
+      </div>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="../../">Home</a>
+        <a href="../../projects/">Projects</a>
+        <a href="../../news-press/">News &amp; Press</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../research/">Research</a>
+        <a href="../../about/">About</a>
+        <a class="nav-key-link" href="https://dollhousemcp.com">DollhouseMCP.com</a>
+        <a class="nav-key-link" href="https://mcpaql.com">MCPAQL.com</a>
+        <a class="nav-key-link" href="https://collection.dollhousemcp.com/">Collection</a>
+      </nav>
+    </header>
+
+    <main id="main-content" class="prose paper-page">
+<article class="paper-full-text" data-paper-content=""><h1>Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems</h1>
+<div class="paper-byline"><p>Mick Darling<span aria-label="Corresponding author">✉</span><br/>Dollhouse Research<br/>Boston, USA<br/><a href="mailto:mick@dollhouseresearch.com">mick@dollhouseresearch.com</a></p></div><p class="paper-breadcrumb" data-reading-ui=""><a href="/research/">Research</a> / MAS-GAIN ’26</p>
+<div class="paper-reading-tools" data-reading-ui=""><a href="#abstract">Read full-text HTML</a><a download="" href="/research/sufficiently-advanced-agents/paper-author-version.pdf">Download the PDF</a><p>The PDF is the version of record and takes precedence over this HTML rendering. <a href="https://doi.org/10.1145/3843778.3856135">Published record (ACM DOI)</a>.</p></div><h2 class="unnumbered" id="abstract">Abstract<a aria-label="Link to Abstract" class="section-anchor" data-reading-ui="" href="#abstract">#</a></h2>
+<p>Multi-agent LLM systems are rediscovering the engineering problem that produced Erlang/OTP: how to build systems more reliable than their individually unreliable parts. We treat this convergence as a predictive engineering model rather than an analogy. We develop a term-by-term correspondence between OTP constructs and agent systems, grading twenty mappings as exact, loose, or breaking; the breaking mappings mark the real limits of the transfer: context isolation, payload trust, and mid-inference preemption. The correspondence draws on production experience: Erlang ingest fleets processing millions of tweets per hour, and our present agent runtime’s independent reproduction of failure shapes OTP was built to survive: orphaned workers, token-burning polling loops, and sessions held open across hour-scale delays. We then test supervision as a capability multiplier in preregistered experiments that cross supervision architecture with model tier. Across 2,400 episodes and eight model tiers, OTP-disciplined supervision never loses to bare agent loops, leads at four of the five tiers where the arms separate, and shows its largest edge where models partially succeed (pass<sup>4</sup> at 3B: 95% supervised vs. 65% bare; at 32B: 70% vs. 45% with retry and 5% without). A preregistered matched-compute control and a prospective replication (640 episodes in total) rule against the evaluated best-of-N control as the explanation: supervision beat nominally token-matched best-of-N in both (paired deltas +0.33 and +0.26, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>≤</mo><mn>0.004</mn></mrow><annotation encoding="application/x-tex">p \leq 0.004</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.8304em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6444em;"></span><span class="mord">0.004</span></span></span></span>), and the preregistered selector added zero successes over its first candidate; compute parity itself was not certified in either run. On hard decomposable tasks, supervised clean-context decomposition lifts a 32B model from 57% to 82%, monotonically from one to sixteen LLM actors, on a prospectively frozen holdout. We close with the problems our work to date leaves open: semantic failure detection, context leakage, and restart economics.</p><section aria-label="Publication and licensing" class="paper-front-matter">
+<h3>CCS Concepts</h3><ul><li>Software and its engineering → Software fault tolerance;</li><li>Computing methodologies → Distributed artificial intelligence.</li></ul>
+<h3>Keywords</h3><p>multi-agent systems, LLM agents, Erlang/OTP, supervision trees, fault tolerance, automated software engineering</p>
+<p>This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License.</a><br/>MAS-GAIN ’26, Munich, Germany<br/>© 2026 Copyright held by the owner/author(s).<br/>ACM ISBN 979-8-4007-2990-4/2026/10<br/><a href="https://doi.org/10.1145/3843778.3856135">https://doi.org/10.1145/3843778.3856135</a></p>
+<h3>ACM Reference Format:</h3><p>Mick Darling. 2026. Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems. In Proceedings of the 2nd International Workshop on Multi-Agent Systems using Generative Artificial INtelligence for Automated Software Engineering (MAS-GAIN ’26), October 12–16, 2026, Munich, Germany. ACM, New York, NY, USA, 8 pages. <a href="https://doi.org/10.1145/3843778.3856135">https://doi.org/10.1145/3843778.3856135</a></p></section>
+<nav aria-label="Table of contents" class="paper-toc" data-reading-ui=""><h2>Contents</h2><ol><li class="toc-h2"><a href="#abstract">Abstract</a></li><li class="toc-h2"><a href="#sec:intro">1 Remembering Erlang</a></li><li class="toc-h2"><a href="#sec:mapping">2 The Mapping, Including Its Failures</a></li><li class="toc-h3"><a href="#the-exact-rows">2.1 The Exact Rows</a></li><li class="toc-h3"><a href="#the-loose-rows">2.2 The Loose Rows</a></li><li class="toc-h3"><a href="#the-breaking-rows">2.3 The Breaking Rows</a></li><li class="toc-h2"><a href="#sec:apparatus">3 A Preregistered Apparatus</a></li><li class="toc-h2"><a href="#sec:results">4 Results</a></li><li class="toc-h3"><a href="#supervision-versus-bare-loops-m1">4.1 Supervision Versus Bare Loops (M1)</a></li><li class="toc-h3"><a href="#the-evaluated-best-of-n-control-does-not-reproduce-the-advantage-m2-m2b">4.2 The Evaluated Best-of-N Control Does Not Reproduce the Advantage (M2, M2b)</a></li><li class="toc-h3"><a href="#decomposition-under-supervision">4.3 Decomposition Under Supervision</a></li><li class="toc-h2"><a href="#sec:related">5 Related Work</a></li><li class="toc-h2"><a href="#sec:shape">6 The Capability, Measured and Predicted</a></li><li class="toc-h2"><a href="#sec:residue">7 What This Work Leaves Open</a></li><li class="toc-h2"><a href="#data-availability-statement">Data Availability Statement</a></li><li class="toc-h2"><a href="#references">References</a></li></ol></nav><h2 id="sec:intro">1 Remembering Erlang<a aria-label="Link to 1 Remembering Erlang" class="section-anchor" data-reading-ui="" href="#sec:intro">#</a></h2>
+<p>This work started with a waiting problem in DollhouseMCP, a multi-agent runtime we operate in production. Agents needed to wait on outside events, sometimes for hours, and an agent that waits from inside an LLM session pays tokens the whole time; one unattended polling component once consumed most of a weekly quota doing nothing. The solution was to make the MCP server the hub. Work moves from the LLM to the server, and the agent parks there at zero token cost until an outside event, a timer, or a server-side calculation releases it back to the LLM for its next steps. The same routing gives the runtime its security checkpoint, because every action passes through the server before the LLM can use a tool. Many agents can run this loop at the same time, even from different LLMs, one agent’s events releasing other waiting agents.</p>
+<div aria-labelledby="table-1-caption" class="paper-table-scroll" role="region" tabindex="0"><table id="tab:mapping">
+<caption id="table-1-caption"><span>Table 1: All twenty graded correspondences between OTP constructs and agent-system analogs. The grade measures the analogy, not any one implementation: 12 exact, 5 loose, 3 breaking.</span></caption>
+<thead>
+<tr>
+<th scope="col" style="text-align: left;">OTP construct</th>
+<th scope="col" style="text-align: left;">Agent-system analog</th>
+<th scope="col" style="text-align: left;">Grade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Lightweight process, free when idle</td>
+<td style="text-align: left;">Agent parked awaiting events; no LLM session, zero tokens</td>
+<td style="text-align: left;">exact</td>
+</tr>
+<tr>
+<td style="text-align: left;">Registered name, <code>:global</code></td>
+<td style="text-align: left;">Queryable agent identity with a global registrar</td>
+<td style="text-align: left;">exact</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>:global.send</code></td>
+<td style="text-align: left;">Direct delivery to a named waiting agent</td>
+<td style="text-align: left;">exact</td>
+</tr>
+<tr>
+<td style="text-align: left;">Mailbox, selective receive</td>
+<td style="text-align: left;">Mailbox store with typed message filters</td>
+<td style="text-align: left;">exact</td>
+</tr>
+<tr>
+<td style="text-align: left;">Message immutability, atomic receive</td>
+<td style="text-align: left;">Append-only entries, content-hashed, atomic consume</td>
+<td style="text-align: left;">exact</td>
+</tr>
+<tr>
+<td style="text-align: left;">Supervision strategies (one-for-one, one-for-all)</td>
+<td style="text-align: left;">Supervisor agents restarting workers with clean context</td>
+<td style="text-align: left;">exact</td>
+</tr>
+<tr>
+<td style="text-align: left;">Restart intensity limits</td>
+<td style="text-align: left;">Restart ceiling with escalation</td>
+<td style="text-align: left;">exact</td>
+</tr>
+<tr>
+<td style="text-align: left;">Behaviours (<code>gen_server</code>, <code>supervisor</code>)</td>
+<td style="text-align: left;">Agent roles as enforced interfaces</td>
+<td style="text-align: left;">exact</td>
+</tr>
+<tr>
+<td style="text-align: left;">DynamicSupervisor</td>
+<td style="text-align: left;">Spawning workers from a template on demand</td>
+<td style="text-align: left;">exact</td>
+</tr>
+<tr>
+<td style="text-align: left;">ETS shared read state</td>
+<td style="text-align: left;">Shared read-optimized state store</td>
+<td style="text-align: left;">exact</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>:pg</code> process groups</td>
+<td style="text-align: left;">Group membership with multi-agent fan-out delivery</td>
+<td style="text-align: left;">exact</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>exit/2</code>, suspend, resume</td>
+<td style="text-align: left;">Out-of-band kill, pause, and resume of agents at activation boundaries</td>
+<td style="text-align: left;">exact</td>
+</tr>
+<tr>
+<td style="text-align: left;">Per-process heap</td>
+<td style="text-align: left;">Isolated per-session runtime state</td>
+<td style="text-align: left;">loose</td>
+</tr>
+<tr>
+<td style="text-align: left;">Hot code loading, <code>code_change</code></td>
+<td style="text-align: left;">Instruction swap on a parked agent; in-flight state migration is harder</td>
+<td style="text-align: left;">loose</td>
+</tr>
+<tr>
+<td style="text-align: left;">Let it crash</td>
+<td style="text-align: left;">Kill a derailed activation and restart clean; no crash signal for a wrong answer</td>
+<td style="text-align: left;">loose</td>
+</tr>
+<tr>
+<td style="text-align: left;">Generational garbage collection</td>
+<td style="text-align: left;">Context-window compaction; illustrative only</td>
+<td style="text-align: left;">loose</td>
+</tr>
+<tr>
+<td style="text-align: left;">Mnesia, distributed transactions</td>
+<td style="text-align: left;">Compensation in the Saga style, not distributed ACID</td>
+<td style="text-align: left;">loose</td>
+</tr>
+<tr>
+<td style="text-align: left;">Share-nothing as substrate default</td>
+<td style="text-align: left;">Agents leak through accumulated context; isolation is policy</td>
+<td style="text-align: left;">breaking</td>
+</tr>
+<tr>
+<td style="text-align: left;">Typed term payloads, matched rather than interpreted</td>
+<td style="text-align: left;">Prose payloads are interpreted and can carry injection</td>
+<td style="text-align: left;">breaking</td>
+</tr>
+<tr>
+<td style="text-align: left;">Preemptive scheduling</td>
+<td style="text-align: left;">No mid-inference preemption in current serving stacks; monitors and timeouts instead</td>
+<td style="text-align: left;">breaking</td>
+</tr>
+</tbody>
+</table></div>
+<p>The resulting architecture of using many small loops that monitor each other, recover when one fails, and start new ones as needed is not new, and we had used it before. Roughly fifteen years earlier we ran Erlang fleets against Twitter’s garden hose stream at peaks in the millions of tweets per hour, starting an actor per piece of work and absorbing failures dynamically. Recognizing that architecture led us to Erlang/OTP (Open Telecom Platform), the language and library telecom infrastructure has run on since the 1990s [<a href="#ref-3" role="doc-biblioref">3</a>]. The constraint set is the same, unreliable components inside systems expected to stay up, so the correspondence applies well beyond our runtime. We mapped OTP’s constructs against the runtime in dated engineering issues in April 2026, applied the patterns deliberately, and ran the planned experiments in July.</p>
+<p>This paper tests the OTP correspondence as a prediction. The claim is not that multi-agent LLM systems resemble Erlang. The claim is that they face the constraint set that produced OTP, and that OTP’s constructs, discipline, and failure catalogs therefore transfer testably to agent systems, including the developer-facing agent infrastructure of automated software engineering. A prediction has to be allowed to fail, so we grade the prediction in three ways.</p>
+<p>First, we develop a term-by-term operational mapping between twenty OTP constructs and agent behavior and processes, grading each correspondence exact, loose, or breaking (§<a href="#sec:mapping">2</a>). The grade measures the analogy itself, not any one implementation, and the distribution is 12 exact, 5 loose, and 3 breaking. The three breaking rows mark genuine limits of the transfer, and they set the research agenda. The grades are backed by production evidence recorded in dated engineering issues: wherever our own runtime lacked an exact construct, the failure that OTP predicts appeared, and the standard OTP fix was the fix.</p>
+<p>Second, we test the transfer where it should matter most, namely as a capability multiplier for small models (§<a href="#sec:apparatus">3</a>, §<a href="#sec:results">4</a>). In preregistered experiments across 2,400 episodes and eight model tiers, OTP-disciplined supervision never loses to bare agent loops, leads at four of the five tiers where the arms separate, and shows its largest edge where models partially succeed. A matched-compute control and a prospective replication (640 episodes) rule against the evaluated best-of-N control as the explanation: in both runs, the preregistered selector added zero successes over its first candidate. That result does not depend on the compute-parity band, which both runs missed. On hard decomposable tasks, supervised clean-context decomposition lifts a 32B model from 57% to 82% on a prospectively frozen holdout, and the lift is monotonic from one to sixteen LLM actors. A separately provisioned trial reproduced the curve.</p>
+<p>Third, we state what the correspondence does not give us (§<a href="#sec:residue">7</a>): semantic failure detection, context isolation, and restart economics are places where LLM agents genuinely differ from Erlang processes. We treat them as the research agenda, not as footnotes.</p>
+<p>One result repeats: supervision converts model weakness into recoverable failure; small models fail often but cheaply, and an OTP-disciplined architecture turns those failures into successes. On the pilot suite, starting from a bare 3B model at 65%, adding supervision reached 95% while scaling the bare loop up to 70B reached 35%, and §<a href="#sec:shape">6</a> states what the evidence supports and what it does not.</p>
+<h2 id="sec:mapping">2 The Mapping, Including Its Failures<a aria-label="Link to 2 The Mapping, Including Its Failures" class="section-anchor" data-reading-ui="" href="#sec:mapping">#</a></h2>
+<p>The convergence claim requires that the mapping be operational rather than metaphorical. To show that, we grade every correspondence, including the failures. The grades measure the analogy itself, not any particular implementation: the question for each row is whether an OTP construct has a faithful counterpart in agent behavior and processes, in anybody’s runtime. <em>Exact</em>: the construct has a direct agent-system analog with the same semantics. <em>Loose</em>: the concept transfers, but the semantics differ in a documented way. <em>Breaking</em>: the construct has no faithful agent-system analog, because the substrates genuinely differ. We graded twenty constructs, and the distribution is 12 exact, 5 loose, and 3 breaking. Table <a href="#tab:mapping">1</a> lists all twenty. DollhouseMCP, a multi-agent runtime we operate in production, supplies the operational evidence behind the grades.</p>
+<p>The grading procedure is the same for every row: state the OTP construct’s claim-relevant operational contract, then compare its agent counterpart across lifecycle, state ownership, communication and ordering, failure signaling, recovery, and scheduling semantics. Exact requires that every semantic the claim uses is preserved; loose preserves the function with at least one documented material mismatch; breaking means the evaluated substrate offers no faithful counterpart. Production incidents and experiments support or challenge a grade but do not define it. The mapping is author-coded qualitative analysis: the constructs were selected in dated engineering issues before the experiments ran, and no independent audit has been performed. Where an agent-side isolation is enforced by runtime policy, the mechanism is loose, while the absent share-nothing substrate default is graded separately as breaking.</p>
+<p>We investigate every row to see whether the construct can be used as designed, modified, or mitigated.</p>
+<h3 id="the-exact-rows">2.1 The Exact Rows<a aria-label="Link to 2.1 The Exact Rows" class="section-anchor" data-reading-ui="" href="#the-exact-rows">#</a></h3>
+<p>Twelve constructs have direct agent-system analogs, and one of them provides the main economic benefit of the transfer. An Erlang process parked in a selective receive is nearly free; that is what famously made two million idle connections on a single node achievable. We use parked as a defined state: a parked agent retains an addressable identity and a server-side mailbox but holds no resident or outstanding LLM activation, consumes no inference tokens, so the provider can be entirely offline with no effect, and becomes eligible for a new activation only when an external event, a timer, or a server-side result is delivered. It is the same engineering property applied to a new resource: tokens instead of CPU. The token-burning poller in §<a href="#sec:intro">1</a> failed because this construct was missing, and the fix in our runtime was to build it.</p>
+<p>The strongest evidence that these rows are exact comes from our own gaps. Wherever our runtime lacked one of the constructs, the failure that OTP predicts appeared in production, and the fix that worked was the standard OTP fix. Our mailbox entries were editable after append and read-validate-consume was not atomic; the mapping predicted a tamper window there before we saw one, and the fix is a transcription of Erlang’s semantics: append-only mailboxes with content hashing and atomic consume. Our supervisors had no restart ceiling, which OTP predicts becomes a runaway loop, and supervisors that did not tie worker lifecycles to client sessions left orphaned workers running for days after those sessions had died. Our single-waiter delivery could not express fan-out, the need OTP answers with <code>:pg</code> process groups, and our mailboxes served read-heavy state badly, which is why OTP ships ETS. Each fix was designed in a dated engineering issue in April 2026, before the matching incidents appeared in production. A construct whose absence produces the predicted failure, and whose standard fix works, is a construct that maps.</p>
+<h3 id="the-loose-rows">2.2 The Loose Rows<a aria-label="Link to 2.2 The Loose Rows" class="section-anchor" data-reading-ui="" href="#the-loose-rows">#</a></h3>
+<p>Five concepts transfer with documented differences. Per-session isolation lacks OTP’s heap guarantee. Hot code loading works as an instruction swap on a parked agent, but migrating in-flight state across the swap is an open protocol problem. Let it crash transfers cleanly for state faults, because a derailed activation can be killed and restarted with a clean context, but two of its assumptions do not hold: an agent that is wrong emits a well-formed, confident message instead of crashing, and a restart costs tokens and seconds instead of microseconds. Context compaction behaves like generational garbage collection, graded loose because the comparison is illustrative and no design decision depends on it. And distributed transactions do not transfer as constructed; the agent-system answer is compensation in the Saga style [<a href="#ref-5" role="doc-biblioref">5</a>], not distributed ACID. The costs on the let-it-crash row, semantic failure detection and restart economics, reappear as research problems in §<a href="#sec:residue">7</a>.</p>
+<h3 id="the-breaking-rows">2.3 The Breaking Rows<a aria-label="Link to 2.3 The Breaking Rows" class="section-anchor" data-reading-ui="" href="#the-breaking-rows">#</a></h3>
+<p>Three constructs have no faithful agent-system analog. For the first two rows the difference is the substrate, not the engineering.</p>
+<p>Erlang gives every process its own heap, and influence between processes flows only through messages; the agent substrate defaults the other way. Within one agent everything observed accumulates in the context, and between agents some architectures append every output to a shared history [<a href="#ref-13" role="doc-biblioref">13</a>, <a href="#ref-17" role="doc-biblioref">17</a>], so isolation is a policy that must be built and policed rather than a guarantee. Followed to its end, that default is the failure: every received message appends to the same session until the window is exhausted, and everything the session has seen contaminates everything after it. Our runtime prevents this by construction. No actor is addressed by appending to a live session; every activation is a fresh context assembled by the supervising layer, and anything an actor needs from earlier work is passed in explicitly. That cost is measured: the supervised arm’s margin over the retry arm, which keeps its accumulated context, appears in §<a href="#sec:results">4</a>; the margin belongs to the integrated configuration, of which context isolation is one component. Deliberate sharing also works through a supervised external store, the pattern of Erlang’s own escape hatch, ETS; our exploratory workspace results reach exactly that pattern (§<a href="#sec:shape">6</a>). What stays breaking is the guarantee: an Erlang process cannot reach another’s state, while our isolation is an audited policy that a prose payload could subvert.</p>
+<p>Erlang message payloads are structured terms that a receiving process pattern-matches against expected shapes rather than interpreting as instructions; agent payloads are prose that the receiving model interprets, so a message can carry an injection attack. We are developing a typed semantic instruction layer intended to narrow this gap; it is preliminary and unevaluated, and we claim nothing for it here beyond marking the row an open problem under active work.</p>
+<p>And, Erlang preempts any process at reduction boundaries, while nothing in the serving stacks available to us can preempt a model mid-inference, so a stuck call blocks its agent and supervisors must rely on monitors and timeouts instead; third-party evidence that step-boundary delivery suffices for mid-course correction bounds the cost of this break (§<a href="#sec:related">5</a>). We grade this third row as the least absolute of the three. Generation does pause between token steps, and an operator who controls the serving stack could in principle suspend and resume work at those boundaries. Hosted inference APIs expose no such control, we know of no deployed agent architecture that provides it, and whether it could be made practical is a cost and engineering question that current architectures leave open. The grade records the present state, not a law of the substrate. These three rows mark the real limits of the transfer, and they define the research agenda in §<a href="#sec:residue">7</a>.</p>
+<p>Some contemporary frameworks adopt actor constructs consciously; that is an engineering choice. Our claim is about convergence: runtimes that did not set out to rebuild OTP keep rebuilding OTP, badly, one incident at a time, because the constraint set forces it. The observer effect weakens this evidence: our own designers knew Erlang, so our runtime’s trajectory is recall as much as rediscovery. The convergence evidence that generalizes comes from the field as a whole: the failure taxonomy derived independently by others matches OTP’s catalog (§<a href="#sec:related">5</a>). The mapping’s predicted-fix record, with fix designs dated before the incidents, is the evidence that the correspondence is predictive rather than decorative. The convergence claim and the experimental claim rest on different evidence: recurring adoption supports piecemeal rediscovery, the graded mapping evaluates operational correspondence, production incidents test prediction, and the experiments that follow evaluate one integrated configuration against specified controls. Experimental uplift alone does not imply convergence or structural equivalence.</p>
+<h2 id="sec:apparatus">3 A Preregistered Apparatus<a aria-label="Link to 3 A Preregistered Apparatus" class="section-anchor" data-reading-ui="" href="#sec:apparatus">#</a></h2>
+<p>The experiments run on a standalone harness that instantiates the mapping’s constructs directly: rooted supervision trees, one-for-one restarts with sliding-window escalation ceilings, stateless workers with a clean context per activation, bounded SQLite-backed mailboxes with typed envelopes, and let-it-crash recovery. The envelopes are simultaneously the raw data and the audit trail: every episode appends to a uniform telemetry schema from which every reported number can be regenerated.</p>
+<p><strong>Arms.</strong> A: the OTP-disciplined actor fleet. B: a bare agent loop with fixed retry, where retries keep the poisoned context. C: a bare loop with no retry. S: best-of-N sampling of the bare loop, token-matched to arm A. Arm S is the falsification control the central claim depends on. Its preregistered selector is deterministic and zero-token: candidates parse against the grader’s own output contract, a canonical majority vote decides where the budget funds multiple candidates, the earliest valid candidate wins otherwise, and the selector never sees gold or graders. Simple retry baselines are strong and cheap [<a href="#ref-10" role="doc-biblioref">10</a>], and a supervision claim that has not beaten both retry and matched-compute sampling has only been tested against weak baselines.</p>
+<p><strong>Two kinds of actor.</strong> The word actor covers two different things in this system, and we keep them distinct. Programmatic actors are deterministic code: supervisors, routers, validators, graders, and the mailbox machinery. LLM actors are workers whose single activation is one clean-context model call. Every actor count <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span></span></span></span> in this paper counts LLM actors only, and the programmatic layer stays fixed while <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span></span></span></span> varies. Actors are scheduled sequentially throughout: no concurrency, latency, or throughput property is claimed or measured anywhere in this paper.</p>
+<p><strong>The supervisor contract.</strong> The supervisor observes programmatic lifecycle signals: process failure, timeout, an invalid envelope or an output-contract failure reported by a validator, and restart intensity within a sliding window. Its actions are to terminate an activation, start a fresh-context replacement, route or quarantine an envelope, and escalate once the restart ceiling is reached. Domain-semantic errors that pass the configured validators raise no signal and are outside this contract; that blind spot is the first open problem in §<a href="#sec:residue">7</a>.</p>
+<p><strong>Model ladder.</strong> Each episode pins exact provider and version strings for eight tiers: Qwen3-1.7B, Ministral-3B, Qwen3-8B, Qwen3-14B, Qwen3-32B, Llama-3.3-70B (hosted open-weight endpoints), plus Claude Haiku 4.5 and Claude Sonnet 5 as frontier references.</p>
+<p><strong>AI use.</strong> Anthropic Claude and OpenAI Codex assisted with research synthesis, development and review of software and analysis code, data analysis, and manuscript preparation. All reported quantities were regenerated from sealed evidence using deterministic scripts; the author reviewed the generated work, independently verified the citations and results, and assumes responsibility for the complete manuscript.</p>
+<p><strong>Tasks and metrics.</strong> The tasks are multi-step tasks in the GAIA style [<a href="#ref-12" role="doc-biblioref">12</a>] with normalize-then-exact-match grading, at three difficulty levels, and the scaling studies use harder decomposable semantic families: multi-hop proof graphs, provenance resolution, fault-hypothesis graphs, and constrained allocation. The harder families are proxies for core software-engineering work, because fault-hypothesis graphs stand in for debugging and provenance resolution stands in for dependency triage; they are not an end-to-end software-engineering benchmark. The apparatus supplies the decomposition and routing plan, so the experiments test execution under supervised decomposition rather than autonomous task decomposition. We propose the supervision layer as the mechanism that makes agent fleets doing that work reliable, and registered grids on software-engineering task suites are the next confirmatory step. The headline consistency metric is pass<sup>4</sup>, which requires that all four attempts succeed and follows the pass<sup>k</sup> discipline introduced by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span>-bench [<a href="#ref-18" role="doc-biblioref">18</a>]. Statistical units follow the frozen designs: pass<sup>4</sup> is one binary task-level outcome; M2/M2b pair task means and bootstrap whole tasks with attempts kept together; actor scaling pairs task-attempt clusters. Preregistered exact Wilcoxon signed-rank tests and cluster-bootstrap intervals are reported [<a href="#ref-14" role="doc-biblioref">14</a>].</p>
+<p><strong>Confirmatory procedure.</strong> Every confirmatory stage follows the same sequence. A dated preregistration freezes the grid, selection rule, statistics, and compute-parity band before any inference runs. Runs execute from immutable container images pinned by digest, after a keyless cloud gate verifies the full pipeline end to end at zero model cost. Task selectors run outcome-blind on baseline rows and are sealed before any scaling results are examined. Every run emits a checksummed evidence manifest, and results are append-only with history never rewritten. Verdicts that miss their own preregistered gates are recorded as misses and never upgraded after the fact.</p>
+<p>Because the paper’s claims are about reliability engineering, we apply the same discipline to the evidence pipeline itself: two of the program’s results in §<a href="#sec:results">4</a> and §<a href="#sec:shape">6</a> are verdicts our own gates withheld, reported alongside the wins because they show the gates reject results as designed.</p>
+<p>The supervision machinery itself is validated deterministically before any paid experiment relies on it: an injected-fault suite covering worker crashes, timeouts, duplicate arrivals, out-of-order streaming, and mid-task disappearance completed 18 of 18 expected outcomes with exact replay and zero model calls.</p>
+<p>Evidence manifests, preregistration digests, and the replay tool are available to reviewers on request; they are not yet publicly archived. They permit independent audit of the reported analysis and byte-identical regeneration of every table at zero API cost, an audit property rather than experimental reproduction. Re-running the experiments requires the harness, model endpoints, tasks, and treatment configurations, so exact independent reproduction is claimed only for components actually released. Our intent is to release the measurement apparatus as open source under the AGPL, from the harness, scheduler, and envelope schemas through the validators, scoring, sealing, and audit code; the tested agent configurations are the treatment rather than the instrument, some tested here stay private, and every treatment runs behind the same interface and emits the same envelopes, provenance, and accounting.</p>
+<h2 id="sec:results">4 Results<a aria-label="Link to 4 Results" class="section-anchor" data-reading-ui="" href="#sec:results">#</a></h2>
+<p>Three preregistered experiment families are frozen as of this submission: the pilot capability grid (M1), the matched-compute control and its replication (M2, M2b), and the actor-scaling holdout with an separately provisioned reproduction (MR1). All numbers below are from sealed, replayable evidence; none were selected after the fact.</p>
+<h3 id="supervision-versus-bare-loops-m1">4.1 Supervision Versus Bare Loops (M1)<a aria-label="Link to 4.1 Supervision Versus Bare Loops (M1)" class="section-anchor" data-reading-ui="" href="#supervision-versus-bare-loops-m1">#</a></h3>
+<p>M1 crossed three arms with all eight tiers: 25 task bundles with four attempts each, which comes to 2,400 episodes. Five failure-comparison bridge bundles per tier are excluded from capability scoring, so each cell reports pass<sup>4</sup> over 20 capability tasks (Table <a href="#tab:m1">2</a>). The task, not the episode, is the independent sampling unit; the four attempts define pass<sup>4</sup> for that task.</p>
+<div aria-labelledby="table-2-caption" class="paper-table-scroll" role="region" tabindex="0"><table id="tab:m1">
+<caption id="table-2-caption"><span>Table 2: M1: pass<sup>4</sup> by tier and arm (A supervised, B retry, C bare); 2,400 episodes. Each cell counts capability tasks, out of 20, with all four attempts succeeding (80 episodes per cell). Bold marks the leading arm where arms differ.</span></caption>
+<thead>
+<tr>
+<th scope="col" style="text-align: left;">Tier</th>
+<th scope="col" style="text-align: left;">Model</th>
+<th scope="col" style="text-align: right;">A (sup.)</th>
+<th scope="col" style="text-align: right;">B (retry)</th>
+<th scope="col" style="text-align: right;">C (bare)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">T0</td>
+<td style="text-align: left;">Qwen3-1.7B</td>
+<td style="text-align: right;">0/20 (0%)</td>
+<td style="text-align: right;">0/20 (0%)</td>
+<td style="text-align: right;">0/20 (0%)</td>
+</tr>
+<tr>
+<td style="text-align: left;">T1</td>
+<td style="text-align: left;">Ministral-3B</td>
+<td style="text-align: right;"><strong>19/20 (95%)</strong></td>
+<td style="text-align: right;">13/20 (65%)</td>
+<td style="text-align: right;">13/20 (65%)</td>
+</tr>
+<tr>
+<td style="text-align: left;">T2</td>
+<td style="text-align: left;">Qwen3-8B</td>
+<td style="text-align: right;"><strong>1/20 (5%)</strong></td>
+<td style="text-align: right;">0/20 (0%)</td>
+<td style="text-align: right;">0/20 (0%)</td>
+</tr>
+<tr>
+<td style="text-align: left;">T3</td>
+<td style="text-align: left;">Qwen3-14B</td>
+<td style="text-align: right;"><strong>1/20 (5%)</strong></td>
+<td style="text-align: right;">0/20 (0%)</td>
+<td style="text-align: right;"><strong>1/20 (5%)</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">T4</td>
+<td style="text-align: left;">Qwen3-32B</td>
+<td style="text-align: right;"><strong>14/20 (70%)</strong></td>
+<td style="text-align: right;">9/20 (45%)</td>
+<td style="text-align: right;">1/20 (5%)</td>
+</tr>
+<tr>
+<td style="text-align: left;">T5</td>
+<td style="text-align: left;">Llama-3.3-70B</td>
+<td style="text-align: right;"><strong>14/20 (70%)</strong></td>
+<td style="text-align: right;">7/20 (35%)</td>
+<td style="text-align: right;">7/20 (35%)</td>
+</tr>
+<tr>
+<td style="text-align: left;">F1</td>
+<td style="text-align: left;">Claude Haiku 4.5</td>
+<td style="text-align: right;">20/20 (100%)</td>
+<td style="text-align: right;">20/20 (100%)</td>
+<td style="text-align: right;">20/20 (100%)</td>
+</tr>
+<tr>
+<td style="text-align: left;">F2</td>
+<td style="text-align: left;">Claude Sonnet 5</td>
+<td style="text-align: right;">20/20 (100%)</td>
+<td style="text-align: right;">20/20 (100%)</td>
+<td style="text-align: right;">20/20 (100%)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Three tiers are uninformative, both frontier tiers at 100% and the 1.7B tier at 0% for every arm: the architecture cannot show uplift where every arm is perfect or none ever succeeds. Of the five remaining rungs, the supervised arm leads both controls at four (3B, 8B, 32B, 70B) and ties the stronger control at 14B, where arm A and the bare arm both sit at 5% while the retry arm sits at 0%. At 3B, the supervised arm scores 95% against 65% for both controls. At 32B, the supervised arm scores 70% against 45% with retry and 5% without. At 70B, the supervised arm scores 70% against 35% for both controls. The pattern is that supervision’s edge is largest where the model partially succeeds: recovery needs failures to act on and successes to reach, so the edge vanishes at the floor and at the ceiling. The ladder is also capability-heterogeneous across model families on this suite (the 3B rung outscores 8B and 14B), so every claim is paired within a tier, never across rungs.</p>
+<p>We report both controls everywhere deliberately. Retry alone recovers a large share of failures (45% versus 5% at 32B), so a supervision paper that compares only against a no-retry loop uses an artificially weak baseline. The supervised arm’s remaining margin over retry, +25 points at 32B, is the gain associated with the integrated OTP-disciplined configuration. A retry that keeps the poisoned context repeats the original failure, and removing that context is one mechanism the design is intended to provide, but this experiment does not ablate clean context from the configuration’s other supervision and messaging components.</p>
+<p>We are explicit about what this grid can and cannot support. Twenty tasks per cell is pilot resolution: a single cell carries a wide binomial interval, and the 1/20 rungs are individually indistinguishable from noise. We therefore claim no per-cell significance. The grid’s evidence is the pattern across rungs, read exactly as preregistered, and the statistical weight of this paper’s claims rests on the paired comparisons and the frozen holdout that follow, where the confidence intervals are computed and shown. The higher-resolution grid is the registered next step, and every existing result regenerates from its sealed evidence.</p>
+<h3 id="the-evaluated-best-of-n-control-does-not-reproduce-the-advantage-m2-m2b">4.2 The Evaluated Best-of-N Control Does Not Reproduce the Advantage (M2, M2b)<a aria-label="Link to 4.2 The Evaluated Best-of-N Control Does Not Reproduce the Advantage (M2, M2b)" class="section-anchor" data-reading-ui="" href="#the-evaluated-best-of-n-control-does-not-reproduce-the-advantage-m2-m2b">#</a></h3>
+<p>The strongest rival explanation for M1 is that supervision is just spending its restarts on more samples. M2 tested that directly: a preregistered comparison of supervised arm A against best-of-N sampling of the bare loop at matched token budget, at the 3B, 32B, and 70B tiers over 480 episodes; M2b then replicated the 32B comparison prospectively on held-out, never-scored attempts over 160 episodes. Table <a href="#tab:m2">3</a> reports both runs: supervision beat best-of-N in each, and the paired deltas agree.</p>
+<div aria-labelledby="table-3-caption" class="paper-table-scroll" role="region" tabindex="0"><table id="tab:m2">
+<caption id="table-3-caption"><span>Table 3: M2 and M2b: supervised arm A versus token-matched best-of-N sampling of the bare loop (S). Selection gain counts successes added over the first sample. Verdicts are directional: neither run landed inside its compute-parity band; S/A is the realized 32B token ratio.</span></caption>
+<thead>
+<tr>
+<th scope="col" style="text-align: left;">Run</th>
+<th scope="col" style="text-align: left;">Tiers</th>
+<th scope="col" style="text-align: right;">Ep./arm</th>
+<th scope="col" style="text-align: right;">Arm A</th>
+<th scope="col" style="text-align: right;">Best-of-N</th>
+<th scope="col" style="text-align: right;">Delta</th>
+<th scope="col" style="text-align: left;">95% CI</th>
+<th scope="col" style="text-align: right;">Wilcoxon <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span></th>
+<th scope="col" style="text-align: right;">S/A tokens (32B)</th>
+<th scope="col" style="text-align: right;">Sel. gain</th>
+<th scope="col" style="text-align: left;">Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">M2</td>
+<td style="text-align: left;">3B, 32B, 70B</td>
+<td style="text-align: right;">240</td>
+<td style="text-align: right;">198/240</td>
+<td style="text-align: right;">118/240</td>
+<td style="text-align: right;"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mn>0.33</mn></mrow><annotation encoding="application/x-tex">+0.33</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">+</span><span class="mord">0.33</span></span></span></span></td>
+<td style="text-align: left;"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>+</mo><mn>0.225</mn><mo separator="true">,</mo><mo>+</mo><mn>0.450</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[+0.225, +0.450]</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">+</span><span class="mord">0.225</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">+</span><span class="mord">0.450</span><span class="mclose">]</span></span></span></span></td>
+<td style="text-align: right;"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>1.9</mn><mo>×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\approx 1.9 \times 10^{-6}</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.4831em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.9</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">6</span></span></span></span></span></span></span></span></span></span></span></span></td>
+<td style="text-align: right;">0.836</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">directional</td>
+</tr>
+<tr>
+<td style="text-align: left;">M2b (replication)</td>
+<td style="text-align: left;">32B</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">60/80</td>
+<td style="text-align: right;">39/80</td>
+<td style="text-align: right;"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mn>0.26</mn></mrow><annotation encoding="application/x-tex">+0.26</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">+</span><span class="mord">0.26</span></span></span></span></td>
+<td style="text-align: left;"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>+</mo><mn>0.0875</mn><mo separator="true">,</mo><mo>+</mo><mn>0.425</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[+0.0875, +0.425]</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">+</span><span class="mord">0.0875</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">+</span><span class="mord">0.425</span><span class="mclose">]</span></span></span></span></td>
+<td style="text-align: right;"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.0035</mn></mrow><annotation encoding="application/x-tex">0.0035</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6444em;"></span><span class="mord">0.0035</span></span></span></span></td>
+<td style="text-align: right;">1.117</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">directional</td>
+</tr>
+</tbody>
+</table></div>
+<p>One number matters more than the deltas: across all 320 best-of-N episodes in the two runs, the preregistered deterministic selector added exactly zero successes over its first candidate. This rules against the evaluated selector and schedule as the explanation for the observed advantage. It does not establish that sampling, voting, judging, or ensemble policies in general lack value, and the pattern is consistent with clean recovery rather than wider sampling.</p>
+<p>One caveat remains: compute parity. Both runs carried a preregistered band requiring that realized best-of-N token spend fall within 10% of arm A’s, and both missed it in opposite directions (Table <a href="#tab:m2">3</a>). Both verdicts are therefore recorded as directional rather than certified. The misses taught us that compute parity cannot be scheduled statistically and must be enforced by a governor that never sees outcomes.</p>
+<h3 id="decomposition-under-supervision">4.3 Decomposition Under Supervision<a aria-label="Link to 4.3 Decomposition Under Supervision" class="section-anchor" data-reading-ui="" href="#decomposition-under-supervision">#</a></h3>
+<p>The scaling question is whether supervision can improve results rather than only recover from failures: does splitting a hard task across N clean-context supervised LLM actors beat the same model attempting it whole? An earlier sealed phase on easier task families produced large gains for reasons other than reasoning: a 3B model overloaded by a sixteen-item batch rose from 41.8% at one actor to 76.6% at four and Sonnet rose from 0% to 100%, but both gains came from removing batch-size and output-contract bottlenecks, and the 32B model, with no bottleneck on these families, sat at 99.2% and gained nothing (Table <a href="#tab:spot">6</a>). Decomposition there repaired mechanical limits rather than demonstrating semantic uplift, so an outcome-blind selector correctly halted the phase before touching the frozen holdout. The harder calibration families, which cover multi-hop proof graphs, provenance resolution, fault-hypothesis graphs, and constrained allocation, left measurable headroom, and the prospectively frozen holdout of 480 rows, completed 2026-07-14, produced the program’s cleanest result (Table <a href="#tab:holdout">4</a>, Figure <a href="#fig:scaling">1</a>).</p>
+<figure class="paper-figure" id="fig:scaling"><a aria-label="Open Figure 1 at full size" href="/research/sufficiently-advanced-agents/figures/figure-1.png"><img alt="Line chart of component accuracy by LLM actor count. The
+Qwen3-32B holdout and MR1 curves rise from roughly 55 percent at one actor to
+roughly 81 percent at sixteen actors. The Haiku 4.5 curve peaks at four actors
+and then declines." height="405" loading="lazy" src="/research/sufficiently-advanced-agents/figures/figure-1.png" width="985"/></a><figcaption>Figure 1: Clean-context decomposition on hard decomposable tasks: the Qwen3-32B holdout curve rises monotonically and MR1 reproduces it; Haiku 4.5 peaks at <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">N{=}4</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mord"><span class="mrel">=</span></span><span class="mord">4</span></span></span></span> and declines beyond it.</figcaption></figure>
+<div aria-labelledby="table-4-caption" class="paper-table-scroll" role="region" tabindex="0"><table id="tab:holdout">
+<caption id="table-4-caption"><span>Table 4: Frozen-holdout component accuracy versus LLM-actor count at all five prospectively pinned counts.</span></caption>
+<thead>
+<tr>
+<th scope="col" style="text-align: left;">LLM actors</th>
+<th scope="col" style="text-align: right;">Qwen3-32B</th>
+<th scope="col" style="text-align: right;">Haiku 4.5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">57.4%</td>
+<td style="text-align: right;">43.4%</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">65.6%</td>
+<td style="text-align: right;">37.5%</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">71.5%</td>
+<td style="text-align: right;">54.7%</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: right;">78.9%</td>
+<td style="text-align: right;">45.7%</td>
+</tr>
+<tr>
+<td style="text-align: left;">16</td>
+<td style="text-align: right;">81.6%</td>
+<td style="text-align: right;">34.0%</td>
+</tr>
+</tbody>
+</table></div>
+<p>Qwen3-32B climbs monotonically through every actor count from 57.4% at one actor to 81.6% at sixteen: +24.2 points, 95% CI <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>+</mo><mn>13.3</mn><mo separator="true">,</mo><mo>+</mo><mn>35.5</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[+13.3, +35.5]</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">+</span><span class="mord">13.3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">+</span><span class="mord">35.5</span><span class="mclose">]</span></span></span></span>. Every point except <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N{=}2</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mord"><span class="mrel">=</span></span><span class="mord">2</span></span></span></span> returned full component coverage, and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N{=}2</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mord"><span class="mrel">=</span></span><span class="mord">2</span></span></span></span> covered 248 of 256, so the gain is genuine semantic uplift rather than format repair. The intermediate point matters for practice: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">N{=}4</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mord"><span class="mrel">=</span></span><span class="mord">4</span></span></span></span> already delivers +14.1 points at roughly 12% fewer mean tokens than <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N{=}1</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mord"><span class="mrel">=</span></span><span class="mord">1</span></span></span></span> on the holdout’s own telemetry.</p>
+<p>A separately provisioned matched-resource trial (MR1, 240 episodes, run from a separately gated immutable image) reproduced the unconstrained curve, monotonically at every actor count: 53.5% at one actor to 80.9% at sixteen, +27.3 points, cluster-bootstrap 95% CI <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>+</mo><mn>16.4</mn><mo separator="true">,</mo><mo>+</mo><mn>38.7</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[+16.4, +38.7]</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">+</span><span class="mord">16.4</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">+</span><span class="mord">38.7</span><span class="mclose">]</span></span></span></span>. The same trial’s matched fixed-token and fixed-cost comparisons were withheld by their own preregistered validity gate: 23 of 160 governed episodes fell outside resource tolerance, so no matched deltas exist to report. The replication is therefore evidence for the curve itself, and explicitly not evidence about its cost.</p>
+<p>Decomposition has costs and does not help every model. Haiku 4.5 shows a model-specific optimal granularity on the same holdout rather than monotonic scaling: a noise-level dip at <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">N{=}2</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mord"><span class="mrel">=</span></span><span class="mord">2</span></span></span></span> (37.5%), a peak at <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">N{=}4</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mord"><span class="mrel">=</span></span><span class="mord">4</span></span></span></span> (43.4% to 54.7%), a decline to 45.7% at <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">N{=}8</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mord"><span class="mrel">=</span></span><span class="mord">8</span></span></span></span>, and real harm at <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">=</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">N{=}16</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mord"><span class="mrel">=</span></span><span class="mord">16</span></span></span></span> (34.0%). And we exclude Sonnet 5’s numbers from every claim in this paper: its apparent gains on this suite are a contract phase transition, a strict-JSON batching failure at low LLM-actor counts that decomposition incidentally repairs, not reasoning uplift. LLM-actor count behaves like a per-model, per-task control variable. Two capability signatures have been observed (monotonic, and peaked at a model-specific optimal granularity) plus one measurement artifact (the contract phase transition), and a supervisor must anticipate all of them; §<a href="#sec:shape">6</a> depends on that observation. Two curves cover little of this space: how capability changes with LLM-actor count across model sizes, families, and kinds of models is an open experimental program, and the apparatus is built to run that sweep tier by tier, preregistered and replayable, as it qualifies each rung.</p>
+<h2 id="sec:related">5 Related Work<a aria-label="Link to 5 Related Work" class="section-anchor" data-reading-ui="" href="#sec:related">#</a></h2>
+<p><strong>Actors and OTP.</strong> The actor model begins with Hewitt [<a href="#ref-8" role="doc-biblioref">8</a>]. Erlang/OTP is its industrial descendant, and Armstrong’s thesis [<a href="#ref-3" role="doc-biblioref">3</a>] is the canonical statement of the problem itself: how to build reliable systems from unreliable components. This paper’s claim is that the problem has returned. Some agent frameworks adopt actor constructs consciously; AutoGen’s event-driven redesign is explicit about its actor lineage [<a href="#ref-17" role="doc-biblioref">17</a>], and the adoption is now complete in frameworks that build agents directly on actor runtimes: Jido runs agents under OTP supervision trees on the BEAM itself [<a href="#ref-1" role="doc-biblioref">1</a>], and Akka’s agentic platform orchestrates agents with actor supervision on the JVM [<a href="#ref-2" role="doc-biblioref">2</a>]. That depth of adoption also shows where the transfer breaks: Jido supervises LLM actors and deterministic actors with the same machinery, watching for the crash a process emits rather than the confident wrong answer a model produces, so the three breaking rows in §<a href="#sec:mapping">2</a> stay broken even there. Conscious adoption is an engineering choice and we make no novelty claim about it. Our subject is the runtimes that did not choose it and are converging on it anyway, driven by repeated production incidents.</p>
+<p><strong>Failure taxonomies.</strong> MAST [<a href="#ref-4" role="doc-biblioref">4</a>] established from 1,600+ annotated traces that most multi-agent failures stem from system design and orchestration rather than model capability. MAS-FIRE [<a href="#ref-9" role="doc-biblioref">9</a>] showed by fault injection that supervised, closed-loop topologies neutralize a large fraction of faults that collapse linear pipelines. Both are consistent with our results, but neither runs the comparison that this paper runs: preregistered supervision arms against matched-compute controls across a model-capability ladder. Our mapping also predicts the overlap: if agent runtimes are convergently rebuilding OTP, the field’s independently derived failure taxonomy should match OTP’s failure catalog, and it largely does.</p>
+<p><strong>Selection without verification.</strong> Our zero-uplift best-of-N finding has parallels at frontier scale: published scaling attempts that sample widely and select without a verifier repeatedly lose their gains at the selection step [<a href="#ref-6" role="doc-biblioref">6</a>]. We measured the same failure at small-model scale, where the evaluated selection step contributed exactly zero across 320 best-of-N episodes. Independent measurement is also arriving on the mailbox rows: AgentRadio [<a href="#ref-15" role="doc-biblioref">15</a>] isolated a gain of over ten points from adding passive step-boundary delivery of peer messages, <code>gen_server</code>-style delivery without preemption, to unmodified coding agents, in an ablation published eight days after this paper was submitted.</p>
+<div aria-labelledby="table-5-caption" class="paper-table-scroll" role="region" tabindex="0"><table id="tab:coverage">
+<caption id="table-5-caption"><span>Table 5: OTP pattern coverage in this program. <em>Tested</em>: sealed, preregistered evidence. <em>Spot</em>: deterministic validation or sealed exploratory runs. <em>Gap</em>: designed against our runtime, no experimental result yet; every gap row is an open research question.</span></caption>
+<thead>
+<tr>
+<th scope="col" style="text-align: left;">OTP pattern</th>
+<th scope="col" style="text-align: left;">Status</th>
+<th scope="col" style="text-align: left;">Evidence or state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Supervision tree, one-for-one restart, escalation ceiling</td>
+<td style="text-align: left;">tested</td>
+<td style="text-align: left;">M1, M2/M2b, holdout, MR1 (3,760 episodes); leads or ties both controls at every rung; leads at four of five informative rungs</td>
+</tr>
+<tr>
+<td style="text-align: left;">Stateless worker, clean context per activation</td>
+<td style="text-align: left;">tested</td>
+<td style="text-align: left;">the arm-A-versus-retry separation; +25 points over retry at 32B</td>
+</tr>
+<tr>
+<td style="text-align: left;">Clean-context decomposition, dynamic fan-out</td>
+<td style="text-align: left;">tested</td>
+<td style="text-align: left;">holdout 57.4% to 81.6%, monotonic; separately provisioned reproduction</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bounded mailboxes, typed envelopes, audit-trail messaging</td>
+<td style="text-align: left;">tested</td>
+<td style="text-align: left;">substrate of every run; append-only, hash-checked, byte-identical replay</td>
+</tr>
+<tr>
+<td style="text-align: left;">Fault injection and recovery semantics</td>
+<td style="text-align: left;">spot</td>
+<td style="text-align: left;">18/18 deterministic outcomes (crash, timeout, duplicate, disappearance, streaming); paid fault grid unrun</td>
+</tr>
+<tr>
+<td style="text-align: left;">Supervised message topologies</td>
+<td style="text-align: left;">spot</td>
+<td style="text-align: left;">six replayable graphs, answer-preservation only</td>
+</tr>
+<tr>
+<td style="text-align: left;">Externalized supervised workspace (ETS-adjacent)</td>
+<td style="text-align: left;">spot</td>
+<td style="text-align: left;">accuracy preserved at 30% fewer tokens (1.7B); uplift not established</td>
+</tr>
+<tr>
+<td style="text-align: left;">Specialized behaviour roles (model-backed curator)</td>
+<td style="text-align: left;">spot</td>
+<td style="text-align: left;">1.7B curator, 16/16 dispositions against a deterministic control</td>
+</tr>
+<tr>
+<td style="text-align: left;">Long-horizon supervision, durable episodes</td>
+<td style="text-align: left;">spot</td>
+<td style="text-align: left;">calibration only; registered confirmatory design unauthorized</td>
+</tr>
+<tr>
+<td style="text-align: left;">Restart intensity policies</td>
+<td style="text-align: left;">spot</td>
+<td style="text-align: left;">implemented and exercised; never independently ablated</td>
+</tr>
+<tr>
+<td style="text-align: left;">Enforced behaviour contracts</td>
+<td style="text-align: left;">gap</td>
+<td style="text-align: left;">roles are conventions today; a worker can illegally dispatch and nothing stops it</td>
+</tr>
+<tr>
+<td style="text-align: left;">Hot code loading with migration</td>
+<td style="text-align: left;">gap</td>
+<td style="text-align: left;">works as a demo; documented envelope-versioning race; never benchmarked</td>
+</tr>
+<tr>
+<td style="text-align: left;">Publish-subscribe fan-out; out-of-band control plane</td>
+<td style="text-align: left;">gap</td>
+<td style="text-align: left;">designed; single-waiter delivery and “hit escape” today</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cross-agent transactions (Saga semantics)</td>
+<td style="text-align: left;">gap</td>
+<td style="text-align: left;">designed; deliberately absent from the runtime</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lifecycle links at OS-process scale</td>
+<td style="text-align: left;">gap</td>
+<td style="text-align: left;">orphaned long-running workers are the missing primitive, observed</td>
+</tr>
+<tr>
+<td style="text-align: left;">Concurrent scheduling; wall-clock properties</td>
+<td style="text-align: left;">gap</td>
+<td style="text-align: left;">everything to date is sequential by design</td>
+</tr>
+<tr>
+<td style="text-align: left;">Heterogeneous fleets; synthesizing reducers</td>
+<td style="text-align: left;">gap</td>
+<td style="text-align: left;">the largest unexplored capability axes in the program</td>
+</tr>
+<tr>
+<td style="text-align: left;">Control-loop supervision over continuous observables</td>
+<td style="text-align: left;">gap</td>
+<td style="text-align: left;">mechanism below; telemetry already logs the state vector</td>
+</tr>
+</tbody>
+</table></div>
+<div aria-labelledby="table-6-caption" class="paper-table-scroll" role="region" tabindex="0"><table id="tab:spot">
+<caption id="table-6-caption"><span>Table 6: The numbers behind Table <a href="#tab:coverage">5</a>’s spot tier plus the measured negative results, all from sealed, replayable runs; none is a confirmatory claim.</span></caption>
+<thead>
+<tr>
+<th scope="col" style="text-align: left;">Configuration and tier</th>
+<th scope="col" style="text-align: right;">Result</th>
+<th scope="col" style="text-align: left;">What the number counts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Injected-fault suite (deterministic)</td>
+<td style="text-align: right;">18/18</td>
+<td style="text-align: left;">expected self-test outcomes; the comparative fault grid is the next registered run</td>
+</tr>
+<tr>
+<td style="text-align: left;">Supervised topologies</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">replayable message graphs, answer-preservation only</td>
+</tr>
+<tr>
+<td style="text-align: left;">Externalized workspace, 1.7B / 32B</td>
+<td style="text-align: right;"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>30</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">-30\%</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">30%</span></span></span></span> / <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>32</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">-32\%</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">32%</span></span></span></span></td>
+<td style="text-align: left;">tokens, with baseline accuracy and full success retained</td>
+</tr>
+<tr>
+<td style="text-align: left;">Model-backed curator, 1.7B</td>
+<td style="text-align: right;">16/16</td>
+<td style="text-align: left;">correct dispositions vs. a deterministic control; curated projection 28% smaller</td>
+</tr>
+<tr>
+<td style="text-align: left;">Long-horizon fleet, 32B</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">steps, the full horizon, completed in every episode past step zero</td>
+</tr>
+<tr>
+<td style="text-align: left;">Homogeneous scaling, easier families, 3B</td>
+<td style="text-align: right;"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mn>34.8</mn></mrow><annotation encoding="application/x-tex">+34.8</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">+</span><span class="mord">34.8</span></span></span></span> pp</td>
+<td style="text-align: left;">component accuracy at <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">N{=}4</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mord"><span class="mrel">=</span></span><span class="mord">4</span></span></span></span> vs one actor (41.8% to 76.6%, CI <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>+</mo><mn>14.8</mn><mo separator="true">,</mo><mo>+</mo><mn>55.1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[+14.8,
++55.1]</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">+</span><span class="mord">14.8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">+</span><span class="mord">55.1</span><span class="mclose">]</span></span></span></span>); batch-bottleneck removal</td>
+</tr>
+<tr>
+<td style="text-align: left;">Homogeneous scaling at a ceiling, 32B</td>
+<td style="text-align: right;"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>2.7</mn></mrow><annotation encoding="application/x-tex">-2.7</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">2.7</span></span></span></span> pp</td>
+<td style="text-align: left;">at <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo lspace="0em" rspace="0em">=</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">N{=}16</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mord"><span class="mrel">=</span></span><span class="mord">16</span></span></span></span> on the same easier families; a model at 99.2% gains nothing from more actors</td>
+</tr>
+<tr>
+<td style="text-align: left;">Model-generated decomposition plans</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">parseable plans; the oracle-split control also lost to no-split</td>
+</tr>
+<tr>
+<td style="text-align: left;">Proof-preservation configuration</td>
+<td style="text-align: right;">0/8 to 6/8</td>
+<td style="text-align: left;">Haiku lifted; Sonnet regressed; promotion gate failed</td>
+</tr>
+<tr>
+<td style="text-align: left;">MR1 matched-resource comparisons</td>
+<td style="text-align: right;">23/160</td>
+<td style="text-align: left;">governed episodes outside resource tolerance; verdict withheld</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Runtime-architecture patterns for agents.</strong> The closest academic prior we have found is Srinivasan [<a href="#ref-16" role="doc-biblioref">16</a>], which composes runtime patterns for production LLM agents by drawing on supervision and saga lineages, and which argues that a supervisor must sit between LLM output and the world. That work selects patterns; ours grades the full correspondence between OTP and agent systems, backs the grades with production evidence, and measures the effect of the supervision discipline across a capability ladder. A practitioner essay by Guimarães [<a href="#ref-7" role="doc-biblioref">7</a>] states, without measurements, a thesis adjacent to ours: that agent frameworks are re-deriving BEAM-style infrastructure. We cite it as an independent observation of the same trend, which is itself weak evidence for the convergence claim.</p>
+<p><strong>Evaluation discipline.</strong> Our metric and statistics choices follow the reliability-evaluation line: pass<sup>4</sup> consistency from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi></mrow><annotation encoding="application/x-tex">\tau</annotation></semantics></math></span><span aria-hidden="true" class="katex-html"><span class="katex-base"><span class="katex-strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span></span></span></span>-bench [<a href="#ref-18" role="doc-biblioref">18</a>], GAIA-style verifiable tasks [<a href="#ref-12" role="doc-biblioref">12</a>], cost-aware comparison against strong simple baselines [<a href="#ref-10" role="doc-biblioref">10</a>], and clustered uncertainty on the task unit [<a href="#ref-14" role="doc-biblioref">14</a>]. The long-horizon measurement line [<a href="#ref-11" role="doc-biblioref">11</a>] has no published agentic time-horizon for any 32B-class open model, the gap the small-model case of §<a href="#sec:shape">6</a> addresses.</p>
+<h2 id="sec:shape">6 The Capability, Measured and Predicted<a aria-label="Link to 6 The Capability, Measured and Predicted" class="section-anchor" data-reading-ui="" href="#sec:shape">#</a></h2>
+<p>The results in §<a href="#sec:results">4</a> are point measurements; Table <a href="#tab:coverage">5</a> maps the larger capability they sample. The tested tier is narrow and deep, the spot tier varies fault, topology, workspace, and horizon, and every gap row has a dated but untested design against our runtime. Programmatic components handle supervision, routing, validation, deduplication, escalation, replay, and budget enforcement; the model performs only the residual semantic work. The unit of capability is the configured system, not the model inside it. This split enables deterministic guarantees around a stochastic core and predicts that the measured curves will extend as tasks are decomposed into manageable components.</p>
+<p><strong>Measured, exploratory tier.</strong> Table <a href="#tab:spot">6</a> collects labeled calibration evidence, from workspace curation that preserved accuracy at roughly a third fewer tokens to a sixteen-step horizon completed in every episode past step zero. These are sealed, replayable existence results, not confirmed claims; they extend the decomposition to state curation, workspace hygiene, and horizon extension.</p>
+<p><strong>Measured, negative tier.</strong> Model-generated decomposition plans failed completely in one calibration, and the oracle-split control also lost to the no-split baseline, so decomposition quality is currently a programmatic responsibility; the failures we measured were protocol failures under one prompt, not evidence against the capability, so where that boundary sits remains open. A proof-preservation configuration lifted Haiku while regressing Sonnet and failed its promotion gate, and the matched-resource economics of scaling remain open because the first governed trial was invalidated by its own audit (Table <a href="#tab:spot">6</a>). We report negative and withheld results because they mark measured limits of the capability.</p>
+<p><strong>Predicted, near-checkable.</strong> Three predictions follow from that account and have registered or buildable tests. First, injected-fault grids should widen the supervision gap, because arm B’s defining weakness is inherited poisoned context, and injected faults produce exactly that condition; the paid grid is the next confirmatory run. Second, a parity tier should exist: some supervised small-model configuration matching an unsupervised frontier baseline on a defined suite. M1 is suggestive, supervised 3B exceeded bare 70B (95% versus 35%), though that is an unregistered cross-tier comparison; the certified version, with its cost ratio, is left to a registered publication-grade run. Third, the granularity signatures of §<a href="#sec:results">4</a> should be predictable from model and task features; once they are, LLM-actor count stops being a hyperparameter and becomes a control variable.</p>
+<p>That third prediction leads to what we believe supervision becomes next; the mechanism follows from the row where the OTP mapping breaks most severely. OTP supervision is bang-bang control: the supervisor observes one bit (alive or crashed) and has one action (restart). LLM agents instead fail continuously, through drift, degradation, and token burn, none of it raising a crash signal. The natural extension is classical feedback control layered on the supervision tree. The state is a per-agent vector, progress, tool-error rate, retry rate, token burn, and drift, sampled per tick against the agent’s declared setpoint; the actuator is typed, validated, reversible configuration change that activates and deactivates declared capabilities, never prompt injection. Controllers stay small and fast, plain code or small models, never a frontier model in the loop. The derivative term is the one OTP lacks, escalation on degradation rate before failure arrives: an orphaned worker can drift for days without ever crashing, but a D-term supervisor would plausibly act within minutes. Similarly, the curated-workspace results suggest that the reasoning substrate itself can move into an externalized, supervised workspace where every write is validated, versioned, and auditable: working memory becomes as auditable as mailbox envelopes already are.</p>
+<p>Our expectation is that reliability engineering becomes a requirement at every model tier, not a small-model workaround; at the small tier it is the dominant capability multiplier we observe. Current practice buys reliability by buying model scale; our data points the other way: a supervised 32B fleet finished above the Haiku 4.5 frontier reference’s best supervised cell on the hard holdout (81.6% versus 54.7%), and the parity-tier prediction is the registered form. Nothing in the mechanism is scale-specific: larger models fail through hallucination and misalignment without programmatic structure around them, and the same machinery applies. We expect these tools to make small fleets rival mid-frontier models and frontier models both stronger and safer; different models demonstrably respond differently, so per-model configuration is an open problem.</p>
+<h2 id="sec:residue">7 What This Work Leaves Open<a aria-label="Link to 7 What This Work Leaves Open" class="section-anchor" data-reading-ui="" href="#sec:residue">#</a></h2>
+<p>Three differences between LLM agents and Erlang processes remain the research agenda.</p>
+<p><strong>Semantic failure detection.</strong> Erlang’s entire discipline depends on one unambiguous signal: processes crash. A hallucinating agent emits well-formed, confident, wrong messages, and nothing crosses the supervisor contract of §<a href="#sec:apparatus">3</a>; every validator we deploy is a partial, per-domain reconstruction of the crash signal. The control-loop extension in §<a href="#sec:shape">6</a> is our proposed direction because it treats degradation as a continuous observable; semantic failure detection remains the largest open hole in the transfer.</p>
+<p><strong>Context leakage and isolation.</strong> Erlang enforces process isolation in the runtime; we enforce agent isolation as policy over a system that accumulates context by default. Policy can be audited but also subverted. Mailbox trust tiers, contract-checked payloads, and the typed semantic instruction layer of §<a href="#sec:mapping">2</a> are designed but not proven.</p>
+<p><strong>Restart economics.</strong> Erlang restarts cost microseconds; ours cost tokens, seconds, and money. Clean restarts recover capability (§<a href="#sec:results">4</a>), but agent restart strategy must be cost-aware, and the cost figures remain uncertified (§<a href="#sec:shape">6</a>).</p>
+<p>We use OTP as a default and depart where it fits badly: message passing is a bad fit for long-running computation, speculative execution, read-heavy shared state, and tight inner loops, and Erlang’s own answer was named escape hatches, not doctrine; ours is the same.</p>
+<p><strong>Conclusion.</strong> An orphaned worker drifting for days shows what happens without a supervision tree; a 32B model climbing from 57% to 82% under clean-context decomposition shows what happens with one. Between them is a graded, falsifiable correspondence of twelve exact, five loose, and three breaking rows, plus a preregistered apparatus for continued testing. The breaking rows show where the analogy fails in the systems and tools we evaluated, not where it must always fail. We have concrete plans to narrow several of these gaps, although those plans are not evaluated here. Erlang processes cannot read or change one another’s private state; agent isolation is enforced by policy. Erlang code matches structured messages; LLMs interpret prose, including instructions that can redirect them. Erlang can interrupt running processes; hosted model APIs cannot pause and resume generation. Instruments are available to reviewers on request, with open-source release intended (§<a href="#sec:apparatus">3</a>).</p>
+<h2 class="unnumbered" id="data-availability-statement">Data Availability Statement<a aria-label="Link to Data Availability Statement" class="section-anchor" data-reading-ui="" href="#data-availability-statement">#</a></h2>
+<p>Aggregate data for Tables 2–4 and Figure 1, mapping evidence matrices, provenance notes, and the generation script are supplied as auxiliary material. Full evidence and harnesses contain proprietary, patent-relevant implementation material and are available on request under appropriate confidentiality.</p>
+<h2 id="references">References<a aria-label="Link to References" class="section-anchor" data-reading-ui="" href="#references">#</a></h2><ol class="paper-references" role="doc-bibliography"><li id="ref-1">Agent Jido Project. 2026. Jido: Autonomous Agent Framework for Elixir. Opensource software, version 2.0.0. <a href="https://github.com/agentjido/jido">https://github.com/agentjido/jido</a></li><li id="ref-2">Akka. 2025. Announcing the Akka Agentic Platform. Blog post. Retrieved September 12, 2026 from <a href="https://akka.io/blog/announcing-akkas-agentic-ai-release">https://akka.io/blog/announcing-akkas-agentic-ai-release</a></li><li id="ref-3">Joe Armstrong. 2003. Making Reliable Distributed Systems in the Presence of Software Errors. Doctor of Technology dissertation. Royal Institute of Technology (KTH), Stockholm, Sweden. <a href="https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-3658">https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-3658</a></li><li id="ref-4">Mert Cemri, Melissa Z. Pan, Shuyi Yang, et al. 2025. Why Do Multi-Agent LLM Systems Fail?. In NeurIPS 2025, Datasets and Benchmarks Track. <a href="https://doi.org/10.52202/085713-4082">doi:10.52202/085713-4082</a></li><li id="ref-5">Edward Y. Chang and Longling Geng. 2025. SagaLLM: Context Management, Validation, and Transaction Guarantees for Multi-Agent LLM Planning. <a href="https://doi.org/10.48550/arXiv.2503.11951">doi:10.48550/arXiv.2503.11951</a></li><li id="ref-6">Ryan Ehrlich, Bradley Brown, Jordan Juravsky, et al. 2025. CodeMonkeys: Scaling Test-Time Compute for Software Engineering. <a href="https://doi.org/10.48550/arXiv.2501.14723">doi:10.48550/arXiv.2501.14723</a></li><li id="ref-7">George Guimarães. 2026. Your Agent Framework Is Just a Bad Clone of Elixir: Concurrency Lessons from Telecom to AI. Blog post. Retrieved September 12, 2026 from <a href="https://georgeguimaraes.com/your-agent-orchestrator-is-just-a-bad-clone-of-elixir/">https://georgeguimaraes.com/your-agent-orchestrator-is-just-a-bad-clone-of-elixir/</a></li><li id="ref-8">Carl Hewitt, Peter Bishop, and Richard Steiger. 1973. A Universal Modular ACTOR Formalism for Artificial Intelligence. In Proceedings of IJCAI ’73. 235–245. <a href="https://www.ijcai.org/Proceedings/73/Papers/027B.pdf">https://www.ijcai.org/Proceedings/73/Papers/027B.pdf</a></li><li id="ref-9">Jin Jia, Zhiling Deng, Zhuangbin Chen, et al. 2026. MAS-FIRE: Fault Injection and Reliability Evaluation for LLM-Based Multi-Agent Systems. <a href="https://doi.org/10.48550/arXiv.2602.19843">doi:10.48550/arXiv.2602.19843</a></li><li id="ref-10">Sayash Kapoor, Benedikt Stroebl, Zachary S. Siegel, et al. 2025. AI Agents That Matter. Transactions on Machine Learning Research (2025). <a href="https://openreview.net/forum?id=Zy4uFzMviZ">https://openreview.net/forum?id=Zy4uFzMviZ</a></li><li id="ref-11">Thomas Kwa, Ben West, Joel Becker, et al. 2025. Measuring AI Ability to Complete Long Software Tasks. In NeurIPS 2025. <a href="https://doi.org/10.52202/085713-3086">doi:10.52202/085713-3086</a></li><li id="ref-12">Grégoire Mialon, Clémentine Fourrier, Craig Swift, et al. 2024. GAIA: A Benchmark for General AI Assistants. In ICLR 2024. <a href="https://openreview.net/forum?id=fibxvahvs3">https://openreview.net/forum?id=fibxvahvs3</a></li><li id="ref-13">Microsoft. 2026. Microsoft Agent Framework Workflows Orchestrations - Group Chat. Microsoft Learn documentation. Retrieved September 12, 2026 from <a href="https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/group-chat">https://learn.microsoft.com/en-us/agent-framework/workflows/orchestrations/group-chat</a></li><li id="ref-14">Evan Miller. 2024. Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations. <a href="https://doi.org/10.48550/arXiv.2411.00640">doi:10.48550/arXiv.2411.00640</a></li><li id="ref-15">Xinxing Ren, Qianbo Zang, Ziyan Wang, et al. 2026. AgentRadio: Passive Awareness for Long-Horizon Multi-Agent Collaboration. <a href="https://doi.org/10.48550/arXiv.2607.28430">doi:10.48550/arXiv.2607.28430</a></li><li id="ref-16">Vasundra Srinivasan. 2026. A Methodology for Selecting and Composing Runtime Architecture Patterns for Production LLM Agents. <a href="https://doi.org/10.48550/arXiv.2605.20173">doi:10.48550/arXiv.2605.20173</a></li><li id="ref-17">Qingyun Wu, Gagan Bansal, Jieyu Zhang, et al. 2024. AutoGen: Enabling NextGen LLM Applications via Multi-Agent Conversation. In COLM 2024. <a href="https://openreview.net/forum?id=BAakY1hNKS">https://openreview.net/forum?id=BAakY1hNKS</a></li><li id="ref-18">Shunyu Yao, Noah Shinn, Pedram Razavi, et al. 2025. 𝜏 -bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains. In ICLR 2025. <a href="https://openreview.net/forum?id=roNSXZpUDN">https://openreview.net/forum?id=roNSXZpUDN</a></li></ol><p class="submission-history">Received 2026-07-22; accepted 2026-08-25</p></article>
+
+<section class="paper-citation" aria-label="Copyable citation"><h2>Copy citation</h2><pre><code class="language-bibtex">@inproceedings{darling2026sufficiently,
+  author    = {Darling, Mick},
+  title     = {Sufficiently Advanced Agents Are Indistinguishable from Erlang:
+               An Operational Mapping from OTP to Multi-agent LLM Systems},
+  booktitle = {Proceedings of the 2nd International Workshop on Multi-Agent
+               Systems using Generative Artificial INtelligence for
+               Automated Software Engineering},
+  series    = {MAS-GAIN '26},
+  year      = {2026},
+  pages     = {26--33},
+  publisher = {ACM},
+  doi       = {10.1145/3843778.3856135},
+  url       = {https://doi.org/10.1145/3843778.3856135}
+}
+</code></pre></section>
+</main>
+
+    <footer class="site-footer">
+      <p>
+        &copy; 2026 DollhouseMCP Inc DBA Dollhouse Research.
+      </p>
+      <p class="footer-links">
+        <a href="../../news-press/">News &amp; Press</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../research/">Research</a>
+        <a href="../../press-kit/">Press Kit</a>
+        <a href="../../about/">About</a>
+        <a href="https://dollhousemcp.com">DollhouseMCP.com</a>
+        <a href="https://mcpaql.com">MCPAQL.com</a>
+        <a href="https://collection.dollhousemcp.com/">Collection</a>
+      </p>
+    </footer>
+    <script src="../../assets/js/site.js"></script>
+  </body>
+</html>
