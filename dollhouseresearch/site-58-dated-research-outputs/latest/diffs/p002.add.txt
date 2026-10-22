@@ -10,7 +10,6 @@
   <p>{{ masgain.author }} · ACM · pp. {{ masgain.pages }}</p>
   <p>An operational mapping from Erlang/OTP to multi-agent LLM systems, with an empirical study of supervision as a capability multiplier.</p>
   {% include publication-links.html paper=masgain %}
-  <p>The presentation appendix includes additional research labelled “Beyond the paper. Not peer reviewed. Review welcome.”</p>
 </article>
 ## Notes and Proposals
 {% endif %}
