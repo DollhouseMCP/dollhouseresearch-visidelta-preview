@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sufficiently Advanced Agents Are Indistinguishable from Erlang | Dollhouse Research</title>
+    <meta name="description" content="Mick Darling’s MAS-GAIN ’26 paper maps Erlang/OTP constructs to multi-agent LLM systems and examines supervision, capability, and the limits of the mapping." />
+    <link rel="canonical" href="https://dollhouseresearch.com../../research/sufficiently-advanced-agents/" />
+<meta property="og:site_name" content="Dollhouse Research" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Sufficiently Advanced Agents Are Indistinguishable from Erlang | Dollhouse Research" />
+<meta property="og:description" content="Mick Darling’s MAS-GAIN ’26 paper maps Erlang/OTP constructs to multi-agent LLM systems and examines supervision, capability, and the limits of the mapping." />
+<meta property="og:url" content="https://dollhouseresearch.com../../research/sufficiently-advanced-agents/" />
+<meta property="article:published_time" content="2026-10-08T00:00:00-04:00" />
+<meta property="article:author" content="https://dollhouseresearch.com../../people/mick/" />
+<meta property="og:image" content="https://dollhouseresearch.com../../assets/images/social-card.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Dollhouse Research building blocks for AI customization" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Sufficiently Advanced Agents Are Indistinguishable from Erlang | Dollhouse Research" />
+<meta name="twitter:description" content="Mick Darling’s MAS-GAIN ’26 paper maps Erlang/OTP constructs to multi-agent LLM systems and examines supervision, capability, and the limits of the mapping." />
+<meta name="twitter:image" content="https://dollhouseresearch.com../../assets/images/social-card.png" />
+<meta name="twitter:image:alt" content="Dollhouse Research building blocks for AI customization" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://dollhouseresearch.com/#organization",
+      "name": "Dollhouse Research",
+      "legalName": "DollhouseMCP Inc.",
+      "url": "https://dollhouseresearch.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://dollhouseresearch.com../../assets/images/dollhouse-org-brand.png"
+      },
+      "sameAs": [
+        "https://github.com/DollhouseMCP",
+        "https://www.npmjs.com/org/dollhousemcp",
+        "https://dollhousemcp.com"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://dollhouseresearch.com/#website",
+      "url": "https://dollhouseresearch.com/",
+      "name": "Dollhouse Research",
+      "description": "Organization site for DollhouseMCP, MCP-AQL, Bridge, AILIS, and related projects.",
+      "publisher": { "@id": "https://dollhouseresearch.com/#organization" }
+    }
+  ]
+}
+</script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="../../assets/images/dollhouse-org-brand.svg?v=20260418a" type="image/svg+xml" />
+    <link rel="alternate icon" href="../../assets/images/dollhouse-org-brand.png?v=20260401b" type="image/png" />
+    <link rel="apple-touch-icon" href="../../assets/images/dollhouse-org-brand.png?v=20260401b" />
+    <link rel="stylesheet" href="../../assets/css/site.css" />
+    <link rel="stylesheet" href="../../assets/css/atelier.css" />
+    <link rel="alternate" type="application/rss+xml" title="Dollhouse Research Blog" href="https://dollhouseresearch.com../../feed.xml" />
+  </head>
+  <body class="">
+    <div class="page-noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="../../">
+        <img class="brand-logo" src="../../assets/images/dollhouse-org-brand.svg?v=20260418a" alt="Dollhouse logo" />
+        <span>
+          <strong>Dollhouse Research</strong>
+          <em>Infrastructure and applied AI systems</em>
+        </span>
+      </a>
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+          <span class="theme-toggle-icon" id="theme-toggle-icon" aria-hidden="true">☾</span>
+          <span class="sr-only" id="theme-toggle-label">Switch to dark mode</span>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+          Menu
+        </button>
+      </div>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="../../">Home</a>
+        <a href="../../projects/">Projects</a>
+        <a href="../../news-press/">News &amp; Press</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../research/">Research</a>
+        <a href="../../about/">About</a>
+        <a class="nav-key-link" href="https://dollhousemcp.com">DollhouseMCP.com</a>
+        <a class="nav-key-link" href="https://mcpaql.com">MCPAQL.com</a>
+        <a class="nav-key-link" href="https://collection.dollhousemcp.com/">Collection</a>
+      </nav>
+    </header>
+
+    <main id="main-content" class="prose paper-page">
+<p><a href="../../research/">Research</a> / MAS-GAIN ’26</p>
+
+<h1 id="sufficiently-advanced-agents-are-indistinguishable-from-erlang-an-operational-mapping-from-otp-to-multi-agent-llm-systems">Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems</h1>
+
+<p><strong><a href="../../people/mick/">Mick Darling</a> · MAS-GAIN ’26 · 2026</strong></p>
+
+<p>Published <time datetime="2026-10-08">October 8, 2026</time>, pp. 26–33. Presented remotely at MAS-GAIN ’26 in Munich on October 16, 2026, co-located with ASE 2026.</p>
+
+<p><a href="https://doi.org/10.1145/3843778.3856135">Read the published paper (ACM DOI)</a> · <a href="https://dl.acm.org/doi/proceedings/10.1145/3843778">ACM proceedings</a></p>
+
+<p><a href="../../assets/research/masgain-2026/paper-author-version.pdf">Download the author version (PDF)</a></p>
+
+<p>The author version retains its original attribution and <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a>.</p>
+
+<h2 id="paper-summary">Paper summary</h2>
+
+<p>Multi-agent LLM systems face a familiar engineering problem: building reliable systems from individually unreliable parts. The paper develops an operational mapping from Erlang/OTP constructs to agent systems and tests supervision as a capability multiplier. It grades twenty mappings as exact, loose, or breaking; these grades describe the correspondence, rather than guarantees implemented by an agent runtime.</p>
+
+<p>The study examines supervision across model tiers, matched-compute controls, and clean-context decomposition. Its limits include semantic failure detection, context leakage, and restart economics. The published paper is the source of truth for the claims; results depend on the evaluated tasks, models, and controls, and the matched-compute verdicts are directional: neither run certified compute parity. The matched fixed-token and fixed-cost comparisons in the separately provisioned scaling trial were withheld by their preregistered validity gate; the reproduced accuracy curve does not establish matched-cost savings.</p>
+
+<h2 id="citation">Citation</h2>
+
+<p>Mick Darling. 2026. <em>Sufficiently Advanced Agents Are Indistinguishable from Erlang: An Operational Mapping from OTP to Multi-agent LLM Systems.</em> In <em>Proceedings of the 2nd International Workshop on Multi-Agent Systems using Generative Artificial INtelligence for Automated Software Engineering</em> (MAS-GAIN ’26). ACM, 26–33. <a href="https://doi.org/10.1145/3843778.3856135">https://doi.org/10.1145/3843778.3856135</a>.</p>
+
+<div class="language-bibtex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">darling2026sufficiently</span><span class="p">,</span>
+  <span class="na">author</span>    <span class="p">=</span> <span class="s">{Darling, Mick}</span><span class="p">,</span>
+  <span class="na">title</span>     <span class="p">=</span> <span class="s">{Sufficiently Advanced Agents Are Indistinguishable from Erlang:
+               An Operational Mapping from OTP to Multi-agent LLM Systems}</span><span class="p">,</span>
+  <span class="na">booktitle</span> <span class="p">=</span> <span class="s">{Proceedings of the 2nd International Workshop on Multi-Agent
+               Systems using Generative Artificial INtelligence for
+               Automated Software Engineering}</span><span class="p">,</span>
+  <span class="na">series</span>    <span class="p">=</span> <span class="s">{MAS-GAIN '26}</span><span class="p">,</span>
+  <span class="na">year</span>      <span class="p">=</span> <span class="s">{2026}</span><span class="p">,</span>
+  <span class="na">pages</span>     <span class="p">=</span> <span class="s">{26--33}</span><span class="p">,</span>
+  <span class="na">publisher</span> <span class="p">=</span> <span class="s">{ACM}</span><span class="p">,</span>
+  <span class="na">doi</span>       <span class="p">=</span> <span class="s">{10.1145/3843778.3856135}</span><span class="p">,</span>
+  <span class="na">url</span>       <span class="p">=</span> <span class="s">{https://doi.org/10.1145/3843778.3856135}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</main>
+
+    <footer class="site-footer">
+      <p>
+        &copy; 2026 DollhouseMCP Inc DBA Dollhouse Research.
+      </p>
+      <p class="footer-links">
+        <a href="../../news-press/">News &amp; Press</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../research/">Research</a>
+        <a href="../../press-kit/">Press Kit</a>
+        <a href="../../about/">About</a>
+        <a href="https://dollhousemcp.com">DollhouseMCP.com</a>
+        <a href="https://mcpaql.com">MCPAQL.com</a>
+        <a href="https://collection.dollhousemcp.com/">Collection</a>
+      </p>
+    </footer>
+    <script src="../../assets/js/site.js"></script>
+  </body>
+</html>
