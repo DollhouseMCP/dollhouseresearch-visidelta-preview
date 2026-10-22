@@ -15,6 +15,7 @@ Published <time datetime="{{ paper.publication_date }}">{{ paper.publication_dat
 [Read the published paper (ACM DOI)](https://doi.org/10.1145/3843778.3856135) · [ACM proceedings]({{ paper.proceedings_url }})
 {% if paper.pdf_url and paper.pdf_url != empty %}
 [Download the author version (PDF)]({{ paper.pdf_url | relative_url }})
+The author version retains its original attribution and [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
 {% endif %}
 ## Paper summary
 Multi-agent LLM systems face a familiar engineering problem: building reliable systems from individually unreliable parts. The paper develops an operational mapping from Erlang/OTP constructs to agent systems and tests supervision as a capability multiplier. It grades twenty mappings as exact, loose, or breaking; these grades describe the correspondence, rather than guarantees implemented by an agent runtime.
