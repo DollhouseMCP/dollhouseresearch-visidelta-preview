@@ -1,0 +1,1380 @@
+WEBVTT
+
+1
+00:00:00.720 --> 00:00:05.760
+A quarter century ago, British Telecom
+reported nine nines of service
+
+2
+00:00:05.760 --> 00:00:08.640
+availability in one of its telephone
+switching systems.
+
+3
+00:00:08.740 --> 00:00:12.020
+That's equivalent to about 30 milliseconds
+of downtime a year.
+
+4
+00:00:12.760 --> 00:00:17.400
+They achieved that with components
+engineers knew would fail built with
+
+5
+00:00:17.400 --> 00:00:20.220
+Erlang and its open telecom platform OTP.
+
+6
+00:00:20.580 --> 00:00:24.040
+The system used redundancy and recovery to
+contain those component failures and
+
+7
+00:00:24.040 --> 00:00:27.460
+keep service running. That's the question
+behind this paper.
+
+8
+00:00:27.800 --> 00:00:31.960
+Can OTP help AI systems succeed reliably
+despite component failures?
+
+9
+00:00:32.840 --> 00:00:36.460
+Today's agents can crash loop, drift off
+task, or hallucinate.
+
+10
+00:00:36.940 --> 00:00:40.640
+With tool access, they can make
+inappropriate or dangerous tool calls,
+
+11
+00:00:40.840 --> 00:00:44.820
+read API keys and private data outside
+their authorized task, or exfiltrate
+
+12
+00:00:44.820 --> 00:00:49.340
+data. Security evaluations repeatedly
+demonstrate tool misuse and data leakage,
+
+13
+00:00:49.540 --> 00:00:51.940
+including successful attacks against
+systems with defenses.
+
+14
+00:00:52.760 --> 00:00:58.040
+We want whole systems that coordinate many
+workers, enforce what each can read
+
+15
+00:00:58.040 --> 00:01:02.640
+and do and keep useful work moving when
+individual agents break in any of these
+
+16
+00:01:02.640 --> 00:01:08.000
+ways or in ways we haven't anticipated. On
+our test tasks, OTP-style
+
+17
+00:01:08.000 --> 00:01:11.560
+supervised configurations delivered
+substantial gains in reliable task
+
+18
+00:01:11.560 --> 00:01:16.200
+completion with the same language model.
+In two selected internal comparisons,
+
+19
+00:01:16.620 --> 00:01:21.200
+frontier model configurations incurred
+roughly 4 to 20 times as much in language
+
+20
+00:01:21.200 --> 00:01:24.560
+model charges per successfully completed
+task run as smaller model
+
+21
+00:01:24.560 --> 00:01:28.280
+configurations. That calculation includes
+failed attempts and recovery.
+
+22
+00:01:28.960 --> 00:01:32.280
+Success rates differed, so these
+observations do not establish savings at
+
+23
+00:01:32.280 --> 00:01:34.960
+equal quality or cover the full cost of
+operating the system.
+
+24
+00:01:35.500 --> 00:01:40.040
+Our mapping shows which patterns transfer
+and where the engineering must change.
+
+25
+00:01:40.340 --> 00:01:43.760
+It points to the work ahead, extending
+those capability gains and building
+
+26
+00:01:43.760 --> 00:01:47.940
+toward telecom-style availability. I'm
+Mick Darling, founder of Dollhouse
+
+27
+00:01:47.940 --> 00:01:53.620
+Research, an AI lab. We build platform
+agnostic tools that make AI more
+
+28
+00:01:53.620 --> 00:01:57.820
+capable and give people the visibility and
+control to govern its behavior.
+
+29
+00:01:58.680 --> 00:02:02.440
+I'm the lead inventor on four natural
+language processing patents.
+
+30
+00:02:02.620 --> 00:02:06.840
+That work began in the early 2010s using
+Erlang OTP workers to analyze the
+
+31
+00:02:06.840 --> 00:02:10.860
+meaning of unstructured social media text
+in real time. We processed millions of
+
+32
+00:02:10.860 --> 00:02:15.080
+messages for live television, including
+American Idol. That experience helped us
+
+33
+00:02:15.080 --> 00:02:18.280
+recognize familiar engineering problems in
+multi-agent systems.
+
+34
+00:02:18.720 --> 00:02:21.420
+I also want to thank the chairs,
+reviewers,
+
+35
+00:02:22.340 --> 00:02:26.180
+and proceedings team for helping bring
+this paper to publication and for their
+
+36
+00:02:26.180 --> 00:02:27.900
+patience with me along the way.
+
+37
+00:02:28.820 --> 00:02:32.860
+They've inspired a new agentic benchmark
+navigating the publication process
+
+38
+00:02:32.860 --> 00:02:36.520
+without asking the chairs for help. I can
+report that the human baseline
+
+39
+00:02:36.520 --> 00:02:41.460
+required considerable assistance. An agent
+that could do it unaided would be a
+
+40
+00:02:41.460 --> 00:02:44.100
+remarkable uplift in at least this human's
+capability.
+
+41
+00:02:44.500 --> 00:02:47.380
+The immediate problem in our production
+system was waiting.
+
+42
+00:02:47.820 --> 00:02:52.320
+It arose in DollhouseMCP, an MCP server we
+use for agent management.
+
+43
+00:02:52.700 --> 00:02:55.100
+In the setup I'm describing, it runs
+locally.
+
+44
+00:02:56.140 --> 00:02:59.740
+There are four distinct parts here. The
+model generates responses.
+
+45
+00:02:59.920 --> 00:03:04.580
+The harness is the application that calls
+the model and coordinates tool use.
+
+46
+00:03:04.860 --> 00:03:09.880
+MCP, the model context protocol, lets that
+application access tools exposed by a
+
+47
+00:03:09.880 --> 00:03:13.880
+server. Our agent is the managed unit of
+work with an identity, state, and a
+
+48
+00:03:13.880 --> 00:03:18.000
+mailbox for messages. Its lifetime can
+span several model calls.
+
+49
+00:03:18.680 --> 00:03:23.040
+Some agents needed to wait hours for an
+outside event. One unattended component
+
+50
+00:03:23.040 --> 00:03:27.220
+repeatedly called on the model to check
+for updates and consumed most of a
+
+51
+00:03:27.220 --> 00:03:31.840
+weekly quota. An open idle session doesn't
+inherently consume tokens.
+
+52
+00:03:32.240 --> 00:03:37.620
+Those repeated inference calls do. We
+moved responsibility for waiting into the
+
+53
+00:03:37.620 --> 00:03:41.700
+server. Ordinary code retains the agent's
+identity and messages without keeping
+
+54
+00:03:41.700 --> 00:03:44.560
+a model call active or awaiting its
+completion.
+
+55
+00:03:44.560 --> 00:03:49.560
+We call that parking. It uses computing
+resources but no inference tokens while
+
+56
+00:03:49.560 --> 00:03:55.220
+parked. An event, timer, or server side
+result can mark the agent as
+
+57
+00:03:55.220 --> 00:04:00.340
+ready to continue. A client or dispatcher
+must then arrange the next model call.
+
+58
+00:04:00.440 --> 00:04:04.620
+How that happens depends on the
+deployment. Retaining state does not by
+
+59
+00:04:04.620 --> 00:04:09.080
+itself provide the whole wake up
+mechanism. A harness can also wait for
+
+60
+00:04:09.080 --> 00:04:13.640
+events without repeatedly calling the
+model. We put lifecycle state in the
+
+61
+00:04:13.640 --> 00:04:17.540
+server to separate the agent's lifetime
+from individual model interactions.
+
+62
+00:04:18.300 --> 00:04:22.260
+Routing tool requests through that server
+also gives us a place to apply access
+
+63
+00:04:22.260 --> 00:04:27.680
+controls before those tools execute. Once
+ordinary code controls when an agent
+
+64
+00:04:27.680 --> 00:04:33.120
+starts, waits, and stops, it can also
+monitor work, start a fresh model call
+
+65
+00:04:33.120 --> 00:04:36.460
+after a failure, and limit how often that
+happens. That's supervision.
+
+66
+00:04:37.360 --> 00:04:40.640
+In OTP, processes have identities and
+mailboxes.
+
+67
+00:04:41.180 --> 00:04:44.640
+Supervisors watch workers and apply
+recovery rules after a failure.
+
+68
+00:04:45.360 --> 00:04:50.780
+In April 2026, we recorded how these OTP
+constructs corresponded to our
+
+69
+00:04:50.780 --> 00:04:55.760
+runtime in dated engineering issues. We
+deliberately applied the patterns,
+
+70
+00:04:56.260 --> 00:04:59.400
+then ran the planned experiments in July.
+
+71
+00:05:00.180 --> 00:05:04.440
+Could OTP help us predict failures and
+useful fixes in agent systems?
+
+72
+00:05:05.300 --> 00:05:09.920
+We first mapped 20 OTP constructs to their
+proposed agent counterparts, judging
+
+73
+00:05:09.920 --> 00:05:14.260
+how faithfully the behavior transfers. We
+then ran pre-registered experiments,
+
+74
+00:05:14.520 --> 00:05:17.400
+comparisons, and analysis rules set before
+running the models.
+
+75
+00:05:17.780 --> 00:05:23.080
+Those compared supervised configurations
+with simpler loops across model tiers.
+
+76
+00:05:23.540 --> 00:05:26.920
+Finally, we examined the differences that
+prevent a faithful mapping.
+
+77
+00:05:27.560 --> 00:05:31.380
+Production experience motivated the
+investigation. The mapping and experiments
+
+78
+00:05:31.380 --> 00:05:34.160
+test different claims, and neither
+requires agent frameworks to be
+
+79
+00:05:34.160 --> 00:05:39.336
+implemented in Erlang. Of the 20 OTP
+constructs, twelve had exact operational
+
+80
+00:05:39.336 --> 00:05:42.916
+mappings their proposed agent counterparts
+preserve all the operational behavior
+
+81
+00:05:42.916 --> 00:05:44.396
+relevant to the comparison.
+
+82
+00:05:45.296 --> 00:05:48.836
+Five mapped more loosely, the general
+function carries over, but documented
+
+83
+00:05:48.836 --> 00:05:52.476
+differences prevent a fully faithful
+mapping. For three, the mapping breaks
+
+84
+00:05:52.476 --> 00:05:55.876
+because the agent infrastructure we
+examined offers no faithful counterpart.
+
+85
+00:05:55.920 --> 00:06:01.300
+Those grades describe behavior, not just
+resemblance in
+
+86
+00:06:01.300 --> 00:06:04.400
+names. Take parking, one of the exact
+mappings.
+
+87
+00:06:05.020 --> 00:06:09.440
+An Erlang process waiting for a message
+retains its identity and mailbox without
+
+88
+00:06:09.440 --> 00:06:14.740
+doing work. Our parked agent also retains
+an addressable identity and mailbox
+
+89
+00:06:14.740 --> 00:06:19.880
+without keeping a model call open. The
+resources differ, but both separate the
+
+90
+00:06:19.880 --> 00:06:22.900
+worker's continuing existence from its
+current activity.
+
+91
+00:06:24.020 --> 00:06:27.680
+Calling that mapping exact does not
+certify every implementation or give an
+
+92
+00:06:27.680 --> 00:06:29.540
+agent every guarantee of an Erlang
+process.
+
+93
+00:06:30.420 --> 00:06:34.120
+We assign the grades ourselves, and they
+have not been independently audited.
+
+94
+00:06:34.400 --> 00:06:38.100
+The dated record and evidence for each row
+let others inspect and challenge
+
+95
+00:06:38.100 --> 00:06:42.700
+those judgments. Two of the examples in
+this table show how the mapping guided
+
+96
+00:06:42.700 --> 00:06:48.260
+repairs. A supervisor also needs a limit
+on restarts, otherwise it can keep
+
+97
+00:06:48.260 --> 00:06:52.680
+restarting a failing worker indefinitely.
+After that limit, it needs to escalate
+
+98
+00:06:52.680 --> 00:06:57.580
+the failure rather than retry forever.
+Workers also need a defined relationship
+
+99
+00:06:57.580 --> 00:07:02.060
+to their client session. Some of ours kept
+running for days after their sessions
+
+100
+00:07:02.060 --> 00:07:07.360
+died. Linking those lifetimes gives the
+system a rule for stopping work when its
+
+101
+00:07:07.360 --> 00:07:11.100
+owning session ends. These were fixes for
+DollhouseMCP.
+
+102
+00:07:11.620 --> 00:07:15.300
+We recorded the designs in April before
+the matching incidents appeared.
+
+103
+00:07:15.620 --> 00:07:19.100
+As the paper notes, our runtime’s
+designers already knew Erlang.
+
+104
+00:07:19.300 --> 00:07:22.520
+This record shows us applying prior
+knowledge. It motivates the mapping
+
+105
+00:07:22.520 --> 00:07:26.780
+without independently auditing it. The
+three constructs without faithful
+
+106
+00:07:26.780 --> 00:07:29.720
+counterparts show where the underlying
+infrastructure matters.
+
+107
+00:07:30.500 --> 00:07:33.840
+First, Erlang processes are isolated from
+one another by default.
+
+108
+00:07:34.220 --> 00:07:39.200
+LLM systems often accumulate observations
+and contexts, and some share a growing
+
+109
+00:07:39.200 --> 00:07:43.260
+history. We can give workers fresh context
+as an isolation policy that does not
+
+110
+00:07:43.260 --> 00:07:46.480
+provide the same built-in guarantee as
+separate Erlang process memory.
+
+111
+00:07:47.340 --> 00:07:50.980
+Second, an Erlang process checks
+structured message values against expected
+
+112
+00:07:50.980 --> 00:07:55.640
+patterns. A model interprets the content
+it receives, including prose inside an
+
+113
+00:07:55.640 --> 00:08:00.380
+otherwise valid message. That prose can
+contain an instruction or an injection
+
+114
+00:08:00.380 --> 00:08:04.460
+attack. Checking the message's structure
+does not establish that its meaning is
+
+115
+00:08:04.460 --> 00:08:09.260
+safe. Third, Erlang can interrupt a
+process during execution and let other
+
+116
+00:08:09.260 --> 00:08:13.600
+processes run. The hosted model interfaces
+available to us did not expose
+
+117
+00:08:13.600 --> 00:08:17.860
+comparable control inside an inference
+call. We could monitor calls, impose
+
+118
+00:08:17.860 --> 00:08:21.780
+timeouts, and control what happened
+between calls. That is a limit of the
+
+119
+00:08:21.780 --> 00:08:25.360
+interfaces we evaluated, not a claim that
+model inference can never become
+
+120
+00:08:25.360 --> 00:08:28.080
+interruptible. These are substantive
+differences.
+
+121
+00:08:28.780 --> 00:08:32.220
+Organizing agents into a supervision tree
+does not automatically give them all
+
+122
+00:08:32.220 --> 00:08:33.340
+of Erlang's guarantees.
+
+123
+00:08:34.120 --> 00:08:38.860
+To test a configuration, we built a
+standalone research harness separate from
+
+124
+00:08:38.860 --> 00:08:40.660
+the production MCP deployment.
+
+125
+00:08:41.580 --> 00:08:46.400
+It assigns work to LLM workers and checks
+their messages and outputs.
+
+126
+00:08:46.880 --> 00:08:51.240
+The supervisor responds to reported
+failures. A separate experimental grader
+
+127
+00:08:51.240 --> 00:08:56.180
+scores answer correctness. Supervisors,
+routers, validators, and mailboxes are
+
+128
+00:08:56.180 --> 00:09:00.020
+ordinary code. One worker activation is
+one model call.
+
+129
+00:09:00.020 --> 00:09:04.180
+After a failure, a replacement receives
+its assigned work in a fresh context
+
+130
+00:09:04.180 --> 00:09:06.820
+without the failed call's accumulated
+history.
+
+131
+00:09:07.480 --> 00:09:10.860
+Task state is retained outside that
+context. The persistent production agent
+
+132
+00:09:10.860 --> 00:09:14.740
+we parked earlier is distinct from these
+individual model calls.
+
+133
+00:09:15.280 --> 00:09:20.280
+When we report actor count, we mean the
+configured LLM workers excluding control
+
+134
+00:09:20.280 --> 00:09:25.080
+code and additional calls made for
+recovery. The supervisor can detect
+
+135
+00:09:25.080 --> 00:09:28.980
+crashes, timeouts, invalid message
+structure, and outputs that fail the
+
+136
+00:09:28.980 --> 00:09:33.200
+configured requirements. It can replace a
+failed activation, hold a suspect
+
+137
+00:09:33.200 --> 00:09:35.900
+message aside, or escalate after the
+restart limit.
+
+138
+00:09:35.900 --> 00:09:40.240
+A confident wrong answer that passes those
+checks may produce no failure signal.
+
+139
+00:09:40.840 --> 00:09:43.420
+The first study compares three
+configurations.
+
+140
+00:09:44.440 --> 00:09:50.140
+A is the supervised system. B is a simpler
+loop with a fixed retry
+
+141
+00:09:50.140 --> 00:09:54.660
+policy that retains prior context. C makes
+no retries.
+
+142
+00:09:55.040 --> 00:10:00.560
+A later comparison adds S, a control that
+generates multiple candidate answers.
+
+143
+00:10:01.060 --> 00:10:05.400
+A combines several design choices so these
+comparisons cannot identify fresh
+
+144
+00:10:05.400 --> 00:10:09.440
+context alone as the cause of improvement.
+Workers run sequentially.
+
+145
+00:10:09.640 --> 00:10:12.860
+The experiments establish no concurrency
+latency or throughput advantage.
+
+146
+00:10:13.820 --> 00:10:19.180
+We tested eight model tiers from models
+with 1.7 billion parameters
+
+147
+00:10:19.180 --> 00:10:24.800
+to frontier models. The first study uses
+multistep tasks in the
+
+148
+00:10:24.800 --> 00:10:29.620
+style of the GAIA benchmark. We check
+whether each final answer exactly matches
+
+149
+00:10:29.620 --> 00:10:32.940
+the expected answer after applying
+predefined rules for how answers are
+
+150
+00:10:32.940 --> 00:10:36.300
+written. A plausible intermediate step
+does not count as success.
+
+151
+00:10:37.040 --> 00:10:40.260
+Each task gets four complete runs under
+each configuration.
+
+152
+00:10:40.820 --> 00:10:45.280
+A run may include its permitted retries,
+but those retries do not count as
+
+153
+00:10:45.280 --> 00:10:50.120
+additional runs. Our reliability metric,
+pass to the fourth, counts a task as
+
+154
+00:10:50.120 --> 00:10:53.180
+successful only if all four runs produce
+correct final answers.
+
+155
+00:10:53.640 --> 00:10:57.480
+We analyze those task level results rather
+than treating retries as independent
+
+156
+00:10:57.480 --> 00:11:02.380
+observations. The later scaling study uses
+harder problems that can be divided
+
+157
+00:11:02.380 --> 00:11:06.420
+into components. Workers follow chains of
+proof, trace where information came
+
+158
+00:11:06.420 --> 00:11:10.420
+from, compare possible fault causes, or
+allocate resources under constraints.
+
+159
+00:11:10.860 --> 00:11:14.980
+These represent aspects of software
+engineering work rather than an end-to-end
+
+160
+00:11:14.980 --> 00:11:19.260
+coding benchmark. We set acceptance
+conditions for each conclusion before
+
+161
+00:11:19.260 --> 00:11:23.540
+running the models. When a condition
+failed, we withheld that conclusion, even
+
+162
+00:11:23.540 --> 00:11:27.940
+if other measurements remained usable.
+Each result here reports the proportion
+
+163
+00:11:27.940 --> 00:11:32.280
+of 20 capability tasks that succeeded on
+all four complete runs.
+
+164
+00:11:32.880 --> 00:11:36.600
+With Ministral-3B, the supervised
+configuration reaches 95%.
+
+165
+00:11:36.980 --> 00:11:40.840
+Both the retry loop and the no-retry loop
+reach 65%.
+
+166
+00:11:40.840 --> 00:11:46.380
+With Qwen3-32B, the supervised
+configuration reaches 70% compared with
+
+167
+00:11:46.380 --> 00:11:50.400
+45% for the retry loop and 5% without
+retries.
+
+168
+00:11:51.000 --> 00:11:56.020
+Retries alone clearly help. Supervision
+adds 25 percentage points beyond that
+
+169
+00:11:56.020 --> 00:12:00.040
+retry control. That improvement belongs to
+the whole supervised configuration.
+
+170
+00:12:00.240 --> 00:12:02.900
+We did not separately test how much comes
+from fresh context.
+
+171
+00:12:03.700 --> 00:12:07.440
+Across the five tiers where results
+distinguish the configurations,
+
+172
+00:12:07.440 --> 00:12:11.980
+supervision leads both controls at four
+and ties the stronger control at one.
+
+173
+00:12:12.160 --> 00:12:16.560
+The frontier models reach 100% under every
+configuration while the smallest
+
+174
+00:12:16.560 --> 00:12:20.780
+model reaches zero. Those results cannot
+show an improvement on this task suite.
+
+175
+00:12:21.260 --> 00:12:24.420
+With only 20 tasks per result, this is a
+pilot study.
+
+176
+00:12:24.660 --> 00:12:28.860
+We make no statistical significance claim
+for an individual result.
+
+177
+00:12:29.020 --> 00:12:32.240
+These models also differ in more than
+parameter count.
+
+178
+00:12:32.740 --> 00:12:37.260
+So our defensible comparisons use the same
+model under different configurations.
+
+179
+00:12:38.180 --> 00:12:41.340
+Could the improvement simply come from
+generating more attempts?
+
+180
+00:12:42.380 --> 00:12:46.720
+We tested a best-of-N control that runs
+the simpler unsupervised loop to
+
+181
+00:12:46.720 --> 00:12:51.000
+generate candidate answers then selects
+one. The selector checks the required
+
+182
+00:12:51.000 --> 00:12:54.740
+format and uses agreement when several
+candidates fit the budget otherwise it
+
+183
+00:12:54.740 --> 00:12:59.540
+takes the first valid answer. It cannot
+see correct answers or grading results.
+
+184
+00:13:00.400 --> 00:13:04.580
+We compared configurations on the same 20
+tasks initially across three model
+
+185
+00:13:04.580 --> 00:13:09.940
+tiers then with fresh runs at 32B the
+initial comparison averages across tiers.
+
+186
+00:13:10.840 --> 00:13:16.580
+Success means a correct individual run
+rather than requiring all four
+
+187
+00:13:16.580 --> 00:13:21.360
+runs of a task to succeed. Supervision's
+advantages are about 33 percentage
+
+188
+00:13:21.360 --> 00:13:26.620
+points in the initial study and 26 in the
+replication with p-values at or below
+
+189
+00:13:26.620 --> 00:13:32.200
+0.004. Across 320 sampling control task
+runs,
+
+190
+00:13:32.200 --> 00:13:36.540
+the selector never turned a failed first
+candidate into a successful selected
+
+191
+00:13:36.540 --> 00:13:39.900
+answer. This concerns the tested selector
+and sampling schedule.
+
+192
+00:13:40.180 --> 00:13:43.500
+It does not rule out stronger sampling
+methods or identify which feature of
+
+193
+00:13:43.500 --> 00:13:48.340
+supervision caused the advantage. Both
+studies aim to keep sampling token
+
+194
+00:13:48.340 --> 00:13:52.020
+spending within 10% of supervision
+spending.
+
+195
+00:13:52.300 --> 00:13:55.060
+Both miss that band in opposite
+directions.
+
+196
+00:13:55.300 --> 00:13:59.540
+We therefore have evidence of an advantage
+but cannot claim it was established
+
+197
+00:13:59.540 --> 00:14:04.140
+with matched computational resources. A
+stronger comparison must enforce the
+
+198
+00:14:04.140 --> 00:14:07.160
+budget without using outcomes to decide
+how much to spend.
+
+199
+00:14:08.000 --> 00:14:11.320
+Can dividing work among supervised workers
+help on harder problems?
+
+200
+00:14:12.160 --> 00:14:16.680
+Here the apparatus supplies 16 component
+problems and a plan for assigning them.
+
+201
+00:14:17.040 --> 00:14:21.480
+With one worker a single model call
+answers the whole batch with 16 workers
+
+202
+00:14:21.480 --> 00:14:25.960
+each answers one component. Ordinary code
+assembles the results and workers run
+
+203
+00:14:25.960 --> 00:14:30.500
+sequentially. We test execution of the
+supplied plan rather than asking models
+
+204
+00:14:30.500 --> 00:14:35.620
+to invent the decomposition. We now
+measure component accuracy the proportion
+
+205
+00:14:35.620 --> 00:14:37.460
+of components answered correctly.
+
+206
+00:14:38.240 --> 00:14:42.540
+Missing or incomplete output counts as
+failure. That is different from requiring
+
+207
+00:14:42.540 --> 00:14:48.160
+an entire task to succeed. The control
+code stays fixed as worker count changes.
+
+208
+00:14:48.900 --> 00:14:54.680
+On tasks reserved in advance for
+evaluation, Qwen3-32B rises from
+
+209
+00:14:54.680 --> 00:14:59.860
+57.4% with one worker to 81.6% with 16.
+
+210
+00:15:00.360 --> 00:15:05.820
+That’s a gain of 24.2 percentage points
+with a 95% confidence interval from
+
+211
+00:15:05.820 --> 00:15:09.260
+13.3 to 35.5.
+
+212
+00:15:09.420 --> 00:15:14.900
+Repeating the experiment in a separately
+provisioned setup yields 53.5% and
+
+213
+00:15:14.900 --> 00:15:20.660
+80.9%. Haiku 4.5 instead peaks at four
+workers, at
+
+214
+00:15:20.660 --> 00:15:25.120
+54.7%, then falls to 34.0% with 16.
+
+215
+00:15:25.760 --> 00:15:28.600
+Worker count therefore needs to suit the
+model and task.
+
+216
+00:15:28.860 --> 00:15:33.780
+In the paper a controller that adjusts
+worker count during execution is proposed
+
+217
+00:15:33.780 --> 00:15:36.880
+future work. The paper does not report a
+test of one.
+
+218
+00:15:37.520 --> 00:15:40.980
+That Qwen reproduction failed the
+requirements for matched resource
+
+219
+00:15:40.980 --> 00:15:44.520
+spending. We can report its accuracy but
+not matched cost savings.
+
+220
+00:15:44.840 --> 00:15:47.440
+We separately exclude Sonnet 5’s apparent
+gains.
+
+221
+00:15:47.600 --> 00:15:51.080
+Dividing its batch repairs a JSON output
+format problem rather than
+
+222
+00:15:51.080 --> 00:15:55.620
+demonstrating better reasoning. This
+leaves research questions beyond the three
+
+223
+00:15:55.620 --> 00:15:57.220
+constructs that failed to map.
+
+224
+00:15:58.120 --> 00:16:01.960
+First, how do we recognize an answer that
+is wrong in meaning?
+
+225
+00:16:02.680 --> 00:16:06.820
+A worker can return a confident
+well-formed answer that passes validation.
+
+226
+00:16:07.320 --> 00:16:10.900
+The supervisor then sees no reason to
+restart it. Recovery needs an observable
+
+227
+00:16:10.900 --> 00:16:16.500
+failure signal. Second, fresh contexts
+limit what each worker receives, but they
+
+228
+00:16:16.500 --> 00:16:20.500
+are only part of our isolation policy. A
+message permitted through an allowed
+
+229
+00:16:20.500 --> 00:16:23.700
+path can still carry instructions that
+influence subsequent work.
+
+230
+00:16:24.400 --> 00:16:27.220
+Fresh context alone does not make those
+messages trustworthy.
+
+231
+00:16:28.320 --> 00:16:33.640
+Third, recovery has a cost. Each fresh
+model call consumes tokens, time, and
+
+232
+00:16:33.640 --> 00:16:34.190
+money.
+
+233
+00:16:34.880 --> 00:16:39.460
+Restarting is not automatically worth the
+expense. In the paper we did not
+
+234
+00:16:39.460 --> 00:16:41.960
+establish the matched cost claims.
+
+235
+00:16:42.800 --> 00:16:47.380
+OTP supplies useful defaults but applying
+them still requires understanding the
+
+236
+00:16:47.380 --> 00:16:52.360
+model and failures we can detect. There
+are two judgments here.
+
+237
+00:16:52.560 --> 00:16:57.800
+How faithfully an OTP pattern maps to an
+agent system and how much evidence we
+
+238
+00:16:57.800 --> 00:17:02.100
+have for its implementation. An exact
+mapping describes the operational
+
+239
+00:17:02.100 --> 00:17:06.460
+correspondence. It does not certify a
+complete implementation or tell us how
+
+240
+00:17:06.460 --> 00:17:09.100
+much one mechanism contributed to the
+measured gain.
+
+241
+00:17:09.740 --> 00:17:12.800
+The paper separates implementation
+evidence into three levels.
+
+242
+00:17:13.000 --> 00:17:17.200
+Tested means sealed preregistered evidence
+including the integrated supervision
+
+243
+00:17:17.200 --> 00:17:19.480
+and decomposition studies we've just seen.
+
+244
+00:17:20.440 --> 00:17:24.980
+Spot means validation or exploratory
+evidence. For example, the deterministic
+
+245
+00:17:24.980 --> 00:17:28.200
+injected fault test produced all 18
+expected outcomes.
+
+246
+00:17:28.260 --> 00:17:31.620
+That checks those recovery cases but does
+not establish a comparative capability
+
+247
+00:17:31.620 --> 00:17:32.860
+gain under injected faults.
+
+248
+00:17:33.940 --> 00:17:37.460
+Gap means a design with no experimental
+result in the paper.
+
+249
+00:17:38.200 --> 00:17:41.340
+Continuous feedback control and
+heterogeneous fleets are examples.
+
+250
+00:17:41.960 --> 00:17:45.420
+Keeping these evidence levels separate
+lets us distinguish a useful
+
+251
+00:17:45.420 --> 00:17:48.860
+architectural correspondence from a result
+we have actually measured.
+
+252
+00:17:49.540 --> 00:17:53.640
+The paper proposes three next tests. These
+are research questions not completed
+
+253
+00:17:53.640 --> 00:17:54.860
+confirmatory results.
+
+254
+00:17:56.160 --> 00:17:59.680
+First, compare supervision with the retry
+loop on a paid grid of deliberately
+
+255
+00:17:59.680 --> 00:18:04.360
+injected faults. Does adding those faults
+widen the supervision advantage?
+
+256
+00:18:05.000 --> 00:18:08.800
+The deterministic self-tests on the
+previous slide do not answer that
+
+257
+00:18:08.800 --> 00:18:09.860
+comparative question.
+
+258
+00:18:10.660 --> 00:18:11.210
+Second,
+
+259
+00:18:11.900 --> 00:18:16.080
+test whether a supervised small model
+configuration can match a clearly defined
+
+260
+00:18:16.080 --> 00:18:21.120
+frontier baseline on the same suite and
+measure the corresponding cost ratio.
+
+261
+00:18:21.580 --> 00:18:26.580
+The pilot's cross model observations
+motivate that question but do not
+
+262
+00:18:26.580 --> 00:18:28.820
+establish parity at equal quality.
+
+263
+00:18:29.800 --> 00:18:32.840
+Third, sweep actor counts across models
+and task families.
+
+264
+00:18:33.420 --> 00:18:36.560
+Can we predict which level of
+decomposition suits a given model and
+
+265
+00:18:36.560 --> 00:18:40.280
+task, instead of assuming that more
+workers always help?
+
+266
+00:18:41.020 --> 00:18:44.580
+Each conclusion must meet its
+pre-registered acceptance conditions.
+
+267
+00:18:45.120 --> 00:18:48.500
+The paper's proposed tests remain distinct
+from the separately labeled research
+
+268
+00:18:48.500 --> 00:18:53.260
+updates in the backup slides. The unit we
+measured is the configured system, the
+
+269
+00:18:53.260 --> 00:18:56.920
+model together with supervision validators
+and retained task state.
+
+270
+00:18:57.580 --> 00:19:02.820
+On the pilot tasks, Ministral-3B reached
+95 percent reliable task completion
+
+271
+00:19:02.820 --> 00:19:06.900
+with supervision compared with 65 percent
+without retries.
+
+272
+00:19:07.160 --> 00:19:10.460
+Reliable here means that a task passed all
+four complete runs.
+
+273
+00:19:11.180 --> 00:19:15.920
+On the harder decomposable tasks,
+Qwen3-32B’s component accuracy rose from
+
+274
+00:19:15.920 --> 00:19:21.440
+57.4 percent with one worker to 81.6
+percent with 16 using the plan supplied by
+
+275
+00:19:21.440 --> 00:19:22.060
+the apparatus.
+
+276
+00:19:23.160 --> 00:19:28.280
+Haiku instead peaked at four workers and
+fell to 34.0 percent at 16.
+
+277
+00:19:28.280 --> 00:19:31.080
+Worker count must suit the model and the
+task.
+
+278
+00:19:32.020 --> 00:19:37.240
+These results show why we need to evaluate
+the system managing a model's work as
+
+279
+00:19:37.240 --> 00:19:41.440
+well as the model itself. The paper DOI is
+on the slide.
+
+280
+00:19:42.160 --> 00:19:44.200
+Thank you. I'm happy to take questions.
