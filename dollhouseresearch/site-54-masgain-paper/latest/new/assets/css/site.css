@@ -169,6 +169,10 @@ pre code {
   overflow-wrap: anywhere;
 }
 
+.paper-page video::cue {
+  font-size: clamp(0.9rem, 1.6vw, 1.5rem);
+}
+
 .code-copy-button {
   position: absolute;
   top: 0.65rem;
