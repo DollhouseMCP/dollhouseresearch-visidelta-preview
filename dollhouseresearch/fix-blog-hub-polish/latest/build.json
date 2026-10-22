@@ -57,13 +57,13 @@
       "source_blob": "e67de5e4209e051612b1e858fe1b26971493e864"
     },
     "new/about/index.html": {
-      "sha256": "311e62bc77ab143c02a95dd71ffc2c555dee539080bea06a3fbcf1caddda51a4",
-      "bytes": 5880,
+      "sha256": "1505da197025e65c81a6fa7078830db72865f18ff5a714f825ccc964388bc122",
+      "bytes": 5973,
       "source_blob": "562e9387b2e7086794d2afac9dc42f4cb4f17715"
     },
     "new/assets/css/atelier.css": {
-      "sha256": "5dc729654ce0046d10ceb41b87530870565f87619d372c7b5882ff539265a4f5",
-      "bytes": 29125,
+      "sha256": "21dfa5466322cbdc7badfec653008ac9e29112e2e9a398591c347434fd832a52",
+      "bytes": 29122,
       "source_blob": "912a893f4a0204c5ea4dfc6fc5b1c8c223ee9022"
     },
     "new/assets/css/site.css": {
@@ -82,23 +82,23 @@
       "source_blob": "86636050f6d28f190584dd86b9163f8a85f105c5"
     },
     "new/blog/index.html": {
-      "sha256": "8913645ef876da599e42884706df7f7ac67e20dc17fff3fb2bb3891f46e6bf46",
-      "bytes": 13948,
+      "sha256": "55894c0fc6c53be636cd83f37ea98ca3de76677c7f82f36d03b8e4a1376de953",
+      "bytes": 14041,
       "source_blob": "b919a315bb6fc9ac6b5fb36a5928e3d1723ed4a3"
     },
     "new/blog/introducing-dollhouse-research-2026-03-09/index.html": {
-      "sha256": "ba5d33cd262f32bbfebd80ac2695311216561889c00d978f1c7719e6fbdef510",
-      "bytes": 8373,
+      "sha256": "b826fef15434429bbd4638a5b0133442134eb4dec60c03fd4f9763d23646cfc6",
+      "bytes": 8466,
       "source_blob": "897ee5a07aeeab1f5df2db3cdd7eec7e3e3bc52d"
     },
     "new/blog/one-place-for-all-of-it/index.html": {
-      "sha256": "1add625aae2a738eb7ee2f8a2133fb5aecc688f0e43d1fd68ebe89ab9b75a7ee",
-      "bytes": 5497,
+      "sha256": "8d0ea0a0ca47277864fc6786dedafd49ea60f0014028b2758c92b13bf821f118",
+      "bytes": 5590,
       "source_blob": "004fdbdca988f4bc06aa1cf80ca0151d75da30e1"
     },
     "new/blog/welcome-to-dollhouse-research-and-dollhousemcp-2-0-2026-04-02/index.html": {
-      "sha256": "e4a215471c9213cea5a5cd7e1289fdccfacb68ccfeba5a90e0dd3136e0d09663",
-      "bytes": 15222,
+      "sha256": "04e740d3ee37a5393c414ff307404f3fa8d89affe3faa5483a845271ec5d7171",
+      "bytes": 15315,
       "source_blob": "19454824d13b7c5bc88e4967ca7e3cde4180c7ec"
     },
     "new/docker-compose.yml": {
@@ -112,83 +112,83 @@
       "source_blob": "86b89b7b740bc2f645658d61db11fb3167874f21"
     },
     "new/index.html": {
-      "sha256": "bda77b7760ee8156114e566394b03445055bbb8976d842ac4759142f096840d1",
-      "bytes": 12308,
+      "sha256": "fd0f89fb7b8ba412fe8968651369ab95ec0c0a05b1e4d3ecb1385b64d71a6243",
+      "bytes": 12401,
       "source_blob": "dcbd05d00bd0ba50049a08e2e80affd66e4b67f3"
     },
     "new/news-press/archives/glama-dollhousemcp-org/index.html": {
-      "sha256": "5b92cbab13ae6fc5079ea3164d115e48a46c8bc09d9b23b0a4a1b4dfb513dfbc",
-      "bytes": 23608,
+      "sha256": "d8e96b62af1fdbeb46be9d1f25e903564bc4fc1ab292d90711cac8914ac5ff4e",
+      "bytes": 23701,
       "source_blob": "438b555807c74c7cc930ef81d107b76f72a3be15"
     },
     "new/news-press/archives/skywork-deep-dive/index.html": {
-      "sha256": "9e08ef822a67688fa82c09cda8d97aebdf1642c57f46e9cecc223fba48f960f9",
-      "bytes": 14692,
+      "sha256": "9c1079688e205669db9bb90944611be88a9a1d8ce643756940508633717a5399",
+      "bytes": 14785,
       "source_blob": "3db3ac9b3d4ea40727581dae0ad30dcbf53d0add"
     },
     "new/news-press/archives/skywork-ultimate-guide/index.html": {
-      "sha256": "8731aca3cc97d1a33b110a384bb687c1c09e7925d5e1344e1719f4b95629e363",
-      "bytes": 15581,
+      "sha256": "bb41dc954e138711d84e599138f513e062c92b7d101b825ef782361898c2f140",
+      "bytes": 15674,
       "source_blob": "f1671c1bdf26d31704652074b33588cecb80c967"
     },
     "new/news-press/index.html": {
-      "sha256": "95a25bc9e0879ee9e008fe2b2470c4f0be37c54cb15c72630ec5a7b93c12f9ad",
-      "bytes": 12120,
+      "sha256": "b19843ca5c040249f28b6f729c384b89bf3b57fa386321f1d0a4f06105bdb1fc",
+      "bytes": 12213,
       "source_blob": "8ae88e23004f13e2a23b6c6da63ddee475d0870d"
     },
     "new/people/mick/index.html": {
-      "sha256": "626ff4e534945133ee8e4ba53b4ac812d8458ebb3eba24d3320ce63a04c2aedd",
-      "bytes": 7913,
+      "sha256": "3b01ca695f546c4ff302db249889bfc77693d04c9540c199029d8f6accba3d6e",
+      "bytes": 8006,
       "source_blob": "e39ef1c7a9db6b499b173a0a51fca1739ebff1f6"
     },
     "new/press-kit/index.html": {
-      "sha256": "1002310ad8f326f8227a6402a4e0b5d3c6042c643d44d846f0e21900750c147b",
-      "bytes": 9214,
+      "sha256": "09f50c1b8c27cd698f82219669389d40245d9fa25b9a0c3c332d05cfd56507d0",
+      "bytes": 9307,
       "source_blob": "0e5b3c4d20511aaec1b8ed6336767899354df450"
     },
     "new/projects/ailis/index.html": {
-      "sha256": "768a9a916018002f7aa57b2305abf8833b500aa84768c48da940453e16313d2c",
-      "bytes": 8769,
+      "sha256": "f6d1e34c4d3fe8651a9a7bd06d2c09ba717f977a5a9902db9c503c9f34383e82",
+      "bytes": 8862,
       "source_blob": "b507b3a01991d11ca0f156af26f93ee97f998d16"
     },
     "new/projects/bridge/index.html": {
-      "sha256": "5ba9f18e3782f683b551c4c1727bdd47cdccd048b4fbb7d9369d973c94e379f2",
-      "bytes": 6081,
+      "sha256": "f598eb7472aec08bd5ba50a6f7198e9515b03d4c5fdc79eafc15d3d64f209e6d",
+      "bytes": 6174,
       "source_blob": "5a91c56501736e85f4d2d624573de80c540c9a76"
     },
     "new/projects/collection/index.html": {
-      "sha256": "12ceae1be147f9ae8dfca575297d9a237543d0e5149f69968a47029f7e7737f1",
-      "bytes": 7658,
+      "sha256": "f864a04e87751d0c40df0a31699ad9b8a13c395740ffe9bb72917c34236b7c29",
+      "bytes": 7751,
       "source_blob": "a20ee4014285af15fde9412cb5411d8ba115d5dd"
     },
     "new/projects/dollhousemcp/index.html": {
-      "sha256": "776f7445f7c8e986de156fbc55a62025c1bdbae38d3ff9f752f602f22b3e723d",
-      "bytes": 11750,
+      "sha256": "4acdcf562dbc33115cc587471310b2b1c15ce3f03ec4d6808b38189e06a988e7",
+      "bytes": 11843,
       "source_blob": "1fc78889f2aad6f90cc33fa97c3da16b0be87a9a"
     },
     "new/projects/index.html": {
-      "sha256": "d6eaf9e47a05a61a1d209e3e7b5a835fbb84606183880ee9ae9d173884b81d4c",
-      "bytes": 7136,
+      "sha256": "55503fe8ff557d92bbffc3705b9a63394a3402bd3d6ba4915f5762348db8a022",
+      "bytes": 7229,
       "source_blob": "3a7e4a278ebe2258099df6e9c50d42838dfb5c0c"
     },
     "new/projects/mcp-aql/index.html": {
-      "sha256": "a39f08b493ff25499f77badb720530722e807f715b058bd221a5185e107bb0b4",
-      "bytes": 15678,
+      "sha256": "af79b8e84b28745a1475b326a766e57417878a6f67e518048ccbc84719ebaf3d",
+      "bytes": 15771,
       "source_blob": "2afbee35888fa805410945a3ff5bf117985e54f5"
     },
     "new/projects/merview/index.html": {
-      "sha256": "fa907feb6dfba68c6147145e8a30256dae85c94b3ddd2576dae2635f633bc95e",
-      "bytes": 5986,
+      "sha256": "e7e361efae05ea318962bae9b82de6090b263c2f1c3e33f4c146edf340c06240",
+      "bytes": 6079,
       "source_blob": "21956ce449edf725bf33612063dbcc3c8bc31898"
     },
     "new/research/index.html": {
-      "sha256": "2898af8b94699b15d873c38a594b8b8e5eae0c7e5363fa3c0978b71a7b407105",
-      "bytes": 5317,
+      "sha256": "69275c43d5598800e6ff46dbe108122858fd3cc99984badf422becc484e98fac",
+      "bytes": 5410,
       "source_blob": "07512ecce0f198265fc0760ce67d0547449edaf1"
     },
     "new/writing/index.html": {
-      "sha256": "a8c97ee5a6176462ba023161f13be37e3a3922bf1cbd43db2164a9bcc09b4746",
-      "bytes": 3919,
+      "sha256": "bc8a5116b50fd42d7e9be1de83945659771869a0626f7aa66657e61119bb2bce",
+      "bytes": 4012,
       "source_blob": "1b18695d831e42532ab25c0e34b251df87ed7f45"
     },
     "old/CNAME": {
@@ -222,13 +222,13 @@
       "source_blob": "e67de5e4209e051612b1e858fe1b26971493e864"
     },
     "old/about/index.html": {
-      "sha256": "49d8d742b5d5d0ed69f1a9345c8c9afb679d4cd022e8e7e12b0095688d0df1a9",
-      "bytes": 5796,
+      "sha256": "42447f44997a7a2aeee4cde8b983f89ef9d68e43c7425de854601987e158db7e",
+      "bytes": 5889,
       "source_blob": "562e9387b2e7086794d2afac9dc42f4cb4f17715"
     },
     "old/assets/css/atelier.css": {
-      "sha256": "5dc729654ce0046d10ceb41b87530870565f87619d372c7b5882ff539265a4f5",
-      "bytes": 29125,
+      "sha256": "21dfa5466322cbdc7badfec653008ac9e29112e2e9a398591c347434fd832a52",
+      "bytes": 29122,
       "source_blob": "912a893f4a0204c5ea4dfc6fc5b1c8c223ee9022"
     },
     "old/assets/css/site.css": {
@@ -247,23 +247,23 @@
       "source_blob": "86636050f6d28f190584dd86b9163f8a85f105c5"
     },
     "old/blog/index.html": {
-      "sha256": "c87b08ec63ba696e5cf71550f395024fe93bf61ea80198f69c2f74626c6d63e6",
-      "bytes": 13903,
+      "sha256": "3f980fad0b2df004abe14d8399f5965533ec9fb0ecc0ab1bb1cd99b6625b1a1a",
+      "bytes": 13996,
       "source_blob": "9df98884dcf6485b45c9312b39256504ed4680fa"
     },
     "old/blog/introducing-dollhouse-research-2026-03-09/index.html": {
-      "sha256": "3b8f10fc458a382103ebe700f22f38dbc87d483a1d84dbfabe9d13482b2bf128",
-      "bytes": 8125,
+      "sha256": "e4fe8a572c8e48aa246330dc66eaa5b9c55a4d98c801155f462144beb8d76b41",
+      "bytes": 8218,
       "source_blob": "1b9eb9fef59aa88cf204c6e2a841a424b57b4c6e"
     },
     "old/blog/one-place-for-all-of-it/index.html": {
-      "sha256": "e5617777c3ae30bbf8fe46cc87499d87435b8f75e2fc254ed2454bbdffb31945",
-      "bytes": 5249,
+      "sha256": "1f8b45430295c18032b462ac865b0c4a47189ecbba938670026874836394d159",
+      "bytes": 5342,
       "source_blob": "c49f04bdc14640e4f7fdf23ee3d80e66b9fd6d4f"
     },
     "old/blog/welcome-to-dollhouse-research-and-dollhousemcp-2-0-2026-04-02/index.html": {
-      "sha256": "8b0f09463d57985ea83a267343648e983cc372a622709406860892a8f6f3a214",
-      "bytes": 14974,
+      "sha256": "8de44e1f10b969a368f8eb94a7fe4824bcd1c7ef961b3e609f979c9f5bcc359d",
+      "bytes": 15067,
       "source_blob": "87aee4354428fb573f77a3803ad85457267f3542"
     },
     "old/docker-compose.yml": {
@@ -277,83 +277,83 @@
       "source_blob": "39095530281b26616f3132a5bd172e5caa1c33d9"
     },
     "old/index.html": {
-      "sha256": "e3260c1203ef37d3551f9401ff2816b59f66d6319f122d704289928240386ddb",
-      "bytes": 12224,
+      "sha256": "ab8fd913c198af772838a9724f32ace486f15dc15a5d16bf72c07c39ce152390",
+      "bytes": 12317,
       "source_blob": "dcbd05d00bd0ba50049a08e2e80affd66e4b67f3"
     },
     "old/news-press/archives/glama-dollhousemcp-org/index.html": {
-      "sha256": "c8a1327cc6570a7d6a495dce8ac58ecd4f6076fd81efd9a3af95731473464bc6",
-      "bytes": 23524,
+      "sha256": "04ffc1314987909db7b23450624d96d7125501cc4e0714b1926c3f8f8a138e20",
+      "bytes": 23617,
       "source_blob": "438b555807c74c7cc930ef81d107b76f72a3be15"
     },
     "old/news-press/archives/skywork-deep-dive/index.html": {
-      "sha256": "0d4884464879b06be753791319661c1b2513b175a294af9a3cd07d87914b0f93",
-      "bytes": 14608,
+      "sha256": "9471f6a90a9e23f050c230a6b8a9d2fb06dc006a80c80b605210f9bbf393e27a",
+      "bytes": 14701,
       "source_blob": "3db3ac9b3d4ea40727581dae0ad30dcbf53d0add"
     },
     "old/news-press/archives/skywork-ultimate-guide/index.html": {
-      "sha256": "b75f879b08219963df317cf3c839982c257518b2d72068ddc65f3b361480f7a4",
-      "bytes": 15497,
+      "sha256": "075e838ce09811492d72e57e1b0184f753c621dc5bf010a57593b4d08ef13b93",
+      "bytes": 15590,
       "source_blob": "f1671c1bdf26d31704652074b33588cecb80c967"
     },
     "old/news-press/index.html": {
-      "sha256": "cca40062c80a7d181fe380e62494ba44d24b035b11721ebc632bf597f93aaef6",
-      "bytes": 12036,
+      "sha256": "d7cf927f94daeb89d68cc12a67169ec82313bcf03af3fd74a25a72c733ffcd6b",
+      "bytes": 12129,
       "source_blob": "8ae88e23004f13e2a23b6c6da63ddee475d0870d"
     },
     "old/people/mick/index.html": {
-      "sha256": "fed30a505b1f4485d3e7f41aca152eaf1da589d97decf6071b77847c9da3b650",
-      "bytes": 7829,
+      "sha256": "5910542bf14122152be659a4afc51f447921db2db650b47d38024757b41632fa",
+      "bytes": 7922,
       "source_blob": "e39ef1c7a9db6b499b173a0a51fca1739ebff1f6"
     },
     "old/press-kit/index.html": {
-      "sha256": "fc1b24e553de53c7a0bf8523e921d89bd86f7568bb71096a49217cadffb2761c",
-      "bytes": 9130,
+      "sha256": "7db05d67f85701882f2caa217c65d22ea8b192ad7a7c787f190d2834ba861c3c",
+      "bytes": 9223,
       "source_blob": "0e5b3c4d20511aaec1b8ed6336767899354df450"
     },
     "old/projects/ailis/index.html": {
-      "sha256": "edf7122c5690426e56f62d5d177f0751602c5e9b41bbb24a50d68b081a88e981",
-      "bytes": 8685,
+      "sha256": "b6ded4f098ef4a74d5a14f65d7eb075216b5dcf33606f25f9ae9ba0d383e951f",
+      "bytes": 8778,
       "source_blob": "b507b3a01991d11ca0f156af26f93ee97f998d16"
     },
     "old/projects/bridge/index.html": {
-      "sha256": "3c30c3d6528497febe961484e3613959345fba2952517124ab6665ae8f53238e",
-      "bytes": 5997,
+      "sha256": "f412c451ec3df43fdf73cb4cd30e9baae12f3fcb92fb15bb29038fc881f9bc29",
+      "bytes": 6090,
       "source_blob": "5a91c56501736e85f4d2d624573de80c540c9a76"
     },
     "old/projects/collection/index.html": {
-      "sha256": "d407b663024cb9b9142412575c14514600732cf1d2c4a027f0099f8c17d08c06",
-      "bytes": 7574,
+      "sha256": "39f9896c47763cdd50686b077415623d62b136bfe5fd1c429778ed621a4c3caf",
+      "bytes": 7667,
       "source_blob": "a20ee4014285af15fde9412cb5411d8ba115d5dd"
     },
     "old/projects/dollhousemcp/index.html": {
-      "sha256": "c0bd0e1436a361a0f534f2ed591912d3bd749bda090f66794b7a82e84fb84e47",
-      "bytes": 11666,
+      "sha256": "7640bd7186f0e04fc1b1876afdd8e118a39adf02448da2c41019188d0f25fa0e",
+      "bytes": 11759,
       "source_blob": "1fc78889f2aad6f90cc33fa97c3da16b0be87a9a"
     },
     "old/projects/index.html": {
-      "sha256": "bbfa4f16bd34bb240e0cbca00041f9dc5aa26007e1ee95cbe0ded05152d1261d",
-      "bytes": 7052,
+      "sha256": "5bee7556548e6ec4f897f76c287350670346126db79e591e0fa95b2f1217735b",
+      "bytes": 7145,
       "source_blob": "3a7e4a278ebe2258099df6e9c50d42838dfb5c0c"
     },
     "old/projects/mcp-aql/index.html": {
-      "sha256": "32b27e5c11832c9e3073caf981e8f6587c1bc5759537bbe67014187d441a5faa",
-      "bytes": 15594,
+      "sha256": "265f4d6cb5031fd414f0f4c69010fd24ee1c406e9692a205cc6c088e60069507",
+      "bytes": 15687,
       "source_blob": "2afbee35888fa805410945a3ff5bf117985e54f5"
     },
     "old/projects/merview/index.html": {
-      "sha256": "24fde1d226577aad5e5619c7cce6cb64d0f1088f73e3e3161fc88869b0fc6f02",
-      "bytes": 5902,
+      "sha256": "f0935ad5482af62cc4a80baedcba4cef7a1bb9ee6aa4e79ebdb616e68d8be5ff",
+      "bytes": 5995,
       "source_blob": "21956ce449edf725bf33612063dbcc3c8bc31898"
     },
     "old/research/index.html": {
-      "sha256": "c9ff8766335219ce94df1051f53bd32887aae7ce4a719aeeb9f64006737f782e",
-      "bytes": 5233,
+      "sha256": "4913348d91290ce45bfdc054dc5ffca017086f87262a4d5af3c748b60e39e97d",
+      "bytes": 5326,
       "source_blob": "07512ecce0f198265fc0760ce67d0547449edaf1"
     },
     "old/writing/index.html": {
-      "sha256": "f07477a1e756b67316779cbae71c453d72f3e625e224b4bf995b94c4527cb87b",
-      "bytes": 3835,
+      "sha256": "f5c1db2fbfee2e01671c40efb5ea13c97bdd0d107ce90c122874e1889961a318",
+      "bytes": 3928,
       "source_blob": "1b18695d831e42532ab25c0e34b251df87ed7f45"
     },
     "routes.json": {
