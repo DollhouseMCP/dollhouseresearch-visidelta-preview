@@ -53,7 +53,9 @@
   .paper-references { padding-left: 2rem; }
 }
 
-/* Paper PDF: native browser viewer on tablet and desktop; phones get the Open PDF button. */
+/* Paper PDF: native browser viewer on tablet and desktop, only when site.js has
+   confirmed inline PDF support (html.pdf-inline). Phones, no-JS visits and
+   browsers without an inline viewer get the always-visible Open PDF button. */
 .paper-pdf-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
 .paper-pdf-embed {
   display: block; width: 100%; height: min(85vh, 70rem); min-height: 32rem;
@@ -61,6 +63,7 @@
 }
 .paper-pdf-embed p { padding: 1rem; }
 .paper-pdf-note { color: var(--ink-700); font-size: .9rem; }
-@media (max-width: 47.99rem) {
-  .paper-pdf-viewer { display: none; }
+.paper-pdf-viewer { display: none; }
+@media (min-width: 48rem) {
+  .pdf-inline .paper-pdf-viewer { display: block; }
 }

@@ -271,4 +271,11 @@
 
     revealItems.forEach((item) => observer.observe(item));
   }
+
+  // Paper pages: show the embedded PDF only when the browser says it renders
+  // PDFs inline. Without JS, or when pdfViewerEnabled is false or missing, the
+  // embed stays hidden and readers use the Open PDF / Download buttons.
+  if (document.querySelector(".paper-pdf-viewer") && navigator.pdfViewerEnabled === true) {
+    root.classList.add("pdf-inline");
+  }
 })();
