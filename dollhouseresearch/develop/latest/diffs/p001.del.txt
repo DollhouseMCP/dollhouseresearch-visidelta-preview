@@ -1,1 +1,3 @@
-Coverage tip or media inquiry: <a href="mailto:press@dollhousemcp.com">press@dollhousemcp.com</a>.
+[Read the full paper on this page](#full-paper) · [Read the published paper (ACM DOI)](https://doi.org/10.1145/3843778.3856135) · [ACM proceedings]({{ paper.proceedings_url }})
+[Download the author version (PDF)]({{ paper.pdf_url | relative_url }})
+## Full paper {#full-paper}
