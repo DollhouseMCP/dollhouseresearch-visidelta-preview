@@ -1,7 +1,3 @@
 [
-  {"id":"p001","file":"index.md","route":"/","old_route":"/","new_route":"/"},
-  {"id":"p002","file":"news-press/index.md","route":"/news-press/","old_route":"/news-press/","new_route":"/news-press/"},
-  {"id":"p003","file":"people/mick.md","route":"/people/mick/","old_route":"/people/mick/","new_route":"/people/mick/"},
-  {"id":"p004","file":"research/index.md","route":"/research/","old_route":"/research/","new_route":"/research/"},
-  {"id":"p005","file":"research/sufficiently-advanced-agents.md","route":"/research/sufficiently-advanced-agents/","old_route":"/research/sufficiently-advanced-agents/","new_route":"/research/sufficiently-advanced-agents/"}
+  {"id":"p001","file":"research/sufficiently-advanced-agents.md","route":"/research/sufficiently-advanced-agents/","old_route":"/research/sufficiently-advanced-agents/","new_route":"/research/sufficiently-advanced-agents/"}
 ]
