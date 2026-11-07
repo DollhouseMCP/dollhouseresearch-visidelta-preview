@@ -1,0 +1,5 @@
+Last updated: November 7, 2026
+Dollhouse Research builds open-source infrastructure for AI agents, and published its first peer-reviewed paper at MAS-GAIN 2026.
+Dollhouse Research builds open-source infrastructure for AI agents, and published its first peer-reviewed paper at MAS-GAIN 2026.  
+Dollhouse Research builds applied AI systems. The portfolio spans core platform development, community distribution, protocol design, integration runtimes, and architecture research. Current priorities include DollhouseMCP, the Dollhouse Collection, MCP-AQL, Bridge, AILIS, and supporting tooling such as Merview. The objective is practical: ship systems that are technically strong, understandable to builders, and useful in real workflows.
+- **October 8, 2026:** First peer-reviewed paper published at MAS-GAIN 2026: [Sufficiently Advanced Agents Are Indistinguishable from Erlang](/research/sufficiently-advanced-agents/).
