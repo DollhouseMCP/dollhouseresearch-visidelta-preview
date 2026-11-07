@@ -1,0 +1,5 @@
+Last updated: March 10, 2026
+- Email: <a href="mailto:press@dollhousemcp.com">press@dollhousemcp.com</a>
+Dollhouse Research, the public brand of DollhouseMCP Inc, builds open-source-first AI infrastructure across platform, protocol, integration, and tooling.
+Dollhouse Research is the public brand of DollhouseMCP Inc (DBA Dollhouse Research).  
+Dollhouse Research is the public brand and portfolio site for applied AI systems work from DollhouseMCP Inc (DBA Dollhouse Research). The portfolio spans core platform development, community distribution, protocol design, integration runtimes, and architecture research. Current priorities include DollhouseMCP, the Dollhouse Collection, MCP-AQL, Bridge, AILIS, and supporting tooling such as Merview. The objective is practical: ship systems that are technically strong, understandable to builders, and useful in real workflows.
