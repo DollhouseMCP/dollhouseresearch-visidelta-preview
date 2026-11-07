@@ -160,6 +160,15 @@ pre code {
   box-sizing: border-box;
 }
 
+.paper-page pre {
+  padding-top: 3rem;
+}
+
+.paper-page pre code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
 .code-copy-button {
   position: absolute;
   top: 0.65rem;
