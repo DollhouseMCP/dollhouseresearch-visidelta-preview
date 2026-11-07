@@ -1,1 +1,1 @@
-[Read the published paper (ACM DOI)](https://doi.org/10.1145/3843778.3856135) · [ACM proceedings]({{ paper.proceedings_url }})
+Coverage tip or media inquiry: <a href="mailto:press@dollhousemcp.com">press@dollhousemcp.com</a>.

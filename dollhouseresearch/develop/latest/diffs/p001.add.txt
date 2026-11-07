@@ -1,5 +1,1 @@
-full_text: true
-[Read the full paper on this page](#full-paper) · [Read the published paper (ACM DOI)](https://doi.org/10.1145/3843778.3856135) · [ACM proceedings]({{ paper.proceedings_url }})
-## Full paper {#full-paper}
-<p class="paper-full-text-note">The complete text of the camera-ready author version follows, as published under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 license</a>. The <a href="https://doi.org/10.1145/3843778.3856135">ACM published record</a> is the version of record{% if paper.pdf_url and paper.pdf_url != empty %}, and the <a href="{{ paper.pdf_url | relative_url }}">author-version PDF</a> has the original page layout{% endif %}.</p>
-{% include papers/masgain-2026-full-text.html %}
+Coverage tip or media inquiry: <a href="mailto:press@dollhouseresearch.com">press@dollhouseresearch.com</a>.
