@@ -1,3 +1,4 @@
 [
-  {"id":"p001","file":"press-kit/index.md","route":"/press-kit/","old_route":"/press-kit/","new_route":"/press-kit/"}
+  {"id":"p001","file":"news-press/index.md","route":"/news-press/","old_route":"/news-press/","new_route":"/news-press/"},
+  {"id":"p002","file":"press-kit/index.md","route":"/press-kit/","old_route":"/press-kit/","new_route":"/press-kit/"}
 ]
