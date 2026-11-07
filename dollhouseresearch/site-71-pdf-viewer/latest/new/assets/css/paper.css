@@ -57,9 +57,15 @@
    confirmed inline PDF support (html.pdf-inline). Phones, no-JS visits and
    browsers without an inline viewer get the always-visible Open PDF button. */
 .paper-pdf-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+/* One full US Letter page (612 x 792 pt, every page of this PDF) at the embed's
+   width, plus about 3.5rem for the browser's PDF toolbar. */
+.paper-pdf-viewer { container-type: inline-size; }
 .paper-pdf-embed {
-  display: block; width: 100%; height: min(85vh, 70rem); min-height: 32rem;
+  display: block; width: 100%; aspect-ratio: 612 / 792; height: auto;
   border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper-strong);
+}
+@supports (height: 1cqw) {
+  .paper-pdf-embed { aspect-ratio: auto; height: calc(100cqw * 792 / 612 + 3.5rem); }
 }
 .paper-pdf-embed p { padding: 1rem; }
 .paper-pdf-note { color: var(--ink-700); font-size: .9rem; }
