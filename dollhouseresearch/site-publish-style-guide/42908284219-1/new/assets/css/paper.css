@@ -1,0 +1,75 @@
+/* Full-text paper rendered below a paper page's summary (pages with full_text: true).
+   Paper sections are h3, subsections h4; math is plain HTML/Unicode, no script. */
+.paper-full-text { line-height: 1.75; overflow-wrap: break-word; }
+.paper-full-text p, .paper-full-text li { max-width: 68ch; }
+.paper-full-text .paper-title {
+  font-family: var(--font-heading); font-weight: 800; color: var(--ink-950);
+  font-size: var(--step-2); line-height: 1.2; margin: 1.5rem 0 .5rem;
+}
+.paper-full-text h3 { font-size: var(--step-2); margin-top: 2.4rem; scroll-margin-top: 4.5rem; }
+.paper-full-text h4 { font-size: var(--step-1); margin-top: 1.8rem; scroll-margin-top: 4.5rem; }
+.paper-full-text p { margin: 1rem 0; }
+.paper-full-text a { overflow-wrap: anywhere; }
+.paper-full-text-note { color: var(--ink-700); font-size: .95rem; }
+.paper-byline { color: var(--ink-700); }
+.paper-byline p { margin: 0; }
+.paper-toc, .paper-front-matter {
+  border: 1px solid var(--line); border-radius: var(--radius-md);
+  padding: 1.1rem; margin: 1.5rem 0; background: var(--paper-strong);
+}
+.paper-front-matter { font-size: .9rem; }
+.paper-front-matter h4 { margin-top: 1rem; font-size: 1rem; }
+.paper-front-matter h4:first-child { margin-top: 0; }
+.paper-toc h3 { margin-top: 0; font-size: 1.25rem; }
+.paper-toc ol { list-style: none; padding: 0; margin: 0; }
+.paper-toc li { margin: .4rem 0; }
+.paper-toc .toc-h3 { padding-left: 1.2rem; }
+.section-anchor { font-size: .75em; margin-left: .5em; text-decoration: none; opacity: .65; }
+.section-anchor:hover, .section-anchor:focus { opacity: 1; }
+.paper-math i { font-family: Georgia, "Times New Roman", serif; }
+.paper-table-scroll {
+  max-width: 100%; overflow-x: auto; margin: 1.5rem 0;
+  border: 1px solid var(--line); border-radius: .4rem; background: var(--paper-strong);
+}
+.paper-table-scroll:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+.paper-table-scroll table { min-width: 44rem; font-size: .88rem; line-height: 1.5; }
+.paper-table-scroll table[id='tab:m2'] { min-width: 72rem; }
+.paper-table-scroll table[id='tab:holdout'] { min-width: 18rem; }
+.paper-table-scroll th { font-size: inherit; text-transform: none; letter-spacing: normal; color: var(--ink-950); }
+.paper-table-scroll td { padding: .6rem; }
+.paper-table-scroll caption { padding: 1rem; color: var(--ink-950); text-align: left; font-weight: 600; }
+.paper-table-scroll caption > span { display: block; max-width: min(49rem, calc(100vw - 4.8rem)); }
+.paper-full-text code { white-space: normal; }
+.paper-figure { text-align: center; }
+.prose .paper-figure img { background: #fff; width: min(100%, 45rem); border-radius: .3rem; box-shadow: none; }
+.prose .paper-figure figcaption { text-align: left; color: var(--ink-700); font-size: .95rem; }
+.paper-references { padding-left: 2.4rem; font-size: .9rem; }
+.paper-references li { padding-left: .3rem; margin-bottom: 1rem; }
+.paper-references li::marker { content: '[' counter(list-item) '] '; }
+.submission-history { font-size: .85rem; color: var(--ink-700); }
+@media (max-width: 480px) {
+  .paper-toc, .paper-front-matter { padding: .8rem; }
+  .paper-table-scroll table { font-size: .82rem; }
+  .paper-references { padding-left: 2rem; }
+}
+
+/* Paper PDF: native browser viewer on tablet and desktop, only when site.js has
+   confirmed inline PDF support (html.pdf-inline). Phones, no-JS visits and
+   browsers without an inline viewer get the always-visible Open PDF button. */
+.paper-pdf-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+/* One full US Letter page (612 x 792 pt, every page of this PDF) at the embed's
+   width, plus about 3.5rem for the browser's PDF toolbar. */
+.paper-pdf-viewer { container-type: inline-size; }
+.paper-pdf-embed {
+  display: block; width: 100%; aspect-ratio: 612 / 792; height: auto;
+  border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper-strong);
+}
+@supports (height: 1cqw) {
+  .paper-pdf-embed { aspect-ratio: auto; height: calc(100cqw * 792 / 612 + 3.5rem); }
+}
+.paper-pdf-embed p { padding: 1rem; }
+.paper-pdf-note { color: var(--ink-700); font-size: .9rem; }
+.paper-pdf-viewer { display: none; }
+@media (min-width: 48rem) {
+  .pdf-inline .paper-pdf-viewer { display: block; }
+}
